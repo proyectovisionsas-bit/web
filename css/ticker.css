@@ -1,0 +1,138 @@
+/* ============================================================
+   ticker.css — cinta infinita de Proyectovisión (una sola cinta).
+   Dos grupos idénticos en la pista; la pista corre con translateX(-50%) en CSS
+   (30 s lineal). Con GSAP (ticker.js) la sección recibe .is-gsap y el tween
+   sustituye a la animación CSS para reaccionar a la velocidad del scroll.
+   Los cuatro municipios con sede van en cian dentro de la misma cinta.
+   ============================================================ */
+.ticker {
+  --ticker-alto: 80px;
+  --ticker-hueco: clamp(1.5rem, 1rem + 1.6vw, 2.75rem);
+  padding-block: 0;
+  background: var(--negro);
+  border-top: 1px solid var(--borde);
+  border-bottom: 1px solid var(--borde);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* resplandor tenue en la mitad: la cinta no es una franja plana */
+.ticker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 140% at 50% 50%, rgba(26, 46, 230, 0.24), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%, transparent 60%, rgba(255, 255, 255, 0.02));
+}
+
+/* ---------- cinta ---------- */
+.ticker__cinta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: var(--ticker-alto);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+/* pulso de luz que recorre el borde superior en el sentido de la cinta: los datos llegando */
+.ticker__cinta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--cian-suave) 50%, transparent);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.9), 0 0 32px rgba(34, 211, 238, 0.45);
+  transform: translateX(-260px);
+  animation: ticker-pulso 7s var(--ease-suave) infinite;
+  will-change: transform;
+}
+@keyframes ticker-pulso {
+  0% { transform: translateX(-260px); }
+  62%, 100% { transform: translateX(100vw); }
+}
+/* eco más tenue por el borde inferior, en sentido contrario: lo que baja, sube igual */
+.ticker__cinta::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--azul-claro) 50%, transparent);
+  box-shadow: 0 0 10px rgba(79, 107, 255, 0.8);
+  transform: translateX(200px);
+  animation: ticker-pulso-inv 9s var(--ease-suave) infinite;
+  animation-delay: 3s;
+  will-change: transform;
+}
+@keyframes ticker-pulso-inv {
+  0% { transform: translateX(200px); }
+  62%, 100% { transform: translateX(-100vw); }
+}
+
+.ticker__pista {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: ticker-correr 30s linear infinite;
+}
+.ticker__cinta:hover .ticker__pista { animation-play-state: paused; }
+.ticker.is-gsap .ticker__pista { animation: none; }
+@keyframes ticker-correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.ticker__grupo {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ticker-hueco);
+  padding-right: var(--ticker-hueco);
+  white-space: nowrap;
+}
+.ticker__texto {
+  font-family: var(--f-titulo);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1rem + 0.55vw, 1.5rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blanco);
+}
+.ticker__item--sede .ticker__texto {
+  color: var(--cian-suave);
+  text-shadow: 0 0 22px rgba(34, 211, 238, 0.45);
+}
+.ticker__punto { flex: none; }
+
+/* ---------- celular ---------- */
+@media (max-width: 760px) {
+  .ticker {
+    --ticker-alto: 68px;
+    --ticker-hueco: 1.25rem;
+  }
+  .ticker__cinta {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+}
+
+/* ---------- movimiento reducido: todo quieto y todo visible ---------- */
+html.calmo .ticker__pista,
+html.calmo .ticker__cinta::before,
+html.calmo .ticker__cinta::after { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker__pista, .ticker__cinta::before, .ticker__cinta::after { animation: none; }
+}

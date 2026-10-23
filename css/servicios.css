@@ -1,0 +1,136 @@
+/* ============================================================
+   Proyectovisión · servicios.css — "Lo que hacemos".
+   Base (sin JS, celular o movimiento reducido): tarjetas apiladas con la foto arriba.
+   Escritorio con JS: servicios.js añade .is-horizontal → escena fijada (pin) de 100 vh con
+   cinco paneles de 70 vw en scroll horizontal y barra de progreso. Mientras la escena está fijada,
+   servicios.js pone html.servicios-fijo y aquí se apaga el botón flotante «subir» del pie.
+   ============================================================ */
+.servicios {
+  --servicios-pad: max(var(--margen), calc((100% - var(--ancho)) / 2));
+  --servicios-gap: clamp(16px, 1.8vw, 28px);
+  --servicios-relleno: clamp(24px, 3vw, 44px);
+  background: var(--noche); /* integración: porque (noche-2) → servicios (noche) → velocidad (noche-2), nunca dos planos iguales seguidos */
+}
+.servicios__escena { position: relative; }
+.servicios__escena > .rejilla { display: none; }
+
+/* ---------- cabecera ---------- */
+.servicios__cabecera { position: relative; z-index: 1; display: grid; gap: 20px; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.servicios__titular { display: grid; justify-items: start; }
+.servicios__lead { max-width: 52ch; }
+
+/* ---------- carril y paneles (base apilada) ---------- */
+.servicios__carril { position: relative; z-index: 1; display: grid; gap: clamp(18px, 3vw, 28px); width: min(100% - 2 * var(--margen), var(--ancho)); margin-inline: auto; }
+
+.servicios__panel { position: relative; display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--borde); border-radius: var(--radio); overflow: hidden; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)); isolation: isolate; }
+.servicios__panel::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(126, 232, 245, 0.55), 0 0 70px rgba(34, 211, 238, 0.22); opacity: 0; transition: opacity 0.6s var(--ease-suave); pointer-events: none; z-index: 3; }
+.servicios__panel.is-activa::after { opacity: 1; }
+
+.servicios__visual { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--negro); }
+.servicios__media { position: absolute; inset: -8% 0; }
+.servicios__foto { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transition: transform 1.4s var(--ease); }
+.servicios__panel--isp .servicios__foto { object-position: 40% 50%; }
+.servicios__panel--radio .servicios__foto { object-position: 50% 60%; }
+.servicios__panel--torres .servicios__foto { transform: scale(-1, 1); }
+.servicios__panel--energia .servicios__foto { object-position: 50% 6%; }
+.servicios__velo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(5, 12, 31, 0.2) 0%, rgba(5, 12, 31, 0.35) 45%, rgba(5, 12, 31, 0.92) 100%), linear-gradient(90deg, rgba(5, 12, 31, 0.5), transparent 60%); }
+
+.servicios__num { position: absolute; left: 18px; bottom: 4px; z-index: 2; font-family: var(--f-titulo); font-weight: 700; font-size: clamp(3.5rem, 14vw, 5rem); line-height: 0.85; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.servicios__dato { position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; max-width: calc(100% - 28px); padding: 8px 14px; border-radius: 999px; font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.02em; line-height: 1.3; color: var(--blanco); background: rgba(5, 12, 31, 0.6); border: 1px solid var(--borde-fuerte); }
+.servicios__dato .punto { flex: 0 0 auto; }
+
+.servicios__contenido { position: relative; z-index: 2; display: grid; gap: 12px; align-content: start; padding: 22px 22px 26px; }
+.servicios__nombre { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.75rem); letter-spacing: -0.02em; }
+.servicios__texto { color: var(--texto); max-width: 46ch; }
+.servicios__para { display: grid; gap: 10px; justify-items: start; margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--borde); }
+.servicios__para p { font-size: 1rem; line-height: 1.55; color: var(--texto-suave); max-width: 46ch; }
+/* «Para quién» es un rótulo, no un botón: eyebrow pequeño con la raya (14 px), sin píldora que invite a tocarla */
+.servicios__para__rotulo { font-size: var(--t-chica); letter-spacing: 0.14em; gap: 8px; }
+.servicios__para__rotulo::before { width: 18px; }
+
+/* la barra de progreso y el índice solo existen en el modo horizontal */
+.servicios__barra { display: none; }
+
+/* escritorio sin JS o con movimiento reducido: rejilla de tarjetas */
+@media (min-width: 761px) {
+  .servicios__carril { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+}
+
+/* ============================================================
+   Modo horizontal (escritorio con JS): lo activa servicios.js
+   ============================================================ */
+@media (min-width: 761px) {
+  .servicios.is-horizontal { padding-block: 0; }
+  .servicios.is-horizontal .servicios__escena { height: 100vh; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; row-gap: clamp(14px, 2.4vh, 28px); padding-top: calc(var(--barra) + clamp(8px, 2vh, 24px)); padding-bottom: clamp(16px, 2.6vh, 28px); overflow: hidden; }
+  .servicios.is-horizontal .servicios__escena > .rejilla { display: block; }
+
+  .servicios.is-horizontal .servicios__cabecera { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; column-gap: clamp(24px, 4vw, 64px); margin-bottom: 0; }
+  .servicios.is-horizontal .servicios__lead { font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); max-width: 46ch; padding-bottom: 0.35em; }
+
+  /* la pista recorta (estática); el carril es lo que se desplaza con el scroll */
+  .servicios.is-horizontal .servicios__pista { position: relative; z-index: 1; min-height: 0; overflow: hidden; }
+  .servicios.is-horizontal .servicios__carril { display: flex; align-items: stretch; gap: var(--servicios-gap); width: 100%; height: 100%; margin: 0; min-height: 0; padding-inline: var(--servicios-pad); will-change: transform; }
+  .servicios.is-horizontal .servicios__panel { flex: 0 0 70vw; display: block; height: 100%; min-height: 0; background: var(--negro); border-color: var(--borde-fuerte); }
+  .servicios.is-horizontal .servicios__visual { position: absolute; inset: 0; aspect-ratio: auto; }
+  .servicios.is-horizontal .servicios__media { inset: 0 -8%; will-change: transform; }
+  .servicios.is-horizontal .servicios__velo { background: linear-gradient(180deg, rgba(5, 12, 31, 0.15) 0%, rgba(5, 12, 31, 0.3) 40%, rgba(5, 12, 31, 0.92) 100%), linear-gradient(90deg, rgba(5, 12, 31, 0.65), transparent 55%); }
+  .servicios.is-horizontal .servicios__panel:hover .servicios__foto { transform: scale(1.05); }
+  .servicios.is-horizontal .servicios__panel--torres:hover .servicios__foto { transform: scale(-1.05, 1.05); }
+
+  .servicios.is-horizontal .servicios__num { left: var(--servicios-relleno); top: var(--servicios-relleno); bottom: auto; font-size: clamp(5rem, 9vw, 9rem); line-height: 0.8; }
+  .servicios.is-horizontal .servicios__dato { top: var(--servicios-relleno); left: auto; right: var(--servicios-relleno); max-width: 48%; }
+
+  .servicios.is-horizontal .servicios__contenido { position: absolute; inset: 0; align-content: end; gap: 14px; padding: var(--servicios-relleno); max-width: min(100%, 600px); }
+  .servicios.is-horizontal .servicios__texto { font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); max-width: 44ch; }
+
+  /* barra inferior: contador · guía · progreso · índice */
+  .servicios.is-horizontal .servicios__barra { position: relative; z-index: 1; display: flex; align-items: center; gap: clamp(16px, 2.5vw, 36px); width: min(100% - 2 * var(--margen), var(--ancho)); margin-inline: auto; }
+  .servicios__contador { flex: 0 0 auto; display: inline-flex; align-items: baseline; gap: 6px; font-family: var(--f-titulo); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .servicios__contador__actual { font-size: 1.75rem; color: var(--blanco); }
+  .servicios__contador__sep, .servicios__contador__total { font-size: 1rem; color: var(--texto-tenue); }
+  .servicios__guia { display: none; flex: 0 0 auto; align-items: center; gap: 8px; font-size: var(--t-chica); font-weight: 500; color: var(--texto-suave); white-space: nowrap; }
+  .servicios__guia__icono { width: 24px; height: 24px; stroke: var(--cian); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; animation: servicios-bajar 1.6s ease-in-out infinite; }
+  .servicios__progreso { position: relative; flex: 1 1 120px; min-width: 100px; height: 2px; border-radius: 2px; background: var(--borde-fuerte); }
+  .servicios__indice { flex: 0 0 auto; }
+  .servicios__progreso__relleno { position: absolute; inset: 0; border-radius: inherit; background: var(--grad-luz-h); transform-origin: left center; transform: scaleX(0.2); box-shadow: 0 0 12px rgba(34, 211, 238, 0.6); }
+  .servicios__progreso__luz { position: absolute; top: 50%; left: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--cian-suave); box-shadow: 0 0 14px var(--cian), 0 0 36px rgba(34, 211, 238, 0.55); will-change: transform; }
+  .servicios__indice { display: flex; flex-wrap: wrap; gap: 8px; }
+  .servicios__chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--borde); background: var(--vidrio); font-size: var(--t-chica); font-weight: 700; color: var(--texto-suave); text-decoration: none; transition: color var(--dur-rapida), border-color var(--dur-rapida), background-color var(--dur-rapida), box-shadow var(--dur-rapida); }
+  .servicios__chip__num { font-variant-numeric: tabular-nums; color: var(--cian); }
+  .servicios__chip:hover { color: var(--blanco); border-color: var(--borde-fuerte); background: var(--vidrio-2); }
+  .servicios__chip.is-activa { color: var(--blanco); border-color: rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.1); box-shadow: 0 0 20px rgba(34, 211, 238, 0.18); }
+}
+
+@keyframes servicios-bajar { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+
+/* escritorio ancho: aparece la guía "sigue bajando" (se apaga sola al empezar a recorrer) */
+@media (min-width: 1000px) {
+  .servicios.is-horizontal .servicios__guia { display: inline-flex; }
+}
+
+/* escritorio estrecho (tabletas apaisadas y verticales): cabecera en una columna y chips solo con número */
+@media (min-width: 761px) and (max-width: 999px) {
+  .servicios.is-horizontal .servicios__cabecera { grid-template-columns: 1fr; align-items: start; row-gap: 12px; }
+  .servicios.is-horizontal .servicios__lead { max-width: 56ch; padding-bottom: 0; }
+  .servicios.is-horizontal .servicios__chip { width: 44px; padding: 0; justify-content: center; }
+  .servicios.is-horizontal .servicios__chip__texto { display: none; }
+}
+
+/* pantallas anchas pero bajas (portátiles pequeños): todo un poco más compacto */
+@media (min-width: 761px) and (max-height: 720px) {
+  .servicios.is-horizontal .servicios__escena { --servicios-relleno: clamp(20px, 2.4vw, 32px); row-gap: 12px; padding-top: calc(var(--barra) + 6px); }
+  .servicios.is-horizontal .servicios__titulo { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem); }
+  .servicios.is-horizontal .servicios__num { font-size: clamp(3.25rem, 5.5vw, 5rem); }
+  .servicios.is-horizontal .servicios__contenido { gap: 10px; }
+  .servicios.is-horizontal .servicios__para { padding-top: 10px; }
+}
+
+/* mientras la escena está fijada (servicios.js añade html.servicios-fijo desde que asoma la barra de chips hasta que
+   pasa por encima de la esquina del botón) el botón flotante «subir» del pie se apaga: fijo abajo a la derecha,
+   quedaba encima del chip «05 Energía» en cualquier ancho de escritorio y en tableta parecía recortado */
+html.servicios-fijo .pie__subir, html.servicios-fijo .pie__subir.is-visible { opacity: 0; transform: translateY(18px) scale(0.9); pointer-events: none; }
+
+/* celular: «empresariales» es largo; con letra grande el titular se limita al ancho de la pantalla */
+@media (max-width: 760px) {
+  .servicios__titulo { font-size: min(var(--t-h2), 10.5vw); }
+}

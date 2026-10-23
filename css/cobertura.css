@@ -1,0 +1,181 @@
+/* ============================================================
+   Proyectovisión · cobertura.css — el mapa del Caquetá que se enciende.
+   Dos SVG con viewBox fijo dentro de un envolvente (.cobertura__zoom) que hace el zoom solo con
+   transform; ondas de las sedes como divs HTML (capa compuesta) y etiquetas HTML que siguen al mapa.
+   Solo tokens de base.css; nada de !important.
+   ============================================================ */
+.cobertura { background: var(--noche); --umbral-de: var(--negro); /* integración: planes (negro) → cobertura (noche) → red (banda de imagen); el .umbral funde el negro de planes */ overflow: clip; isolation: isolate; }
+.cobertura .fondo-aurora::before, .cobertura .fondo-aurora::after { opacity: 0.16; }
+
+/* fondo: río amazónico muy atenuado, enmascarado hacia el mapa */
+.cobertura__fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.cobertura__foto { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; opacity: 0.2; -webkit-mask-image: radial-gradient(70% 75% at 30% 45%, #000 20%, transparent 100%); mask-image: radial-gradient(70% 75% at 30% 45%, #000 20%, transparent 100%); }
+.cobertura__fondo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--negro) 0%, rgba(2, 5, 15, 0.2) 18%, rgba(2, 5, 15, 0.2) 82%, var(--negro) 100%); }
+
+/* composición: mapa pegajoso a la izquierda (62 %), texto a la derecha */
+.cobertura__rejilla { display: grid; grid-template-columns: minmax(0, 62fr) minmax(0, 38fr); grid-template-rows: auto 1fr; column-gap: clamp(2rem, 4vw, 4.5rem); align-items: start; }
+.cobertura__cabecera { grid-column: 2; grid-row: 1; margin-bottom: clamp(2rem, 4vw, 3rem); max-width: none; }
+.cobertura__escena { grid-column: 1; grid-row: 1 / 3; align-self: stretch; min-height: 120vh; }
+.cobertura__mapa { position: sticky; top: calc(var(--barra) + 16px); }
+.cobertura__texto { grid-column: 2; grid-row: 2; }
+
+/* marco del mapa */
+.cobertura__marco { position: relative; margin: 0; border-radius: var(--radio); overflow: hidden; border: 1px solid var(--borde); background: radial-gradient(120% 90% at 30% 40%, rgba(16, 31, 69, 0.55), rgba(2, 5, 15, 0.7) 70%); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.02); }
+.cobertura__marco::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(126, 232, 245, 0.45), rgba(26, 46, 230, 0.15) 40%, transparent 60%, rgba(240, 106, 10, 0.25)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; z-index: 3; }
+.cobertura__lienzo { position: relative; width: 100%; aspect-ratio: 4 / 3; max-height: calc(100vh - var(--barra) - 150px); overflow: hidden; }
+/* el zoom: cobertura.js pone translate3d + scale aquí (solo transform, capa compuesta) y lo quita al llegar al detalle */
+.cobertura__zoom { position: absolute; inset: 0; transform-origin: 0 0; }
+.cobertura__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cobertura__svg--base { color: var(--cian-suave); }
+.cobertura__svg--red { pointer-events: none; }
+/* bitmaps del mapa base (cobertura.js los pinta una vez): se componen durante el zoom en vez de rasterizar el SVG cuadro a cuadro */
+.cobertura__capas { position: absolute; inset: 0; pointer-events: none; }
+.cobertura__capa { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; opacity: 0; visibility: hidden; }
+/* fases del SVG vivo: mientras se dibuja el contorno solo pinta el contorno; durante el zoom no pinta nada; al final, todo y nítido */
+.cobertura__svg--base.is-dibujo .cobertura__cuadricula, .cobertura__svg--base.is-dibujo .cobertura__vecinos, .cobertura__svg--base.is-dibujo .cobertura__rios, .cobertura__svg--base.is-dibujo .cobertura__relleno, .cobertura__svg--base.is-dibujo .cobertura__munis { visibility: hidden; }
+.cobertura__svg--base.is-oculto { visibility: hidden; }
+
+/* capas del mapa (los anchos de trazo en px los fija cobertura.js según el zoom, por escalones) */
+.cobertura__cuadricula { opacity: 0.12; }
+.cobertura__vecinos { fill: rgba(16, 31, 69, 0.28); stroke: var(--azul-claro); stroke-opacity: 0.22; stroke-width: 0.8; stroke-linejoin: round; }
+.cobertura__rios { fill: none; stroke: var(--cian); stroke-opacity: 0.24; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.cobertura__relleno { fill: url(#cob-relleno); stroke: none; }
+.cobertura__stop-a { stop-color: var(--azul); stop-opacity: 0.36; }
+.cobertura__stop-b { stop-color: var(--noche-3); stop-opacity: 0.8; }
+.cobertura__stop-c { stop-color: var(--noche-2); stop-opacity: 0.85; }
+.cobertura__munis { fill: none; stroke: var(--cian-suave); stroke-opacity: 0.22; stroke-width: 0.9; stroke-linejoin: round; }
+.cobertura__muni { fill: var(--cian); fill-opacity: 0; transition: fill-opacity 0.35s; }
+.cobertura__muni:hover { fill-opacity: 0.12; }
+.cobertura__muni.is-fibra { fill: var(--naranja); fill-opacity: 0.1; }
+.cobertura__muni.is-fibra:hover { fill-opacity: 0.2; }
+/* municipios punteados: empresas e ISP donde llegue la fibra (trama de puntos #cob-puntos del SVG) */
+.cobertura__muni.is-dedicado { fill: url(#cob-puntos); fill-opacity: 1; }
+.cobertura__muni.is-dedicado:hover { fill-opacity: 1; stroke-opacity: 0.9; }
+.cobertura__trama { fill: var(--cian); fill-opacity: 0.42; }
+.cobertura__contorno { fill: none; stroke: var(--cian); stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+
+/* red: enlaces, troncal y pulso */
+.cobertura__enlace { fill: none; stroke: var(--cian); stroke-opacity: 0.75; stroke-width: 1.5; stroke-dasharray: 5 6; stroke-linecap: round; }
+.cobertura__troncal-luz { fill: none; stroke: var(--naranja); stroke-opacity: 0.22; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.cobertura__troncal { fill: none; stroke: var(--naranja-claro); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.cobertura__cola { fill: none; stroke: var(--blanco); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.cobertura__pulso { opacity: 0; }
+.cobertura__pulso-halo { fill: var(--blanco); fill-opacity: 0.45; }
+.cobertura__pulso-nucleo { fill: var(--blanco); }
+
+/* cabeza de luz que recorre el contorno mientras se dibuja (HTML, se mueve solo con transform) */
+.cobertura__cabeza { position: absolute; left: 0; top: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: radial-gradient(circle, var(--blanco) 0 3px, rgba(34, 211, 238, 0.55) 4px, rgba(34, 211, 238, 0) 68%); opacity: 0; pointer-events: none; will-change: transform; }
+
+/* sedes: tamaño en px constante (el grupo se escala con 1/zoom desde JS una sola vez por refresh) */
+.cobertura__sede-in { transform-box: fill-box; transform-origin: center; }
+.cobertura__brillo { fill: var(--naranja); fill-opacity: 0.3; transition: transform 0.4s var(--ease), fill-opacity 0.4s; transform-box: fill-box; transform-origin: center; }
+.cobertura__punto { fill: var(--naranja); }
+.cobertura__nucleo { fill: var(--blanco); }
+.cobertura__sede--principal .cobertura__punto { fill: var(--naranja-claro); }
+.cobertura__sede--dedicado .cobertura__brillo { fill: var(--cian); fill-opacity: 0.22; }
+.cobertura__sede--dedicado .cobertura__punto { fill: var(--cian); }
+.cobertura__sede.is-activa .cobertura__brillo { transform: scale(1.9); fill-opacity: 0.45; }
+
+/* ondas de las sedes: divs HTML entre los dos SVG; corren solo con el mapa encendido y en pantalla */
+.cobertura__ondas { position: absolute; inset: 0; pointer-events: none; transition: opacity 0.8s; }
+.js .cobertura__ondas { opacity: 0; }
+.js .is-encendido .cobertura__ondas { opacity: 1; }
+.cobertura__onda-sede { position: absolute; width: 0; height: 0; }
+.cobertura__onda { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; border: 1.4px solid var(--naranja-claro); opacity: 0; animation: cob-onda 2.8s cubic-bezier(0.2, 0.7, 0.3, 1) infinite; animation-play-state: paused; }
+.cobertura__onda--2 { animation-delay: 1.4s; }
+.cobertura__onda-sede--dedicado .cobertura__onda { border-color: var(--cian); animation-duration: 3.6s; }
+.is-visible .cobertura__onda { animation-play-state: running; }
+@keyframes cob-onda { 0% { transform: scale(0.5); opacity: 0.9; } 70% { opacity: 0.25; } 100% { transform: scale(4.2); opacity: 0; } }
+
+/* etiquetas HTML sobre el mapa */
+.cobertura__etiquetas { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.cobertura__etq { position: absolute; left: 0; top: 0; display: inline-block; padding: 5px 11px; border-radius: 999px; font-size: 0.875rem; font-weight: 700; line-height: 1.15; letter-spacing: 0.005em; white-space: nowrap; color: var(--blanco); background: rgba(5, 12, 31, 0.78); border: 1px solid rgba(255, 140, 58, 0.45); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); text-decoration: none; pointer-events: auto; will-change: transform; transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s; }
+.cobertura__etq::before { content: ''; position: absolute; inset: -9px; }
+.cobertura__etq--dedicado { padding: 4px 9px; font-size: 0.8125rem; font-weight: 600; color: var(--cian-suave); border-color: rgba(34, 211, 238, 0.4); }
+.cobertura__etq--partida { text-align: center; line-height: 1.2; }
+.cobertura__etq--partida .cobertura__etq-l2 { display: block; }
+.cobertura__etq--principal { padding-right: 13px; }
+.cobertura__etq--principal::after { content: ''; display: inline-block; width: 6px; height: 6px; margin-left: 8px; border-radius: 50%; background: var(--naranja-claro); box-shadow: 0 0 10px var(--naranja-claro); vertical-align: middle; }
+.cobertura__etq--sede:hover, .cobertura__etq--sede:focus-visible, .cobertura__etq--sede.is-activa { border-color: var(--naranja-claro); background: rgba(240, 106, 10, 0.22); box-shadow: 0 0 0 1px rgba(255, 140, 58, 0.3), var(--brillo-naranja); }
+.cobertura__etq--dedicado.is-activa { border-color: var(--cian); }
+.cobertura__etq-l2 { display: inline; }
+/* anclas de respaldo cuando el JS no ha posicionado las etiquetas */
+.cobertura__etq--der { transform: translate(10px, -50%); }
+.cobertura__etq--izq { transform: translate(calc(-100% - 10px), -50%); }
+.cobertura__etq--abajo { transform: translate(-50%, 10px); }
+
+/* leyenda */
+.cobertura__leyenda { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding: 14px 18px; font-size: var(--t-chica); color: var(--texto-suave); border-top: 1px solid var(--borde); background: rgba(2, 5, 15, 0.55); }
+.cobertura__ley { display: inline-flex; align-items: center; gap: 9px; }
+.cobertura__ley--titulo { margin-left: auto; font-weight: 700; color: var(--cian-suave); letter-spacing: 0.04em; }
+.cobertura__ley-sede { width: 12px; height: 12px; border-radius: 50%; background: var(--naranja); box-shadow: 0 0 0 3px rgba(240, 106, 10, 0.25), 0 0 14px rgba(240, 106, 10, 0.7); }
+.cobertura__ley-enlace { width: 26px; height: 0; border-top: 2px dashed var(--cian); opacity: 0.85; }
+.cobertura__ley-muni { width: 18px; height: 13px; border-radius: 3px; border: 1px dashed rgba(34, 211, 238, 0.7); background-image: radial-gradient(circle, var(--cian) 0 1px, transparent 1.4px); background-size: 4px 4px; }
+
+/* cifras */
+.cobertura__cifras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.cobertura__cifra { display: grid; gap: 8px; padding: 20px 22px; border-radius: var(--radio-chico); background: var(--vidrio); border: 1px solid var(--borde); }
+.cobertura__cifra .cifra { font-size: clamp(2.25rem, 1.4rem + 2.4vw, 3.5rem); background: var(--grad-luz-h); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cobertura__cifra-txt { font-size: var(--t-chica); color: var(--texto-suave); line-height: 1.35; }
+
+/* lista de sedes */
+.cobertura__subtitulo { font-size: var(--t-h3); margin-bottom: 16px; }
+.cobertura__sedes { display: grid; gap: 12px; counter-reset: sede; }
+.cobertura__tarjeta { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 18px 20px; text-decoration: none; color: inherit; min-height: 44px; }
+.cobertura__num { font-family: var(--f-titulo); font-weight: 600; font-size: 1rem; color: var(--texto-tenue); letter-spacing: 0.04em; transition: color 0.3s; }
+.cobertura__cuerpo { display: grid; gap: 4px; min-width: 0; }
+.cobertura__nombre { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.25rem; line-height: 1.1; color: var(--blanco); }
+.cobertura__nombre .etiqueta { padding: 3px 10px; font-size: var(--t-chica); letter-spacing: 0.01em; }
+.cobertura__dir { display: flex; align-items: center; gap: 7px; font-size: var(--t-chica); color: var(--texto); }
+.cobertura__dir svg { flex: none; width: 16px; height: 16px; stroke: var(--cian); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cobertura__rol { font-size: var(--t-chica); color: var(--texto-suave); }
+.cobertura__ir { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--borde-fuerte); color: var(--cian-suave); transition: background-color 0.3s, border-color 0.3s, transform 0.3s var(--ease); }
+.cobertura__ir svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cobertura__tarjeta:hover .cobertura__ir, .cobertura__tarjeta:focus-visible .cobertura__ir, .cobertura__tarjeta.is-activa .cobertura__ir { background: rgba(34, 211, 238, 0.16); border-color: var(--cian); transform: translate(2px, -2px); }
+.cobertura__tarjeta:hover .cobertura__num, .cobertura__tarjeta.is-activa .cobertura__num { color: var(--naranja-claro); }
+.cobertura__tarjeta.is-activa { border-color: var(--borde-fuerte); }
+.cobertura__nota { margin: 18px 0 0 6px; padding-left: 16px; border-left: 2px solid rgba(34, 211, 238, 0.5); font-size: var(--t-chica); line-height: 1.5; color: var(--texto-suave); max-width: 64ch; }
+
+/* mapas estrechos: los nombres largos van en dos líneas para no salirse del marco */
+@media (max-width: 1200px) {
+  .cobertura__etq--dos .cobertura__etq-l2 { display: block; }
+}
+
+/* municipios punteados: chips bajo la lista de oficinas (en pantallas medianas y en celular son la única lista de nombres) */
+.cobertura__munis-caja { margin-top: clamp(1.75rem, 3.5vw, 2.5rem); }
+.cobertura__munis-texto { margin-bottom: 14px; font-size: 1rem; line-height: 1.55; color: var(--texto-suave); }
+.cobertura__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cobertura__chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 999px; border: 1px dashed rgba(34, 211, 238, 0.45); background: rgba(34, 211, 238, 0.06); font-size: 0.9375rem; line-height: 1.2; color: var(--texto); transition: border-color 0.3s, background-color 0.3s; }
+.cobertura__chip-punto { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 8px rgba(34, 211, 238, 0.7); }
+.cobertura__chip:hover, .cobertura__chip.is-activa { border-color: var(--cian); background: rgba(34, 211, 238, 0.16); }
+.cobertura__munis-ir { margin-top: 14px; }
+/* los nombres de los municipios punteados solo caben sobre el mapa en pantallas anchas */
+@media (max-width: 1199px) {
+  .cobertura__etq--dedicado { display: none; }
+}
+
+/* tableta y celular: todo en una columna; el mapa (5:4, más apretado sobre las sedes) se queda pegado un momento mientras se enciende */
+@media (max-width: 900px) {
+  .cobertura__rejilla { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 0; }
+  .cobertura__cabecera { grid-column: 1; grid-row: 1; }
+  .cobertura__escena { grid-column: 1; grid-row: 2; min-height: 80vh; margin-bottom: 1.5rem; }
+  .cobertura__texto { grid-column: 1; grid-row: 3; }
+  .cobertura__mapa { top: calc(var(--barra) + 8px); }
+  .cobertura__lienzo { aspect-ratio: 5 / 4; max-height: calc(100vh - var(--barra) - 110px); }
+  /* Cartagena del Chairá va en una línea corta bajo su punto (la lista de abajo lleva el nombre completo) */
+  .cobertura__etq--principal { padding-right: 11px; }
+  .cobertura__etq--principal::after { display: none; }
+  .cobertura__etq--principal .cobertura__etq-l2 { display: none; }
+  .cobertura__leyenda { gap: 6px 16px; padding: 12px 14px; }
+  .cobertura__ley--titulo { margin-left: 0; width: 100%; }
+  .cobertura__tarjeta { grid-template-columns: minmax(0, 1fr) auto; padding: 16px; }
+  .cobertura__num { display: none; }
+}
+@media (max-width: 480px) {
+  .cobertura__cifras { gap: 10px; }
+  .cobertura__cifra { padding: 16px 14px; }
+}
+
+/* movimiento reducido: todo quieto y visible */
+.calmo .cobertura__onda { animation: none; opacity: 0.35; transform: scale(1.8); }
+.cobertura__tel { white-space: nowrap; }

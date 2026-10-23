@@ -1,0 +1,94 @@
+/* ============================================================
+   Proyectovisión · preguntas.css — acordeón de vidrio con borde luminoso.
+   Plano: --noche-2 + .rejilla. Momento propio: la luz del riel viaja a la
+   pregunta abierta y el borde de la tarjeta se enciende.
+   ============================================================ */
+/* overflow: clip (y no hidden) para que la cabecera sticky se mida contra la ventana y no contra la sección */
+.preguntas { background: var(--noche-2); --umbral-de: var(--noche); /* página Soporte: viene de ayuda (noche) */ overflow: hidden; overflow: clip; isolation: isolate; }
+.preguntas .rejilla { -webkit-mask-image: radial-gradient(ellipse 60% 70% at 72% 45%, #000, transparent 75%); mask-image: radial-gradient(ellipse 60% 70% at 72% 45%, #000, transparent 75%); }
+.preguntas__brillo { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(760px 520px at 88% 12%, rgba(26, 46, 230, 0.26), transparent 65%), radial-gradient(640px 460px at 6% 96%, rgba(34, 211, 238, 0.11), transparent 65%); }
+/* «?» decorativo, completo dentro de la sección: la tinta del glifo (Clash Display 700) va de 0.13em a 0.82em del alto de la caja y mide 0.64em de ancho,
+   así que el margen inferior/superior absorbe el viaje del parallax (±4.8 % de la caja). Se alinea con el borde izquierdo del contenedor, como el título.
+   Contorno fino de luz + relleno muy tenue para que se lea el signo entero y no solo el punto; la máscara funde sus extremos. */
+.preguntas__glifo { position: absolute; left: calc(max(var(--margen), (100% - var(--ancho)) / 2)); bottom: calc(3rem - 0.18em); z-index: 0; font-family: var(--f-titulo); font-weight: 700; font-size: clamp(14rem, 28vw, 32rem); line-height: 1; letter-spacing: 0; color: transparent; -webkit-text-stroke: 1px rgba(126, 232, 245, 0.28); background: linear-gradient(160deg, rgba(34, 211, 238, 0.1), rgba(79, 107, 255, 0.07) 55%, rgba(124, 58, 237, 0.05)); -webkit-background-clip: text; background-clip: text; -webkit-mask-image: radial-gradient(ellipse 62% 56% at 50% 48%, #000 30%, rgba(0, 0, 0, 0.45) 100%); mask-image: radial-gradient(ellipse 62% 56% at 50% 48%, #000 30%, rgba(0, 0, 0, 0.45) 100%); pointer-events: none; user-select: none; will-change: transform; }
+
+/* ---------- rejilla 5/7 ---------- */
+.preguntas__rejilla { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.preguntas__cabecera { margin-bottom: 0; }
+.preguntas__cta { display: grid; gap: 14px; justify-items: start; margin-top: 10px; }
+.preguntas__ctaTexto { color: var(--texto-suave); font-size: var(--t-base); }
+.preguntas__cta .boton svg { stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.preguntas__tel { display: inline-flex; align-items: center; min-height: 44px; color: var(--texto-suave); text-decoration: none; font-size: var(--t-base); }
+.preguntas__tel strong { color: var(--cian-suave); margin-left: 0.35em; }
+.preguntas__tel:hover strong { color: var(--blanco); text-shadow: 0 0 16px rgba(34, 211, 238, 0.7); }
+
+/* ---------- lista ---------- */
+.preguntas__lista { position: relative; width: 100%; max-width: 760px; }
+.preguntas__pieza + .preguntas__pieza { margin-top: 12px; }
+
+/* riel de luz (solo escritorio): una línea que se dibuja y un pulso que viaja a la pregunta abierta */
+.preguntas__riel { position: absolute; top: 0; bottom: 0; left: -38px; width: 2px; display: none; pointer-events: none; }
+.preguntas__rielLinea { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(180deg, transparent, rgba(126, 232, 245, 0.32) 6%, rgba(79, 107, 255, 0.28) 94%, transparent); transform-origin: top center; }
+.preguntas__pulso { position: absolute; top: 0; left: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--cian-suave); box-shadow: 0 0 10px var(--cian), 0 0 28px rgba(34, 211, 238, 0.7), 0 0 60px rgba(26, 46, 230, 0.5); will-change: transform; }
+.preguntas__pulso::before { content: ''; position: absolute; left: 50%; bottom: 50%; width: 2px; height: 64px; margin-left: -1px; border-radius: 2px; background: linear-gradient(0deg, rgba(126, 232, 245, 0.9), transparent); opacity: 0; transition: opacity 0.3s; }
+.preguntas__pulso::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid rgba(126, 232, 245, 0.6); animation: preguntas-onda 2.2s ease-out infinite; }
+html:not(.js) .preguntas__pulso { top: 38px; } /* sin JS queda junto a la primera pregunta (mitad de su alto mínimo) */
+.preguntas__pulso.is-viajando::before { opacity: 1; }
+.preguntas__pulso.is-sube::before { bottom: auto; top: 50%; transform: scaleY(-1); }
+@keyframes preguntas-onda { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+
+/* ---------- tarjeta de vidrio ---------- */
+.preguntas__item { position: relative; background: var(--vidrio); border: 1px solid var(--borde); border-radius: var(--radio); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background-color 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.7s var(--ease); }
+/* borde luminoso: sigue al puntero en reposo y se vuelve degradado completo al abrir */
+.preguntas__item::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(126, 232, 245, 0.85), rgba(26, 46, 230, 0.4) 38%, transparent 68%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.45s; pointer-events: none; }
+.preguntas__item::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(560px circle at var(--mx, 18%) var(--my, 0%), rgba(34, 211, 238, 0.13), transparent 58%); opacity: 0; transition: opacity 0.45s; pointer-events: none; }
+@media (hover: hover) {
+  .preguntas__item:hover::before, .preguntas__item:hover::after { opacity: 1; }
+  .preguntas__item:hover { border-color: var(--borde-fuerte); }
+  .preguntas__resumen:hover .preguntas__q { transform: translateX(4px); }
+  .preguntas__resumen:hover .preguntas__mas { border-color: rgba(126, 232, 245, 0.6); color: var(--blanco); }
+}
+.preguntas__item.is-abierta, html:not(.js) .preguntas__item[open] { background: rgba(255, 255, 255, 0.065); border-color: rgba(126, 232, 245, 0.3); box-shadow: 0 30px 70px -24px rgba(2, 5, 15, 0.9), 0 0 56px -8px rgba(34, 211, 238, 0.22); }
+.preguntas__item.is-abierta::before, html:not(.js) .preguntas__item[open]::before { opacity: 1; background: linear-gradient(120deg, rgba(126, 232, 245, 0.95), rgba(79, 107, 255, 0.5) 45%, rgba(124, 58, 237, 0.75)); animation: preguntas-latido 3.2s ease-in-out infinite; }
+.preguntas__item.is-abierta::after, html:not(.js) .preguntas__item[open]::after { opacity: 1; }
+@keyframes preguntas-latido { 0%, 100% { opacity: 1; } 50% { opacity: 0.62; } }
+
+/* ---------- resumen (la pregunta) ---------- */
+.preguntas__resumen { position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; min-height: 76px; padding: 18px 18px 18px 24px; cursor: pointer; list-style: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.preguntas__resumen::-webkit-details-marker { display: none; }
+.preguntas__resumen::marker { content: ''; }
+.preguntas__resumen:focus-visible { outline: 2px solid var(--cian); outline-offset: -2px; border-radius: var(--radio); }
+.preguntas__num { flex: 0 0 30px; font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.12em; color: var(--texto-tenue); transition: color 0.4s, text-shadow 0.4s; }
+.preguntas__q { flex: 1 1 auto; min-width: 0; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem); line-height: 1.2; letter-spacing: 0.005em; word-spacing: 0.14em; color: var(--texto); transition: color 0.4s, transform 0.5s var(--ease); }
+.preguntas__mas { flex: 0 0 44px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--borde-fuerte); background: var(--vidrio-2); color: var(--cian-suave); transition: transform 0.55s var(--ease), background-color 0.4s, border-color 0.4s, box-shadow 0.4s, color 0.4s; }
+.preguntas__mas svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+.preguntas__item.is-abierta .preguntas__num, html:not(.js) .preguntas__item[open] .preguntas__num { color: var(--cian); text-shadow: 0 0 14px rgba(34, 211, 238, 0.8); }
+.preguntas__item.is-abierta .preguntas__q, html:not(.js) .preguntas__item[open] .preguntas__q { color: var(--blanco); }
+.preguntas__item.is-abierta .preguntas__mas, html:not(.js) .preguntas__item[open] .preguntas__mas { transform: rotate(45deg); background: rgba(26, 46, 230, 0.5); border-color: rgba(126, 232, 245, 0.75); color: var(--blanco); box-shadow: 0 0 22px rgba(34, 211, 238, 0.45), inset 0 0 12px rgba(126, 232, 245, 0.25); }
+
+/* ---------- cuerpo (la respuesta) — el JS anima la altura midiéndola ---------- */
+.preguntas__cuerpo { position: relative; z-index: 1; overflow: hidden; }
+.preguntas__respuesta { padding: 0 24px 26px 70px; color: var(--texto-suave); line-height: 1.65; max-width: 62ch; }
+.preguntas__respuesta::before { content: ''; display: block; height: 1px; margin: 0 0 18px; background: linear-gradient(90deg, rgba(126, 232, 245, 0.55), rgba(79, 107, 255, 0.25) 60%, transparent); }
+.preguntas__respuesta p + p { margin-top: 0.8em; }
+
+/* ---------- escritorio ---------- */
+@media (min-width: 901px) {
+  .preguntas__riel { display: block; }
+  .preguntas__cabecera { position: sticky; top: calc(var(--barra) + 32px); }
+}
+
+/* ---------- celular y tableta ---------- */
+@media (max-width: 900px) {
+  .preguntas__rejilla { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .preguntas__cabecera { margin-bottom: clamp(2rem, 5vw, 3rem); }
+  .preguntas__lista { margin-inline: auto; }
+  .preguntas__glifo { left: auto; right: 1.5rem; bottom: auto; top: 0.25rem; font-size: clamp(12rem, 56vw, 22rem); -webkit-text-stroke-color: rgba(126, 232, 245, 0.24); }
+  .preguntas .rejilla { -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 55%, #000, transparent 75%); mask-image: radial-gradient(ellipse 90% 60% at 50% 55%, #000, transparent 75%); }
+}
+@media (max-width: 600px) {
+  .preguntas__resumen { gap: 12px; min-height: 68px; padding: 16px 14px 16px 18px; }
+  .preguntas__num { flex-basis: 26px; }
+  .preguntas__respuesta { padding: 0 18px 22px 18px; }
+  .preguntas__cta .boton { width: 100%; }
+}

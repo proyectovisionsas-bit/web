@@ -1,0 +1,20 @@
+/* ============================================================
+   Proyectovisión · oficinas.css — "Nuestras oficinas" (#oficinas, página Oficinas y pagos).
+   Las tarjetas de cada oficina usan las clases contacto__sede* de contacto.css; aquí solo va
+   la sección y la franja de otros canales de atención.
+   ============================================================ */
+.oficinas { background: var(--noche); --umbral-de: var(--negro); overflow: hidden; }
+.oficinas__cabecera { margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem); }
+.oficinas__sedes { margin-top: 0; }
+.oficinas__sedes .contacto__sede { background: linear-gradient(180deg, rgba(16, 31, 69, 0.85), rgba(5, 12, 31, 0.9)); }
+.contacto__sede-red { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 1rem; font-weight: 700; color: var(--cian-suave); }
+.contacto__sede-red svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.oficinas__canales { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.oficinas__canales-titulo { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); margin-bottom: 16px; }
+.oficinas__lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 12px; }
+.oficinas__canal { display: flex; align-items: center; gap: 14px; min-height: 44px; height: 100%; padding: 16px 18px; border-radius: var(--radio-chico); border: 1px solid var(--borde); background: var(--vidrio); color: inherit; text-decoration: none; transition: border-color var(--dur-rapida), background-color var(--dur-rapida); }
+.oficinas__canal:hover, .oficinas__canal:focus-visible { border-color: rgba(126, 232, 245, 0.5); background: var(--vidrio-2); }
+.oficinas__canal .icono { flex: none; width: 44px; height: 44px; }
+.oficinas__canal-cuerpo { display: grid; gap: 3px; min-width: 0; }
+.oficinas__canal-rotulo { font-size: var(--t-chica); color: var(--texto-suave); }
+.oficinas__canal-valor { font-weight: 700; font-size: 1.0625rem; color: var(--blanco); overflow-wrap: anywhere; }

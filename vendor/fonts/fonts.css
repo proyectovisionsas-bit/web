@@ -1,0 +1,59 @@
+/* =====================================================================
+   Fuentes autoalojadas — Proyectovisión.click Zomac S.A.S (página web 2026)
+   Origen: Fontshare (Indian Type Foundry) — https://www.fontshare.com
+   Licencia: ITF Free Font License (uso personal y comercial permitido)
+   Archivos descargados el 22-10-2026; las URLs originales están en
+   _fontshare-clash-display.css y _fontshare-satoshi.css (solo referencia).
+
+   Uso sugerido en styles.css:
+     --font-display: 'Clash Display', 'Satoshi', system-ui, sans-serif;  (titulares)
+     --font-body:    'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+   Y en <head>, para que el titular del hero no parpadee:
+     <link rel="preload" href="vendor/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin>
+   ===================================================================== */
+
+/* ---------- Clash Display (titulares) ---------- */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('clash-display-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('clash-display-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('clash-display-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Satoshi (texto corrido e interfaz) ---------- */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('satoshi-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('satoshi-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('satoshi-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

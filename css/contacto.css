@@ -1,0 +1,195 @@
+/* ============================================================
+   contacto.css — sección "Contacto" (#contacto) + pie de página (.pie)
+   Momento propio: hilos de fibra que cuelgan desde arriba y gotean luz (canvas),
+   sobre .fondo-aurora; el pie remata con la marca a todo lo ancho en gradiente.
+   ============================================================ */
+
+/* ---------- sección ---------- */
+.contacto { background: var(--negro); --umbral-de: var(--noche-2); /* inicio: viene de nosotros (noche-2) */ overflow: hidden; isolation: isolate; }
+.contacto__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; opacity: 0.16; filter: saturate(1.4); z-index: 0; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.7) 40%, transparent 82%); mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.7) 40%, transparent 82%); }
+.contacto__lienzo { position: absolute; inset: -18px; width: calc(100% + 36px); height: calc(100% + 36px); z-index: 0; pointer-events: none; will-change: transform; }
+.contacto > .contenedor { display: grid; }
+
+/* bloque CTA en vidrio */
+.contacto__cta { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding: clamp(1.5rem, 5vw, 4.25rem); border-color: var(--borde-fuerte); box-shadow: 0 40px 90px rgba(2, 5, 15, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.09); }
+.contacto__cta::before { content: ''; position: absolute; top: -1px; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(126, 232, 245, 0.9), rgba(79, 107, 255, 0.6), transparent); }
+.contacto__cta::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(60% 80% at 0% 0%, rgba(34, 211, 238, 0.1), transparent 60%), radial-gradient(50% 70% at 100% 100%, rgba(26, 46, 230, 0.16), transparent 60%); }
+.contacto__cta > * { position: relative; z-index: 1; }
+/* cometa: una luz que recorre el borde de la tarjeta (JS pone el trazado en --trazo según el tamaño) */
+.contacto__cometa { position: absolute; top: 0; left: 0; z-index: 2; width: 180px; height: 2px; border-radius: 2px; opacity: 0; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.7) 60%, var(--cian-suave)); box-shadow: 0 0 14px rgba(34, 211, 238, 0.55); offset-path: var(--trazo, none); offset-rotate: auto; offset-anchor: 100% 50%; offset-distance: 0%; }
+.contacto__cometa::after { content: ''; position: absolute; right: -4px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--blanco); box-shadow: 0 0 10px 3px rgba(126, 232, 245, 0.9); }
+@supports (offset-path: path('M0 0 L1 1')) {
+  .contacto__cometa.is-lista { opacity: 1; animation: contacto-cometa 9s linear infinite; }
+}
+@keyframes contacto-cometa { to { offset-distance: 100%; } }
+@media (prefers-reduced-motion: reduce) { .contacto__cometa { display: none; } }
+.contacto__titulo { font-size: clamp(2.75rem, 1.5rem + 6vw, 7rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.04em; margin-top: 18px; text-shadow: 0 0 60px rgba(34, 211, 238, 0.25); }
+.contacto__lead { margin-top: 22px; max-width: 46ch; }
+.contacto__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+.contacto__whatsapp { gap: 12px; }
+.contacto__whatsapp::after { content: ''; position: absolute; inset: -3px; border-radius: inherit; border: 2px solid var(--naranja-claro); opacity: 0; pointer-events: none; z-index: -1; animation: contacto-onda 2.8s var(--ease-suave) infinite; }
+@keyframes contacto-onda { 0% { transform: scale(1); opacity: 0.7; } 65%, 100% { transform: scale(1.22); opacity: 0; } }
+.contacto__ico { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.contacto .boton__flecha, .pie .boton__flecha { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.contacto__pista { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-chica); color: var(--texto-suave); }
+.contacto__pista strong { color: var(--texto); }
+
+/* canales: teléfonos y correo */
+.contacto__canales { display: grid; gap: 12px; }
+.contacto__canal { display: flex; align-items: center; gap: 16px; min-height: 80px; padding: 14px 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); text-decoration: none; transition: transform var(--dur-rapida) var(--ease), border-color var(--dur-rapida), background-color var(--dur-rapida), box-shadow var(--dur-rapida); }
+.contacto__canal .icono { flex: 0 0 48px; }
+.contacto__canal-cuerpo { display: grid; gap: 3px; min-width: 0; flex: 1 1 auto; }
+.contacto__canal-etiqueta { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-tenue); }
+.contacto__canal-valor { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blanco); overflow-wrap: anywhere; }
+.contacto__canal-valor--correo { font-family: var(--f-texto); font-weight: 700; font-size: 1rem; letter-spacing: 0; white-space: normal; overflow-wrap: anywhere; }
+.contacto__canal-flecha { flex: 0 0 20px; width: 20px; height: 20px; stroke: var(--cian); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.6; transition: transform var(--dur-rapida) var(--ease), opacity var(--dur-rapida); }
+@media (hover: hover) {
+  .contacto__canal:hover { transform: translateX(6px); background: rgba(34, 211, 238, 0.07); border-color: rgba(126, 232, 245, 0.45); box-shadow: 0 0 30px rgba(34, 211, 238, 0.12); }
+  .contacto__canal:hover .contacto__canal-flecha { transform: translate(2px, -2px); opacity: 1; }
+}
+
+/* sedes */
+.contacto__sedes-cab { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 20px; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.contacto__sedes-titulo { font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
+.contacto__sedes-linea { flex: 1 1 auto; min-width: 40px; }
+.contacto__sedes-dato { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cian); }
+.contacto__sedes { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: 16px; margin-top: 22px; }
+.contacto__sede { position: relative; display: flex; flex-direction: column; padding: 22px 22px 16px; border-radius: var(--radio); border: 1px solid var(--borde); background: linear-gradient(180deg, rgba(16, 31, 69, 0.96), rgba(5, 12, 31, 0.97)); /* casi opaca: los hilos de luz del fondo no cruzan el texto */ overflow: hidden; transition: transform var(--dur-rapida) var(--ease), border-color var(--dur-rapida); }
+.contacto__sede > * { position: relative; z-index: 1; }
+.contacto__sede-num { font-family: var(--f-titulo); font-weight: 700; font-size: var(--t-chica); letter-spacing: 0.12em; color: var(--cian); }
+.contacto__sede-num::after { content: ''; display: inline-block; width: 22px; height: 1px; margin-left: 10px; vertical-align: middle; background: linear-gradient(90deg, var(--cian), transparent); }
+.contacto__sede-nombre { font-size: 1.375rem; font-weight: 600; margin-top: 12px; letter-spacing: -0.015em; }
+.contacto__sede-dir { margin-top: 8px; font-size: 1.0625rem; line-height: 1.5; color: var(--texto); }
+/* horario, medios de pago y WhatsApp de cada oficina (los escribe .web2/generar.mjs) */
+.contacto__sede-horario { display: grid; gap: 6px; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--borde); font-size: 1rem; line-height: 1.45; }
+.contacto__sede-horario div { display: grid; gap: 1px; }
+.contacto__sede-horario dt { font-weight: 700; color: var(--texto); }
+.contacto__sede-horario dd { margin: 0; color: var(--texto-suave); }
+.contacto__sede-pagos { margin-top: 12px; font-size: 1rem; line-height: 1.45; color: var(--texto-suave); flex: 1 1 auto; }
+.contacto__sede-pagos-rotulo { font-weight: 700; color: var(--texto); }
+.contacto__sede-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-top: 16px; }
+.contacto__sede-wa { min-height: 48px; padding: 8px 20px; gap: 8px; font-size: 1rem; }
+.contacto__sede-wa svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.contacto__sede-soporte { margin-top: 8px; font-size: 1rem; color: var(--texto-suave); }
+.contacto__sede-soporte a { color: var(--cian-suave); font-weight: 700; }
+.contacto__sede-mapa { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; align-self: flex-start; font-size: 1rem; font-weight: 700; color: var(--cian); text-decoration: none; transition: color var(--dur-rapida); }
+.contacto__sede-mapa svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-rapida) var(--ease); }
+@media (hover: hover) {
+  .contacto__sede-mapa:hover { color: var(--cian-suave); }
+  .contacto__sede-mapa:hover svg { transform: translate(2px, -2px); }
+}
+
+@media (max-width: 960px) {
+  .contacto__cta { grid-template-columns: 1fr; }
+  .contacto__cta::after { background: radial-gradient(70% 50% at 0% 0%, rgba(34, 211, 238, 0.1), transparent 60%); }
+}
+@media (max-width: 560px) {
+  .contacto__cta { padding: 1.5rem 1.25rem 1.25rem; gap: 1.5rem; border-radius: var(--radio); }
+  .contacto__titulo { margin-top: 14px; }
+  .contacto__acciones { gap: 14px; }
+  .contacto__whatsapp { width: 100%; }
+  .contacto__canal { min-height: 72px; padding: 12px 14px; gap: 12px; }
+  .contacto__canal .icono { flex-basis: 44px; width: 44px; height: 44px; }
+  .contacto__sedes-cab { flex-wrap: wrap; gap: 10px 16px; }
+  .contacto__sedes-titulo { white-space: normal; flex: 1 1 100%; }
+  .contacto__sedes { grid-template-columns: 1fr; gap: 12px; }
+  .contacto__sede { padding: 18px 18px 12px; }
+}
+
+/* ---------- pie de página ---------- */
+.pie { position: relative; background: var(--noche); border-top: 1px solid var(--borde); overflow: hidden; padding-bottom: calc(var(--espacio-chico) + env(safe-area-inset-bottom, 0px)); }
+.pie::before { content: ''; position: absolute; inset: auto 0 0 0; height: 60%; pointer-events: none; background: radial-gradient(70% 60% at 50% 100%, rgba(26, 46, 230, 0.22), transparent 70%); }
+.pie > .contenedor { position: relative; z-index: 1; }
+
+/* la marca a todo lo ancho: JS mide y ajusta el tamaño exacto (y lo repite al cargar la fuente); sin JS, 13.6vw deja una sola línea con margen */
+.pie__marca { position: relative; width: 100%; overflow: hidden; padding: clamp(2.25rem, 5vw, 4.5rem) 0 0; line-height: 0; text-align: center; }
+.pie__marca-texto { display: inline-block; font-family: var(--f-titulo); font-weight: 700; font-size: 13.6vw; line-height: 1; letter-spacing: -0.045em; white-space: nowrap; vertical-align: top; padding-top: 0.04em; margin-bottom: -0.12em; }
+.pie__marca-texto.is-partida { background: none; }
+.pie__letra { display: inline-block; background-image: var(--grad-luz); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.pie__cuerpo { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 2.6vw, 2.75rem); padding-top: clamp(2.5rem, 5vw, 4.5rem); }
+@media (max-width: 1200px) {
+  .pie__cuerpo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pie__intro { grid-column: 1 / -1; }
+}
+.pie__intro-nombre { font-family: var(--f-titulo); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--blanco); }
+.pie__intro-texto { margin-top: 12px; max-width: 32ch; color: var(--texto-suave); font-size: 1rem; line-height: 1.55; }
+.pie__cta { margin-top: 22px; min-height: 48px; padding: 0 22px; font-size: 1rem; }
+.pie__col-titulo { font-family: var(--f-texto); font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texto-tenue); margin-bottom: 8px; }
+.pie__col ul { display: grid; }
+.pie__col li { display: flex; align-items: center; min-height: 40px; font-size: 1rem; color: var(--texto-suave); overflow-wrap: break-word; }
+/* WhatsApp de cada oficina: el municipio arriba y el número debajo, sin partir el número */
+.pie__wa { display: grid !important; gap: 0; padding: 4px 0; line-height: 1.3; }
+.pie__wa-num { color: var(--texto-suave); white-space: nowrap; }
+.pie__wa::after { bottom: 2px !important; }
+.pie__col a { display: inline-flex; align-items: center; min-height: 44px; color: var(--texto); text-decoration: none; position: relative; transition: color var(--dur-rapida); }
+.pie__col a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--grad-luz-h); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-rapida) var(--ease); }
+@media (hover: hover) {
+  .pie__col a:hover { color: var(--cian-suave); }
+  .pie__col a:hover::after { transform: scaleX(1); }
+}
+.pie__legal { display: grid; gap: 12px; margin-top: clamp(2.5rem, 5vw, 4rem); padding: 22px 96px 0 0; border-top: 1px solid var(--borde); }
+.pie__legal-texto { font-size: var(--t-chica); color: var(--texto-suave); line-height: 1.6; }
+.pie__legal-texto strong { color: var(--texto); }
+/* créditos de fotos: plegados en un <details> cerrado por defecto (una sola línea; la lista solo al abrir) */
+.pie__creditos { font-size: var(--t-chica); color: var(--texto-tenue); line-height: 1.7; }
+.pie__creditos-resumen { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-height: 44px; padding: 4px 0; cursor: pointer; list-style: none; user-select: none; -webkit-user-select: none; color: var(--texto-tenue); transition: color var(--dur-rapida); }
+.pie__creditos-resumen::-webkit-details-marker { display: none; }
+.pie__creditos-resumen::marker { content: ''; }
+.pie__creditos-titulo { font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-tenue); transition: color var(--dur-rapida); }
+.pie__creditos-nota { flex: 1 1 auto; min-width: 0; }
+.pie__creditos-flecha { flex: 0 0 18px; width: 18px; height: 18px; margin-left: auto; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.4s var(--ease); }
+.pie__creditos[open] .pie__creditos-flecha { transform: rotate(180deg); }
+@media (hover: hover) {
+  .pie__creditos-resumen:hover, .pie__creditos-resumen:hover .pie__creditos-titulo { color: var(--texto-suave); }
+}
+.pie__creditos-lista { padding: 2px 0 6px; }
+.pie__creditos[open] .pie__creditos-lista { animation: pie-creditos-abre 0.45s var(--ease) both; }
+@keyframes pie-creditos-abre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.pie__creditos a { color: inherit; text-decoration: underline; text-decoration-color: rgba(107, 120, 158, 0.45); text-underline-offset: 3px; transition: color var(--dur-rapida); }
+.pie__creditos a:hover { color: var(--texto-suave); text-decoration-color: var(--cian); }
+.pie__sep { margin: 0 8px; opacity: 0.6; }
+
+/* botón "subir": flotante, aparece al bajar, anillo de progreso del scroll */
+.pie__subir { position: fixed; right: clamp(14px, 2vw, 28px); bottom: calc(clamp(14px, 2vw, 28px) + env(safe-area-inset-bottom, 0px)); width: 56px; height: 56px; z-index: 60; display: grid; place-items: center; border-radius: 50%; color: var(--cian-suave); background: rgba(5, 12, 31, 0.72); border: 1px solid var(--borde-fuerte); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 12px 30px rgba(2, 5, 15, 0.55); text-decoration: none; transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), box-shadow var(--dur-rapida), border-color var(--dur-rapida); }
+.js .pie__subir { opacity: 0; transform: translateY(18px) scale(0.9); pointer-events: none; }
+.js .pie__subir.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.pie__subir-anillo { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); transform: rotate(-90deg); }
+.pie__subir-anillo circle { fill: none; stroke-width: 2; }
+.pie__subir-fondo { stroke: rgba(255, 255, 255, 0.08); }
+.pie__subir-traza { stroke: var(--cian); stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.8)); }
+.pie__subir-flecha { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-rapida) var(--ease); }
+@media (hover: hover) {
+  .pie__subir:hover { border-color: rgba(126, 232, 245, 0.6); box-shadow: var(--brillo-cian); }
+  .pie__subir:hover .pie__subir-flecha { transform: translateY(-3px); }
+}
+/* en celular: más pequeño y solo mientras el usuario sube (contacto.js lo oculta al bajar y tras unos segundos quieto),
+   para que no tape los botones de WhatsApp de las tarjetas ni los créditos del pie */
+@media (max-width: 760px) {
+  .pie__subir { width: 44px; height: 44px; right: 14px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+  .pie__subir-flecha { width: 20px; height: 20px; }
+  .pie__legal { padding-right: 64px; }
+}
+
+@media (max-width: 900px) {
+  .pie__cuerpo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pie__intro, .pie__col--empresa { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .pie { padding-bottom: calc(var(--espacio-chico) + 64px + env(safe-area-inset-bottom, 0px)); }
+  .pie__cuerpo { gap: 1.5rem 1rem; }
+  .pie__col li { min-height: 38px; font-size: 1rem; }
+  .pie__legal { padding-right: 60px; }
+  .pie__creditos-resumen { gap: 2px 10px; }
+  .pie__creditos-nota { flex-basis: 100%; order: 3; }
+  .pie__sep { margin: 0 6px; }
+}
+
+/* el botón flotante de subir solo en pantallas sin barra completa (en escritorio tapaba tarjetas y el nombre del pie) */
+@media (min-width: 1024px) { .pie__subir { display: none; } }
+
+/* ---------- banner de la CRC: estático, 80 % del ancho, en la parte de arriba del pie (lo pide la CRC) ---------- */
+.pie__crc { position: relative; z-index: 2; display: flex; justify-content: center; padding: clamp(18px, 3vw, 28px) 0 0; }
+.pie__crc-enlace { display: block; width: 80%; border-radius: 10px; overflow: hidden; background: var(--blanco); line-height: 0; }
+.pie__crc-img { display: block; width: 100%; height: auto; min-height: 40px; color: #050c1f; font-size: 0.9375rem; line-height: 1.4; }
+.pie__crc-enlace:focus-visible { outline-offset: 4px; }

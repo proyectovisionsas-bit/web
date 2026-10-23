@@ -1,0 +1,43 @@
+/* ============================================================
+   Proyectovisión · portada.css — encabezado de las páginas internas (Hogar, Empresas e ISP,
+   Oficinas y pagos, Soporte). Foto de fondo atenuada, ruta (Inicio / Página), titular, acciones
+   y un índice "En esta página" con atajos a cada sección (en celular evita el largo desplazamiento).
+   Solo tokens de base.css.
+   ============================================================ */
+.portada { position: relative; overflow: hidden; isolation: isolate; background: var(--negro); padding-top: calc(var(--barra) + clamp(2.25rem, 6vw, 5rem)); padding-bottom: clamp(2.75rem, 6vw, 5rem); }
+.portada__fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.portada__foto { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; opacity: 0.42; }
+.portada--empresas .portada__foto { object-position: 50% 40%; opacity: 0.36; }
+.portada--soporte .portada__foto { object-position: 50% 20%; }
+.portada__fondo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(2, 5, 15, 0.96) 0%, rgba(2, 5, 15, 0.82) 42%, rgba(2, 5, 15, 0.4) 100%), linear-gradient(180deg, rgba(2, 5, 15, 0.35) 0%, rgba(2, 5, 15, 0) 40%, var(--negro) 100%); }
+.portada__aurora::before, .portada__aurora::after { opacity: 0.22; }
+.portada__rejilla { opacity: 0.6; -webkit-mask-image: linear-gradient(90deg, #000, transparent 70%); mask-image: linear-gradient(90deg, #000, transparent 70%); }
+.portada__contenido { position: relative; z-index: 1; display: grid; justify-items: start; gap: 18px; }
+.portada__migas { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: var(--t-chica); color: var(--texto-tenue); }
+.portada__migas a { color: var(--cian-suave); font-weight: 700; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center; }
+.portada__migas a:hover { color: var(--blanco); }
+.portada__titulo { font-size: clamp(2.5rem, 1.5rem + 4.4vw, 5rem); line-height: 1.02; letter-spacing: -0.03em; max-width: 15ch; }
+.portada__lead { max-width: 62ch; color: var(--texto); }
+.portada__acciones { display: flex; flex-wrap: wrap; gap: 12px 16px; margin-top: 6px; }
+.portada__ico { width: 22px; height: 22px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* datos breves (Empresas) */
+.portada__datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: min(100%, 820px); margin-top: 10px; }
+.portada__datos li { display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--radio-chico); border: 1px solid var(--borde); background: rgba(5, 12, 31, 0.6); }
+.portada__datos strong { font-family: var(--f-titulo); font-weight: 600; font-size: 1.125rem; color: var(--blanco); }
+.portada__datos span { font-size: var(--t-chica); line-height: 1.4; color: var(--texto-suave); }
+/* índice de la página */
+.portada__indice { display: grid; gap: 10px; margin-top: clamp(0.75rem, 2vw, 1.5rem); padding-top: 18px; border-top: 1px solid var(--borde); width: min(100%, 820px); }
+.portada__indice-rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-tenue); }
+.portada__indice-lista { display: flex; flex-wrap: wrap; gap: 8px; }
+.portada__ir { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--borde-fuerte); background: rgba(5, 12, 31, 0.6); color: var(--texto); font-weight: 600; font-size: 1rem; text-decoration: none; transition: border-color var(--dur-rapida), background-color var(--dur-rapida), color var(--dur-rapida); }
+.portada__ir::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 8px rgba(34, 211, 238, 0.7); }
+.portada__ir:hover, .portada__ir:focus-visible { border-color: rgba(126, 232, 245, 0.6); background: var(--vidrio-2); color: var(--blanco); }
+.portada__borde { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; }
+
+@media (max-width: 760px) {
+  .portada__foto { opacity: 0.3; object-position: 70% 50%; }
+  .portada__fondo::after { background: linear-gradient(180deg, rgba(2, 5, 15, 0.7) 0%, rgba(2, 5, 15, 0.82) 55%, var(--negro) 100%); }
+  .portada__acciones { width: 100%; }
+  .portada__acciones .boton { flex: 1 1 100%; }
+  .portada__datos { grid-template-columns: minmax(0, 1fr); }
+}

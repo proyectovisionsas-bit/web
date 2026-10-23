@@ -1,0 +1,216 @@
+/* ============================================================
+   Proyectovisión · nav.css — barra superior fija de vidrio y menú móvil.
+   Estados que pone app.js: .topbar.is-compacta, .topbar.is-oculta, html.menu-abierto.
+   Estados que pone nav.js: .topbar.is-lista (ya entró), .topbar--gsap (GSAP anima el panel), .topbar__panel.is-visible,
+   .topbar.is-sola (el botón naranja de la portada ya no está en pantalla: el de la barra se enciende).
+   Rendimiento: lo que se mueve cada cuadro (anillo del logo, pulso del borde, progreso) es solo transform, y se pausa con .is-oculta.
+   ============================================================ */
+
+.topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; --barra-h: var(--barra); --fondo-a: 0.5; }
+.topbar.is-compacta { --barra-h: 58px; --fondo-a: 0.86; }
+
+/* ---------- la barra ---------- */
+.topbar__barra { position: relative; z-index: 2; height: var(--barra-h); }
+.topbar.is-lista .topbar__barra { transition: height 0.45s var(--ease), transform 0.55s var(--ease), opacity 0.4s; }
+.topbar.is-oculta .topbar__barra { transform: translateY(-100%); opacity: 0; }
+html.menu-abierto .topbar .topbar__barra { transform: none; }
+
+.topbar__fondo { position: absolute; inset: 0; z-index: 0; background: rgba(5, 12, 31, var(--fondo-a)); background: color-mix(in srgb, var(--noche) calc(var(--fondo-a) * 100%), transparent); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); transition: background-color 0.45s, opacity 0.35s; }
+.topbar__fondo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 60%); pointer-events: none; }
+html.menu-abierto .topbar__fondo { opacity: 0; }
+
+/* borde inferior: línea tenue + progreso de lectura + pulso de luz que recorre la fibra */
+.topbar__borde { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; height: 8px; overflow: hidden; pointer-events: none; transition: opacity 0.35s; }
+.topbar__borde::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--borde); }
+.topbar__progreso { position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--grad-luz-h); box-shadow: 0 0 12px rgba(34, 211, 238, 0.8); transform-origin: 0 50%; transform: scaleX(0); will-change: transform; }
+.topbar__pulso { position: absolute; left: 0; bottom: 0; width: 220px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, var(--cian-suave) 50%, transparent); box-shadow: 0 0 10px rgba(126, 232, 245, 0.9), 0 0 24px rgba(34, 211, 238, 0.6); transform: translateX(-240px); animation: topbar-pulso 8s linear infinite; will-change: transform; }
+@keyframes topbar-pulso { 0% { transform: translateX(-240px); } 36%, 100% { transform: translateX(100vw); } }
+html.menu-abierto .topbar__borde { opacity: 0; }
+/* con la barra fuera de pantalla nada sigue girando ni corriendo */
+.topbar.is-oculta .topbar__anillo::before, .topbar.is-oculta .topbar__pulso { animation-play-state: paused; }
+
+.topbar__fila { position: relative; z-index: 2; display: flex; align-items: center; gap: 24px; height: 100%; }
+
+/* ---------- marca ---------- */
+.topbar__marca { position: relative; display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--blanco); text-decoration: none; flex: none; }
+.topbar__logo { position: relative; display: block; width: 58px; height: 36px; border-radius: 11px; flex: none; }
+/* anillo de luz que gira alrededor de la cápsula: la máscara en forma de anillo es fija y dentro gira (transform, capa compuesta,
+   sin repintar) un cuadrado mayor con el degradado cónico estático */
+.topbar__anillo { position: absolute; inset: -2px; border-radius: 13px; padding: 1.5px; overflow: hidden; opacity: 0.85; pointer-events: none; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.topbar__anillo::before { content: ''; position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; background: conic-gradient(from 0deg, transparent 0 55%, var(--cian) 80%, var(--azul-claro) 90%, transparent 100%); animation: topbar-gira 6s linear infinite; will-change: transform; }
+@keyframes topbar-gira { to { transform: rotate(360deg); } }
+.topbar__logo-clip { position: absolute; inset: 0; border-radius: inherit; background: var(--blanco); overflow: hidden; box-shadow: 0 0 0 1px rgba(126, 232, 245, 0.35), 0 0 18px rgba(34, 211, 238, 0.35); transition: box-shadow 0.4s, transform 0.4s var(--ease); }
+/* solo el emblema del logo, ya recortado (assets/gen/logo-emblema.png, 150×87, 22 KB en vez del PNG completo de 128 KB), con 4 px de aire */
+.topbar__logo-clip img { position: absolute; left: 4px; top: 4px; width: 50px; height: 29px; max-width: none; }
+.topbar__marca:hover .topbar__logo-clip { box-shadow: 0 0 0 1px rgba(126, 232, 245, 0.8), 0 0 30px rgba(34, 211, 238, 0.6); transform: translateY(-1px); }
+.topbar__nombre { font-family: var(--f-titulo); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.02em; line-height: 1; white-space: nowrap; transition: font-size 0.45s var(--ease); }
+.topbar.is-compacta .topbar__nombre { font-size: 1.2rem; }
+
+/* ---------- enlaces ---------- */
+.topbar__nav { position: relative; flex: 1; display: flex; justify-content: center; align-items: center; align-self: stretch; }
+.topbar__lista { position: relative; z-index: 1; display: flex; gap: 2px; }
+.topbar__enlace { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; font-weight: 500; font-size: 1rem; letter-spacing: 0.01em; color: var(--texto-suave); text-decoration: none; transition: color 0.3s; }
+.topbar__enlace:hover, .topbar__enlace.is-activo { color: var(--blanco); }
+/* punto cian bajo el enlace activo */
+.topbar__enlace::after { content: ''; position: absolute; left: 50%; bottom: 5px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 10px var(--cian), 0 0 22px rgba(34, 211, 238, 0.6); transform: scale(0); opacity: 0; transition: transform 0.4s var(--ease), opacity 0.3s; }
+.topbar__enlace.is-activo::after { transform: scale(1); opacity: 1; }
+/* cápsula de luz que sigue al puntero entre enlaces (la mueve nav.js) */
+.topbar__cursor { position: absolute; top: 50%; left: 0; width: 80px; height: 38px; margin-top: -19px; border-radius: 999px; background: var(--vidrio-2); border: 1px solid var(--borde); box-shadow: inset 0 0 18px rgba(34, 211, 238, 0.08); opacity: 0; pointer-events: none; }
+.topbar:not(.topbar--gsap) .topbar__cursor { transition: transform 0.4s var(--ease), width 0.4s var(--ease), opacity 0.3s; }
+
+/* ---------- botón de WhatsApp: una sola acción naranja por pantalla ----------
+   Mientras el botón naranja de la portada está a la vista, este va en versión fantasma (borde + icono);
+   cuando la portada sale, nav.js pone .topbar.is-sola y el botón se enciende (el degradado de fuego vive en ::before
+   y solo cambia su opacidad). Sin JS se queda en fantasma, que ya es un botón completo. */
+.topbar__cta { flex: none; min-height: 42px; padding: 0 20px 0 16px; gap: 8px; font-size: 1rem; color: var(--blanco); background: var(--vidrio); border: 1px solid var(--borde-fuerte); box-shadow: 0 0 0 rgba(240, 106, 10, 0); transition: min-height 0.45s var(--ease), transform var(--dur-rapida) var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s, background-color 0.45s; }
+.topbar__cta::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--grad-fuego); opacity: 0; transition: opacity 0.45s var(--ease); z-index: -1; }
+.topbar__cta svg, .topbar__panel-cta svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.topbar__cta:hover { transform: translateY(-2px); background: var(--vidrio-2); border-color: rgba(255, 140, 58, 0.55); box-shadow: 0 0 24px rgba(240, 106, 10, 0.22); }
+.topbar.is-sola .topbar__cta { border-color: rgba(255, 140, 58, 0.35); box-shadow: 0 0 24px rgba(240, 106, 10, 0.35); }
+.topbar.is-sola .topbar__cta::before { opacity: 1; }
+.topbar.is-sola .topbar__cta:hover { box-shadow: 0 0 40px rgba(240, 106, 10, 0.55); }
+.topbar.is-compacta .topbar__cta { min-height: 38px; }
+html.tactil .topbar__cta, html.tactil .topbar.is-compacta .topbar__cta { min-height: 44px; }
+
+/* ---------- botón del menú (tres líneas → X) ---------- */
+.topbar__menu { display: none; width: 44px; height: 44px; flex: none; align-items: center; justify-content: center; border-radius: 12px; background: var(--vidrio); border: 1px solid var(--borde); transition: background-color 0.3s, border-color 0.3s; }
+.topbar__menu:hover { background: var(--vidrio-2); border-color: var(--borde-fuerte); }
+.topbar__hamburguesa { position: relative; display: block; width: 22px; height: 14px; }
+.topbar__hamburguesa i { position: absolute; left: 0; width: 22px; height: 2px; border-radius: 2px; background: var(--blanco); transition: transform 0.45s var(--ease), opacity 0.3s, background-color 0.3s; }
+.topbar__hamburguesa i:nth-child(1) { top: 0; }
+.topbar__hamburguesa i:nth-child(2) { top: 6px; }
+.topbar__hamburguesa i:nth-child(3) { top: 12px; }
+html.menu-abierto .topbar__menu { border-color: rgba(34, 211, 238, 0.45); }
+html.menu-abierto .topbar__hamburguesa i { background: var(--cian-suave); }
+html.menu-abierto .topbar__hamburguesa i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+html.menu-abierto .topbar__hamburguesa i:nth-child(2) { transform: scaleX(0); opacity: 0; }
+html.menu-abierto .topbar__hamburguesa i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- panel a pantalla completa (celular y tableta) ---------- */
+.topbar__panel { position: fixed; inset: 0; z-index: 1; display: none; flex-direction: column; height: 100vh; height: 100dvh; padding: calc(var(--barra) + 16px) var(--margen) max(24px, env(safe-area-inset-bottom)); background: var(--negro); overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+html.menu-abierto .topbar__panel, .topbar__panel.is-visible { display: flex; }
+html.menu-abierto { overflow: hidden; }
+.topbar__panel .fondo-aurora { opacity: 0.9; }
+.topbar__hilo { position: absolute; top: 0; right: -8vw; width: 72vw; height: 100%; pointer-events: none; }
+.topbar__hilo path { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.topbar__hilo-base { stroke: url(#topbar-hilo-grad); stroke-width: 1.5; opacity: 0.55; stroke-dasharray: 1000; stroke-dashoffset: 0; }
+.topbar__hilo-pulso { stroke: var(--cian-suave); stroke-width: 2.5; stroke-dasharray: 60 1000; stroke-dashoffset: 1060; animation: topbar-hilo 4.5s cubic-bezier(0.45, 0, 0.3, 1) 0.8s infinite; }
+@keyframes topbar-hilo { to { stroke-dashoffset: 0; } }
+.topbar__hilo-stop1 { stop-color: var(--cian); }
+.topbar__hilo-stop2 { stop-color: var(--azul-claro); }
+.topbar__hilo-stop3 { stop-color: var(--violeta); }
+
+.topbar__panel-nav { position: relative; z-index: 1; display: flex; flex-direction: column; flex: 1; width: min(100%, 620px); }
+.topbar__panel-eyebrow { margin-bottom: clamp(14px, 3vh, 28px); }
+.topbar__panel-lista { display: grid; gap: 2px; }
+.topbar__panel-item { overflow: hidden; }
+.topbar__panel-enlace { display: flex; align-items: baseline; gap: 16px; min-height: 52px; padding: 4px 0 0.1em; color: var(--blanco); text-decoration: none; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(2.25rem, 10vw, 4.25rem); line-height: 1.05; letter-spacing: -0.03em; }
+.topbar__panel-num { font-family: var(--f-texto); font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.18em; color: var(--cian); min-width: 2.2em; transition: color 0.3s; }
+.topbar__panel-texto { transition: transform 0.4s var(--ease); }
+.topbar__panel-enlace:hover .topbar__panel-texto, .topbar__panel-enlace.is-activo .topbar__panel-texto { background: var(--grad-luz-h); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.topbar__panel-enlace:hover .topbar__panel-texto { transform: translateX(6px); }
+.topbar__panel-enlace.is-activo .topbar__panel-num { color: var(--cian-suave); text-shadow: 0 0 12px var(--cian); }
+
+.topbar__panel-pie { margin-top: auto; padding-top: clamp(20px, 4vh, 40px); display: grid; gap: 18px; }
+.topbar__panel-pie .linea-luz { margin-bottom: 4px; }
+.topbar__panel-cta { width: 100%; gap: 10px; transition: box-shadow var(--dur-rapida); }
+.topbar__panel-nota { color: var(--texto-suave); font-size: var(--t-chica); line-height: 1.5; max-width: 46ch; }
+.topbar__panel-tel { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 1rem; }
+.topbar__panel-tel a { display: inline-flex; align-items: center; min-height: 44px; color: var(--texto); font-weight: 700; text-decoration: none; font-variant-numeric: tabular-nums; transition: color 0.3s; }
+.topbar__panel-tel a:hover { color: var(--cian-suave); }
+.topbar__panel-tel .punto { width: 6px; height: 6px; }
+
+/* entrada del panel sin GSAP (con GSAP, nav.js añade .topbar--gsap y la anima él) */
+html.menu-abierto .topbar:not(.topbar--gsap) .topbar__panel { animation: topbar-aparece 0.5s var(--ease) both; }
+html.menu-abierto .topbar:not(.topbar--gsap) .topbar__panel-enlace { animation: topbar-sube 0.8s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms + 120ms); }
+html.menu-abierto .topbar:not(.topbar--gsap) .topbar__panel-pie { animation: topbar-aparece 0.6s var(--ease) 0.5s both; }
+@keyframes topbar-aparece { from { opacity: 0; } }
+@keyframes topbar-sube { from { transform: translateY(110%); opacity: 0; } }
+
+/* ---------- tamaños ----------
+   La barra con todos los enlaces necesita unos 1180 px; el corte va en em para que, con la letra agrandada o con zoom,
+   el menú pase antes al botón de tres líneas en vez de montarse. */
+@media (max-width: 74em) {
+  .topbar__fila { gap: 10px; }
+  .topbar__nav { display: none; }
+  .topbar__menu { display: inline-flex; }
+  .topbar__cta { margin-left: auto; }
+}
+@media (max-width: 560px) {
+  .topbar__cta { width: 44px; min-height: 44px; padding: 0; border-radius: 50%; transition: opacity 0.35s, transform 0.5s var(--ease), visibility 0s linear 0.35s, box-shadow 0.45s var(--ease), border-color 0.45s, background-color 0.45s; }
+  .topbar.is-compacta .topbar__cta { min-height: 44px; }
+  /* con JS, el círculo naranja entra (escala + opacidad) solo cuando la portada ya no está en pantalla; conserva su sitio para que nada salte */
+  html.js .topbar:not(.is-sola) .topbar__cta { opacity: 0; visibility: hidden; transform: scale(0.5); pointer-events: none; }
+  .topbar.is-sola .topbar__cta { transition-delay: 0s; }
+  .topbar__cta-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .topbar__nombre { font-size: 1.125rem; }
+  .topbar.is-compacta .topbar__nombre { font-size: 1.0625rem; }
+  .topbar__marca { gap: 10px; }
+}
+@media (max-width: 360px) {
+  .topbar__nombre { font-size: 1rem; }
+}
+
+/* ---------- sin JavaScript: barra normal con todos los enlaces a la vista ----------
+   En escritorio es pegajosa (72 px; los saltos a #ancla dejan sitio gracias al scroll-margin-top de base.css).
+   En pantallas chicas se queda arriba y se va con la página (no tapa títulos), con los enlaces en una sola fila más chica. */
+html:not(.js) .topbar { position: sticky; }
+html:not(.js) .topbar__barra { height: auto; min-height: var(--barra); }
+html:not(.js) .topbar__fila { flex-wrap: wrap; padding-block: 10px; }
+html:not(.js) .topbar__nav { display: flex; }
+html:not(.js) .topbar__lista { flex-wrap: wrap; justify-content: center; }
+html:not(.js) .topbar__menu, html:not(.js) .topbar__cursor, html:not(.js) .topbar__panel { display: none; }
+@media (max-width: 1100px) {
+  html:not(.js) .topbar__lista { gap: 0; }
+  html:not(.js) .topbar__enlace { padding: 0 10px; font-size: var(--t-chica); }
+}
+@media (max-width: 900px) {
+  html:not(.js) .topbar { position: static; }
+  html:not(.js) .topbar__fila { padding-block: 8px 2px; }
+  html:not(.js) .topbar__nav { flex: 1 1 100%; order: 3; justify-content: center; }
+  html:not(.js) .topbar__lista { gap: 0 12px; width: 100%; }
+  html:not(.js) .topbar__enlace { padding: 0; font-size: var(--t-chica); letter-spacing: 0; }
+}
+@media (max-width: 400px) {
+  html:not(.js) .topbar__lista { gap: 0 10px; }
+}
+
+/* ---------- movimiento reducido ---------- */
+html.calmo .topbar__pulso, html.calmo .topbar__anillo::before, html.calmo .topbar__hilo-pulso { animation: none; }
+html.calmo .topbar__hilo-pulso { stroke-dashoffset: 0; opacity: 0.6; }
+
+/* ---------- enlaces que exige la norma: "Información importante para usuarios" y PQR ---------- */
+.topbar__lista { gap: 0; align-items: center; }
+.topbar__enlace { padding: 0 12px; }
+.topbar__enlace--usuarios { margin-left: 8px; min-height: 40px; padding: 5px 16px; max-width: 14.5em; border-radius: 999px; border: 1px solid rgba(255, 140, 58, 0.55); background: rgba(240, 106, 10, 0.12); color: var(--blanco); font-weight: 700; font-size: 0.9375rem; line-height: 1.15; text-align: center; }
+.topbar__enlace--usuarios:hover { border-color: var(--naranja-claro); background: rgba(240, 106, 10, 0.22); }
+.topbar__enlace--usuarios::after { display: none; }
+.topbar__panel-extra { display: grid; gap: 2px; margin-top: clamp(14px, 3vh, 24px); }
+.topbar__panel-usuarios { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: 1.0625rem; color: var(--cian-suave); text-decoration: underline; text-underline-offset: 4px; }
+.topbar__panel-usuarios:hover { color: var(--blanco); }
+
+/* ---------- ventana "¿En qué municipio estás?" (nav.js) ---------- */
+.elegir { width: min(100% - 32px, 460px); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--borde-fuerte); border-radius: var(--radio); background: var(--noche-2); color: var(--texto); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), var(--brillo-cian); overflow: auto; }
+.elegir::backdrop { background: rgba(2, 5, 15, 0.75); }
+.elegir[open] { animation: elegir-entra 0.35s var(--ease) both; }
+@keyframes elegir-entra { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+.elegir__caja { position: relative; padding: 26px 20px 20px; }
+.elegir__cerrar { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--vidrio); border: 1px solid var(--borde); color: var(--blanco); }
+.elegir__cerrar:hover { border-color: var(--borde-fuerte); background: var(--vidrio-2); }
+.elegir__cerrar svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.elegir__titulo { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem); margin-top: 10px; padding-right: 44px; }
+.elegir__texto { margin-top: 6px; color: var(--texto-suave); }
+.elegir__lista { display: grid; gap: 10px; margin-top: 18px; }
+.elegir__op { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; min-height: 60px; padding: 12px 16px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--borde); color: var(--blanco); text-decoration: none; transition: border-color 0.25s, background-color 0.25s; }
+.elegir__op:hover, .elegir__op:focus-visible { border-color: rgba(255, 140, 58, 0.65); background: rgba(240, 106, 10, 0.12); }
+.elegir__muni { flex: 1 1 auto; font-weight: 700; font-size: 1.125rem; }
+.elegir__num { color: var(--texto-suave); font-weight: 600; }
+.elegir__op svg { width: 22px; height: 22px; flex: none; stroke: var(--naranja-claro); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.elegir__der { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+
+/* página actual: ensamblar.mjs marca su enlace del menú con .is-pagina y aria-current="page" */
+.topbar__enlace.is-pagina { color: var(--blanco); }
+.topbar__enlace.is-pagina::after { transform: scale(1); opacity: 1; }
+.topbar__enlace--usuarios.is-pagina { border-color: var(--naranja-claro); background: rgba(240, 106, 10, 0.22); }
+.topbar__panel-enlace.is-pagina .topbar__panel-texto { background: var(--grad-luz-h); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.topbar__panel-enlace.is-pagina .topbar__panel-num { color: var(--cian-suave); text-shadow: 0 0 12px var(--cian); }

@@ -1,0 +1,213 @@
+/* ============================================================
+   Proyectovisión · base.css — tokens, reset, utilidades y motivos compartidos.
+   Todas las secciones usan SOLO estas variables; nada de colores sueltos.
+   ============================================================ */
+:root {
+  /* fondos */
+  --negro: #02050f;
+  --noche: #050c1f;
+  --noche-2: #0a1530;
+  --noche-3: #101f45;
+  /* marca */
+  --azul: #1a2ee6;
+  --azul-claro: #4f6bff;
+  --cian: #22d3ee;
+  --cian-suave: #7ee8f5;
+  --violeta: #7c3aed;
+  --naranja: #f06a0a;
+  --naranja-claro: #ff8c3a;
+  /* texto */
+  --blanco: #ffffff;
+  --texto: #e8edff;
+  --texto-suave: #c3cbe4;   /* antes #a7b2d1: se leía poco sobre el azul noche */
+  --texto-tenue: #98a4c6;   /* antes #6b789e: contraste bajo (4,2:1); ahora ≥ 7:1 */
+  /* superficies */
+  --borde: rgba(255, 255, 255, 0.08);
+  --borde-fuerte: rgba(255, 255, 255, 0.16);
+  --vidrio: rgba(255, 255, 255, 0.04);
+  --vidrio-2: rgba(255, 255, 255, 0.07);
+  /* luz */
+  --grad-luz: linear-gradient(135deg, var(--cian) 0%, var(--azul) 55%, var(--violeta) 100%);
+  --grad-luz-h: linear-gradient(90deg, var(--cian), var(--azul-claro));
+  --grad-fuego: linear-gradient(135deg, var(--naranja-claro), var(--naranja));
+  --grad-fondo: radial-gradient(1200px 700px at 70% -10%, rgba(26, 46, 230, 0.35), transparent 60%), radial-gradient(900px 600px at 10% 110%, rgba(34, 211, 238, 0.18), transparent 60%);
+  --brillo-cian: 0 0 40px rgba(34, 211, 238, 0.35), 0 0 120px rgba(26, 46, 230, 0.25);
+  --brillo-azul: 0 0 60px rgba(79, 107, 255, 0.45);
+  --brillo-naranja: 0 0 40px rgba(240, 106, 10, 0.4);
+  /* tipografía */
+  --f-titulo: 'Clash Display', 'Cabinet Grotesk', system-ui, -apple-system, sans-serif;
+  --f-texto: 'Satoshi', system-ui, -apple-system, sans-serif;
+  --t-base: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);   /* 17–19 px: antes 16–18 */
+  --t-chica: 0.9375rem;   /* 15 px: antes 14 */
+  --t-eyebrow: 0.875rem;  /* 14 px: antes 13 */
+  --t-h1: clamp(2.75rem, 1.4rem + 6.2vw, 7rem);
+  --t-h2: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
+  --t-h3: clamp(1.375rem, 1rem + 1.2vw, 2rem);
+  --t-lead: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --t-cifra: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  /* medidas */
+  --ancho: 1280px;
+  --margen: clamp(1rem, 4vw, 3rem);
+  --espacio: clamp(4rem, 7vw, 6.5rem);
+  --espacio-chico: clamp(2.5rem, 5vw, 4.5rem);
+  --radio: 20px;
+  --radio-chico: 12px;
+  --barra: 72px;
+  /* movimiento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-suave: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 0.8s;
+  --dur-rapida: 0.3s;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+body { margin: 0; background: var(--noche); color: var(--texto); font-family: var(--f-texto); font-size: var(--t-base); line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: clip; overflow-wrap: break-word; }
+/* con la letra agrandada (ajustes del celular) o con zoom, el texto parte la línea en vez de salirse de la pantalla */
+p, li, dd, dt, td, th, h1, h2, h3, h4, a, span, label, summary, figcaption { overflow-wrap: break-word; }
+a[href^="mailto:"] { overflow-wrap: anywhere; }
+img, video, svg, canvas, picture { display: block; max-width: 100%; }
+img { height: auto; }
+h1, h2, h3, h4 { font-family: var(--f-titulo); font-weight: 600; line-height: 1.02; letter-spacing: -0.02em; margin: 0; color: var(--blanco); text-wrap: balance; }
+h1 { font-size: var(--t-h1); letter-spacing: -0.03em; }
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); }
+p { margin: 0; }
+p + p { margin-top: 1em; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+strong, b { font-weight: 700; }
+::selection { background: var(--azul); color: var(--blanco); }
+/* listas desplegables nativas: la lista de opciones la pinta el sistema (en Windows, fondo blanco);
+   sin esto heredaría la letra blanca del sitio y los nombres no se verían */
+select { color-scheme: dark; }
+select option, select optgroup { background-color: #0b1430; color: #e8edff; }
+:focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; border-radius: 4px; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--negro); }
+::-webkit-scrollbar-thumb { background: var(--noche-3); border-radius: 10px; border: 2px solid var(--negro); }
+
+/* ---------- utilidades de composición ---------- */
+.contenedor { width: min(100% - 2 * var(--margen), var(--ancho)); margin-inline: auto; }
+.contenedor--ancho { width: min(100% - 2 * var(--margen), 1520px); margin-inline: auto; }
+.seccion { position: relative; padding-block: var(--espacio); }
+.seccion--chica { padding-block: var(--espacio-chico); }
+/* sección que sigue a otra de fondo distinto: entra más pegada y marca el cambio con un .umbral */
+.seccion--pegada { padding-top: var(--espacio-chico); }
+/* los saltos a #ancla (con y sin JS) dejan sitio para la barra fija: nada queda escondido debajo */
+.seccion, [id] { scroll-margin-top: calc(var(--barra) + 16px); }
+.saltar { position: absolute; left: -999px; top: 8px; z-index: 100; padding: 8px 14px; background: var(--azul); color: var(--blanco); border-radius: 8px; }
+.saltar:focus { left: 8px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.solo-movil { display: none; }
+@media (max-width: 760px) { .solo-escritorio { display: none !important; } .solo-movil { display: block; } }
+
+/* ---------- tipografía de secciones ---------- */
+.eyebrow { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; max-width: 100%; font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cian); }
+.eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--grad-luz-h); border-radius: 2px; box-shadow: 0 0 12px rgba(34, 211, 238, 0.8); }
+.eyebrow--naranja { color: var(--naranja-claro); }
+.eyebrow--naranja::before { background: var(--grad-fuego); box-shadow: 0 0 12px rgba(240, 106, 10, 0.8); }
+.titulo { margin-top: 18px; }
+.lead { font-size: var(--t-lead); line-height: 1.5; color: var(--texto-suave); max-width: 58ch; }
+.lead--corto { max-width: 44ch; }
+.cabecera { display: grid; gap: 20px; max-width: 820px; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.cabecera--centro { text-align: center; margin-inline: auto; justify-items: center; }
+.grad-texto { background: var(--grad-luz); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad-texto--fuego { background: var(--grad-fuego); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cifra { font-family: var(--f-titulo); font-size: var(--t-cifra); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--blanco); font-variant-numeric: tabular-nums; }
+.nums { font-variant-numeric: tabular-nums; }
+
+/* ---------- botones ---------- */
+.boton { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; max-width: 100%; padding: 8px 28px; border-radius: 999px; font-weight: 700; font-size: 1.0625rem; line-height: 1.25; text-align: center; text-decoration: none; white-space: normal; cursor: pointer; isolation: isolate; transition: transform var(--dur-rapida) var(--ease), box-shadow var(--dur-rapida) var(--ease), background-color var(--dur-rapida), color var(--dur-rapida), border-color var(--dur-rapida); }
+.boton:active { transform: scale(0.97); }
+.boton--primario { color: var(--blanco); background: var(--azul); box-shadow: 0 0 0 1px rgba(79, 107, 255, 0.4), var(--brillo-azul); }
+.boton--primario::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--grad-luz-h); opacity: 0; transition: opacity var(--dur-rapida); z-index: -1; }
+.boton--primario:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(126, 232, 245, 0.5), var(--brillo-cian); }
+.boton--primario:hover::before { opacity: 1; }
+.boton--fuego { color: var(--blanco); background: var(--grad-fuego); box-shadow: var(--brillo-naranja); }
+.boton--fuego:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(240, 106, 10, 0.6); }
+.boton--fantasma { color: var(--blanco); background: rgba(5, 12, 31, 0.55); border: 1px solid var(--borde-fuerte); } /* sin backdrop-filter: fondo semiopaco, mucho más barato al desplazar */
+.boton--fantasma:hover { background: var(--vidrio-2); border-color: rgba(126, 232, 245, 0.6); box-shadow: 0 0 30px rgba(34, 211, 238, 0.2); transform: translateY(-2px); }
+.boton--texto { color: var(--cian); padding: 0; min-height: 44px; }
+.boton--texto:hover { color: var(--cian-suave); }
+.boton__flecha { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-rapida) var(--ease); }
+.boton:hover .boton__flecha { transform: translateX(4px); }
+.boton--grande { min-height: 60px; padding: 10px 36px; font-size: 1.125rem; }
+
+/* ---------- superficies ---------- */
+.vidrio { background: var(--vidrio); border: 1px solid var(--borde); border-radius: var(--radio); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.tarjeta { position: relative; background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)); border: 1px solid var(--borde); border-radius: var(--radio); padding: clamp(1.5rem, 3vw, 2.25rem); overflow: hidden; transition: transform var(--dur-rapida) var(--ease), border-color var(--dur-rapida); }
+/* borde luminoso que sigue al puntero: app.js pone --mx / --my (en px) en las .tarjeta-luz */
+.tarjeta-luz::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(126, 232, 245, 0.9), rgba(26, 46, 230, 0.4) 35%, transparent 65%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+.tarjeta-luz::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgba(34, 211, 238, 0.12), transparent 55%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+.tarjeta-luz:hover::before, .tarjeta-luz:hover::after, .tarjeta-luz.is-activa::before, .tarjeta-luz.is-activa::after { opacity: 1; }
+.tarjeta-luz:hover { transform: translateY(-4px); border-color: var(--borde-fuerte); }
+.tarjeta > * { position: relative; z-index: 1; }
+.linea-luz { height: 1px; background: linear-gradient(90deg, transparent, rgba(126, 232, 245, 0.7), transparent); }
+.icono { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); box-shadow: inset 0 0 24px rgba(34, 211, 238, 0.12); }
+.icono svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.etiqueta { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; max-width: 100%; padding: 6px 12px; border-radius: 999px; font-size: var(--t-chica); font-weight: 700; background: rgba(34, 211, 238, 0.1); color: var(--cian-suave); border: 1px solid rgba(34, 211, 238, 0.25); }
+.etiqueta--naranja { background: rgba(240, 106, 10, 0.14); color: var(--naranja-claro); border-color: rgba(240, 106, 10, 0.35); }
+.punto { width: 8px; height: 8px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 12px var(--cian); }
+.punto--late { animation: late 1.8s ease-in-out infinite; }
+@keyframes late { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.55; } }
+
+/* ---------- fondos ---------- */
+.fondo-aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+/* sin filter: blur (carísimo en celular: dos texturas de ~1000 px desenfocadas en cada cuadro); la suavidad va en las paradas del degradado, como en el hero */
+.fondo-aurora::before, .fondo-aurora::after { content: ''; position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; opacity: 0.35; will-change: transform; }
+.fondo-aurora::before { background: radial-gradient(circle, rgba(26, 46, 230, 0.85), rgba(26, 46, 230, 0.3) 32%, transparent 66%); top: -20vmax; right: -10vmax; animation: aurora-a 18s ease-in-out infinite alternate; }
+.fondo-aurora::after { background: radial-gradient(circle, rgba(34, 211, 238, 0.7), rgba(34, 211, 238, 0.22) 32%, transparent 66%); bottom: -25vmax; left: -15vmax; animation: aurora-b 22s ease-in-out infinite alternate; }
+@keyframes aurora-a { to { transform: translate(-12vmax, 10vmax) scale(1.15); } }
+@keyframes aurora-b { to { transform: translate(14vmax, -8vmax) scale(0.9); } }
+/* fuera de pantalla, en pausa (app.js pone .is-quieta con un IntersectionObserver) */
+.js .fondo-aurora.is-quieta::before, .js .fondo-aurora.is-quieta::after { animation-play-state: paused; }
+.rejilla { position: absolute; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(126, 232, 245, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(126, 232, 245, 0.06) 1px, transparent 1px); background-size: 64px 64px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 75%); mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 75%); }
+.seccion > .contenedor, .seccion > .contenedor--ancho { position: relative; z-index: 1; }
+.borde-superior { border-top: 1px solid var(--borde); }
+/* bucles decorativos solo con su sección en pantalla: app.js pone .is-en-pantalla en cada .seccion visible (puntos que laten, auroras) */
+.js .seccion:not(.is-en-pantalla) .punto--late,
+.js .seccion:not(.is-en-pantalla) .fondo-aurora::before,
+.js .seccion:not(.is-en-pantalla) .fondo-aurora::after { animation-play-state: paused; }
+
+/* ---------- umbral: el cambio de plano entre dos secciones ----------
+   <div class="umbral" aria-hidden="true"></div> al principio de una sección (tras sus fondos).
+   El fondo de la sección anterior (--umbral-de, definido en la sección) se funde hacia abajo,
+   una línea de luz marca el borde y, al entrar en pantalla (app.js añade .is-in), un pulso la recorre:
+   la señal pasa de una sección a la siguiente. */
+.umbral { position: absolute; left: 0; right: 0; top: 0; height: clamp(5rem, 11vw, 9rem); z-index: 0; pointer-events: none; overflow: hidden; background: linear-gradient(180deg, var(--umbral-de, transparent) 0%, transparent 100%); }
+.umbral::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(126, 232, 245, 0.55) 18%, rgba(126, 232, 245, 0.75) 50%, rgba(126, 232, 245, 0.55) 82%, transparent 100%); box-shadow: 0 0 22px 1px rgba(34, 211, 238, 0.4), 0 0 60px 6px rgba(26, 46, 230, 0.22); }
+.umbral::after { content: ''; position: absolute; left: -220px; top: -1px; width: 220px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, transparent, rgba(126, 232, 245, 0.8) 55%, var(--blanco)); box-shadow: 0 0 14px 3px rgba(126, 232, 245, 0.75), 0 0 36px 8px rgba(34, 211, 238, 0.35); opacity: 0; will-change: transform; }
+.umbral.is-in::after { animation: umbral-pulso 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards; }
+@keyframes umbral-pulso { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(calc(100vw + 440px)); opacity: 0; } }
+.calmo .umbral::after { display: none; }
+
+/* ---------- revelados (app.js añade .is-in al entrar en pantalla). Sin will-change: la transición promueve la capa sola mientras corre y la suelta al terminar; con 80+ piezas, dejarlo fijo costaba memoria de GPU en celular ---------- */
+.js [data-reveal] { opacity: 0; transform: translateY(32px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); transition-delay: var(--retardo, 0ms); }
+.js [data-reveal="izq"] { transform: translateX(-40px); }
+.js [data-reveal="der"] { transform: translateX(40px); }
+.js [data-reveal="zoom"] { transform: scale(0.92); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+.js.calmo [data-reveal] { opacity: 1; transform: none; transition: none; }
+/* rescate que no depende del JS: si app.js no toma el mando (html.lista) en 2,2 s, el propio CSS muestra los revelados con un
+   fundido; con JS a tiempo la regla desaparece antes de dispararse. Si llegó tarde, app.js marca .is-in lo que ya está en pantalla */
+.js:not(.lista) [data-reveal] { animation: reveal-rescate 0.6s var(--ease) 2.2s forwards; }
+@keyframes reveal-rescate { to { opacity: 1; transform: none; } }
+
+/* ---------- halo del cursor (solo escritorio con puntero fino) ---------- */
+.halo { position: fixed; top: 0; left: 0; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; border: 1.5px solid rgba(126, 232, 245, 0.8); box-shadow: 0 0 18px rgba(34, 211, 238, 0.5); pointer-events: none; z-index: 9999; opacity: 0; transition: width 0.3s var(--ease), height 0.3s var(--ease), margin 0.3s var(--ease), opacity 0.3s, background-color 0.3s; mix-blend-mode: screen; }
+.halo.is-visible { opacity: 1; }
+.halo.is-grande { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(34, 211, 238, 0.12); }
+@media (hover: none), (pointer: coarse) { .halo { display: none; } }
+
+/* ---------- movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .halo { display: none; }
+}

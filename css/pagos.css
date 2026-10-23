@@ -1,0 +1,48 @@
+/* ============================================================
+   Proyectovisión · pagos.css — sección "Paga tu factura" (#pagos).
+   Tres medios (transferencia, efectivo, Efecty), qué hacer después de pagar y el aviso contra fraudes.
+   ============================================================ */
+.pagos { background: var(--noche-2); --umbral-de: var(--noche); /* página Oficinas: viene de oficinas (noche) */ overflow: hidden; }
+.pagos__cabecera { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.pagos__medios { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 18px; }
+.pagos__medio { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
+.pagos__icono { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); }
+.pagos__icono svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pagos__donde { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
+.pagos__nombre { font-size: clamp(1.625rem, 1.3rem + 1vw, 2.125rem); }
+.pagos__cuenta { display: grid; gap: 8px; width: 100%; margin: 4px 0 0; }
+.pagos__cuenta div { display: grid; gap: 1px; padding-bottom: 8px; border-bottom: 1px solid var(--borde); }
+.pagos__cuenta dt { font-size: var(--t-chica); color: var(--texto-suave); }
+.pagos__cuenta dd { margin: 0; font-weight: 700; color: var(--blanco); font-size: 1.0625rem; }
+.pagos__numero { font-family: var(--f-titulo); font-size: clamp(1.25rem, 1.05rem + 1vw, 1.875rem) !important; letter-spacing: 0.01em; }
+.pagos__copiar { margin-top: 6px; min-height: 46px; font-size: 1rem; }
+.pagos__oficinas { display: grid; gap: 10px; width: 100%; margin-top: 4px; }
+.pagos__oficinas li { display: grid; gap: 1px; padding-bottom: 10px; border-bottom: 1px solid var(--borde); }
+.pagos__oficinas strong { color: var(--blanco); }
+.pagos__oficinas span { color: var(--texto-suave); font-size: 1rem; }
+.pagos__nota { color: var(--texto-suave); font-size: 1rem; }
+
+.pagos__despues { margin-top: clamp(2rem, 4vw, 3rem); padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
+.pagos__despues-titulo { font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem); }
+.pagos__pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 16px 24px; margin-top: 18px; }
+.pagos__pasos li { display: flex; align-items: flex-start; gap: 12px; }
+.pagos__pasos p { color: var(--texto); line-height: 1.5; }
+.pagos__paso-num { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--grad-luz); color: var(--blanco); font-weight: 700; }
+.pagos__wa { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.pagos__chip { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; min-height: 48px; padding: 8px 16px; border-radius: 999px; background: rgba(5, 12, 31, 0.6); border: 1px solid var(--borde-fuerte); color: var(--blanco); font-weight: 700; text-decoration: none; transition: border-color 0.25s, background-color 0.25s; }
+.pagos__chip:hover { border-color: rgba(255, 140, 58, 0.65); background: rgba(240, 106, 10, 0.12); }
+.pagos__chip .nums { color: var(--texto-suave); font-weight: 600; }
+.pagos__chip svg { width: 20px; height: 20px; flex: none; stroke: var(--naranja-claro); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.pagos__alerta { display: flex; align-items: flex-start; gap: 14px; margin-top: 20px; padding: clamp(1rem, 2.4vw, 1.5rem); border-radius: var(--radio); background: rgba(240, 106, 10, 0.1); border: 1px solid rgba(255, 140, 58, 0.5); }
+.pagos__alerta p { min-width: 0; color: var(--texto); line-height: 1.55; }
+.pagos__alerta strong { color: var(--naranja-claro); }
+.pagos__alerta-icono { flex: none; width: 30px; height: 30px; color: var(--naranja-claro); }
+.pagos__alerta-icono svg { width: 30px; height: 30px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* código QR de la cuenta (assets/pagos/qr-cuenta.png): fondo blanco y buen tamaño para que el celular lo lea */
+.pagos__qr { display: grid; justify-items: center; gap: 8px; margin: 16px 0 4px; }
+.pagos__qr img { width: min(100%, 240px); height: auto; border-radius: 14px; box-shadow: 0 0 0 1px rgba(126, 232, 245, 0.35), 0 12px 30px rgba(2, 5, 15, 0.5); }
+.pagos__qr figcaption { max-width: 30ch; font-size: var(--t-chica); line-height: 1.45; color: var(--texto-suave); text-align: center; }
+.pagos__qr figcaption strong { display: block; color: var(--blanco); }
+.pagos__qr-bajar { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-underline-offset: 3px; }

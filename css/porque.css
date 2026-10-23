@@ -1,0 +1,80 @@
+/* ============================================================
+   Proyectovisión · porque.css — sección "Tecnologías" (página Hogar)
+   Fondo --noche-2 con rejilla; foto de fibra en marco de luz (parallax,
+   escáner y pulsos sobre .linea-luz); cuatro tarjetas luz con iconos que
+   se dibujan; tres formas de conexión (fibra al hogar, radioenlace, dedicado).
+   will-change solo en lo que se mueve cada cuadro (escáner, pulsos, destellos);
+   la foto con parallax no lo lleva: GSAP promueve la capa solo mientras la mueve.
+   ============================================================ */
+.porque { background: var(--noche-2); overflow: hidden; isolation: isolate; }
+.porque__resplandor { position: absolute; z-index: 0; width: 70vmax; height: 70vmax; left: -30vmax; top: 4%; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, rgba(26, 46, 230, 0.26), transparent); }
+.porque__resplandor--der { left: auto; right: -34vmax; top: auto; bottom: -24vmax; background: radial-gradient(closest-side, rgba(34, 211, 238, 0.1), transparent); }
+
+/* ---------- cabecera: titular a la izquierda, intro a la derecha ---------- */
+.porque__cabecera { display: grid; gap: 1.25rem clamp(2rem, 4vw, 4.5rem); margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.porque__titulo { max-width: 15ch; }
+.porque__intro { max-width: 44ch; }
+@media (min-width: 960px) {
+  .porque__cabecera { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+  .porque__intro { justify-self: end; padding-bottom: 0.35em; }
+}
+
+/* ---------- cuerpo: marco de luz + tarjetas 2×2 ---------- */
+.porque__cuerpo { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
+@media (min-width: 960px) {
+  .porque__cuerpo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: stretch; }
+}
+
+.porque__marco { position: relative; margin: 0; border-radius: var(--radio); overflow: hidden; border: 1px solid var(--borde-fuerte); background: var(--negro); aspect-ratio: 4 / 3; min-height: 260px; isolation: isolate; box-shadow: 0 30px 80px rgba(2, 5, 15, 0.6), var(--brillo-cian); }
+@media (min-width: 960px) {
+  .porque__marco { aspect-ratio: auto; min-height: 520px; }
+}
+.porque__img { position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover; }
+.porque__velo { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(5, 12, 31, 0.42) 0%, rgba(5, 12, 31, 0.04) 26%, rgba(5, 12, 31, 0.08) 52%, rgba(5, 12, 31, 0.9) 100%); }
+/* línea de luz que recorre la foto de arriba abajo (GSAP mueve yPercent) */
+.porque__escaner { position: absolute; left: 0; top: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; opacity: 0.85; will-change: transform; background: linear-gradient(180deg, rgba(126, 232, 245, 0.95) 0, rgba(126, 232, 245, 0.95) 2px, rgba(34, 211, 238, 0.3) 3px, rgba(34, 211, 238, 0) 14%); }
+/* bordes de luz del marco con un pulso que viaja */
+.porque__linea { position: absolute; left: 0; right: 0; z-index: 3; }
+.porque__linea--arriba { top: 0; }
+.porque__linea--abajo { bottom: 0; }
+.porque__pulso { position: absolute; left: 0; top: -1px; display: block; width: 22%; height: 3px; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--cian) 45%, var(--blanco) 72%, transparent); box-shadow: 0 0 14px 2px rgba(34, 211, 238, 0.55); transform: translateX(-100%); will-change: transform; }
+.porque__chip { position: absolute; left: clamp(14px, 3vw, 24px); bottom: clamp(14px, 3vw, 24px); z-index: 4; max-width: calc(100% - 2 * clamp(14px, 3vw, 24px)); line-height: 1.3; background: rgba(5, 12, 31, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.porque__chip .punto { flex: none; }
+
+/* tarjetas */
+.porque__tarjetas { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+@media (min-width: 640px) {
+  .porque__tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.porque__tarjeta { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.porque__tarjeta .porque__num { position: absolute; top: 12px; right: 18px; z-index: 0; font-family: var(--f-titulo); font-weight: 700; font-size: clamp(2.75rem, 2.2rem + 1.6vw, 3.75rem); line-height: 1; letter-spacing: -0.04em; color: var(--blanco); opacity: 0.06; pointer-events: none; user-select: none; }
+.porque__tarjeta h3 { font-size: clamp(1.3rem, 1.05rem + 0.8vw, 1.7rem); letter-spacing: -0.015em; }
+.porque__tarjeta p { color: var(--texto-suave); font-size: 1rem; line-height: 1.6; }
+.porque__tarjeta .icono { transition: box-shadow var(--dur-rapida) var(--ease), border-color var(--dur-rapida), transform var(--dur-rapida) var(--ease); }
+.porque__tarjeta:hover .icono { border-color: rgba(126, 232, 245, 0.6); box-shadow: inset 0 0 24px rgba(34, 211, 238, 0.22), 0 0 28px rgba(34, 211, 238, 0.35); transform: translateY(-2px); }
+
+/* ---------- formas de conexión: fibra al hogar, radioenlace e internet dedicado ---------- */
+.porque__tec { margin-top: clamp(3rem, 6vw, 5.5rem); padding-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--borde); }
+.porque__tec-cab { display: grid; gap: 12px clamp(2rem, 4vw, 4rem); margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+@media (min-width: 960px) {
+  .porque__tec-cab { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; }
+  .porque__tec-nota { justify-self: end; }
+}
+.porque__tec-titulo { font-size: var(--t-h3); max-width: 22ch; }
+.porque__tec-nota { color: var(--texto-suave); font-size: 1rem; line-height: 1.55; max-width: 50ch; }
+.porque__tec-lista { display: grid; gap: clamp(1rem, 2vw, 1.5rem); }
+@media (min-width: 880px) {
+  .porque__tec-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.porque__tec-item { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.porque__tec-rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
+.porque__tec-nombre { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.55rem); letter-spacing: -0.015em; }
+.porque__tec-texto { color: var(--texto-suave); font-size: 1rem; line-height: 1.6; }
+.porque__tec-datos { display: grid; gap: 8px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--borde); flex: 1 1 auto; align-content: start; }
+.porque__tec-datos li { position: relative; padding-left: 20px; color: var(--texto); font-size: 1rem; line-height: 1.5; }
+.porque__tec-datos li::before { content: ''; position: absolute; left: 2px; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 8px rgba(34, 211, 238, 0.6); }
+.porque__tec-ir { align-self: flex-start; margin-top: 4px; }
+.porque__tec-accion { margin-top: clamp(1.5rem, 3vw, 2.25rem); display: flex; justify-content: center; }
+
+/* movimiento reducido: nada se mueve y todo se ve */
+.calmo .porque__escaner, .calmo .porque__pulso, .calmo .porque__destello { display: none; }

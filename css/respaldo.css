@@ -1,0 +1,27 @@
+/* ============================================================
+   Proyectovisión · respaldo.css — "Una red preparada para no detenerse" (#respaldo, inicio).
+   Respaldo de internet (fibra + satelital), energía solar, compromiso ambiental y soporte local,
+   con una foto de energía solar (Tom Fisk, Pexels).
+   ============================================================ */
+.respaldo { background: var(--negro); --umbral-de: var(--noche); overflow: hidden; }
+.respaldo .fondo-aurora::before, .respaldo .fondo-aurora::after { opacity: 0.2; }
+.respaldo__rejilla { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center; }
+.respaldo__cabecera { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.respaldo__lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.respaldo__item { display: flex; align-items: flex-start; gap: 14px; padding: clamp(1rem, 2vw, 1.35rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--borde); }
+.respaldo__item > div { min-width: 0; }
+.respaldo__icono { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); color: var(--cian-suave); }
+.respaldo__icono svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.respaldo__titulo { font-size: clamp(1.15rem, 1rem + 0.4vw, 1.3rem); line-height: 1.2; }
+.respaldo__desc { margin-top: 6px; color: var(--texto-suave); font-size: 1rem; line-height: 1.55; }
+.respaldo__foto { margin: 0; border-radius: var(--radio); overflow: hidden; border: 1px solid var(--borde-fuerte); box-shadow: 0 30px 70px -30px rgba(26, 46, 230, 0.6); }
+.respaldo__foto img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 35%; }
+.respaldo__pie { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(5, 12, 31, 0.92); color: var(--texto-suave); font-size: var(--t-chica); }
+@media (max-width: 960px) {
+  .respaldo__rejilla { grid-template-columns: minmax(0, 1fr); }
+  .respaldo__foto { max-width: 520px; }
+}
+@media (max-width: 560px) {
+  .respaldo__lista { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .respaldo__foto img { aspect-ratio: 4 / 3; }
+}

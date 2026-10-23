@@ -1,0 +1,43 @@
+/* ============================================================
+   Proyectovisión · isp.css — "Capacidad para su red en todo el Caquetá" (#isp, página Empresas e ISP).
+   Texto con cuatro ventajas y acciones a la izquierda; a la derecha, los municipios del Caquetá
+   (con oficina en naranja); debajo, tres pasos para contratar.
+   ============================================================ */
+.isp { background: var(--noche-2); --umbral-de: var(--noche); /* página Empresas: viene de servicios (noche) */ overflow: hidden; isolation: isolate; }
+.isp .fondo-aurora::before, .isp .fondo-aurora::after { opacity: 0.2; }
+.isp__rejilla { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+.isp__cabecera { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.isp__puntos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.isp__punto { display: flex; align-items: flex-start; gap: 14px; min-width: 0; padding: 18px; border-radius: var(--radio-chico); border: 1px solid var(--borde); background: var(--vidrio); }
+.isp__punto .icono { flex: none; width: 44px; height: 44px; }
+.isp__punto-titulo { font-size: 1.1875rem; letter-spacing: -0.01em; line-height: 1.2; }
+.isp__punto-texto { margin-top: 6px; color: var(--texto-suave); font-size: 1rem; line-height: 1.55; }
+.isp__acciones { display: flex; flex-wrap: wrap; gap: 12px 16px; margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+.isp__ico { width: 22px; height: 22px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.isp__panel { display: grid; gap: 14px; padding: clamp(1.5rem, 3vw, 2.25rem); border-color: rgba(34, 211, 238, 0.3); background: linear-gradient(180deg, rgba(34, 211, 238, 0.08), rgba(5, 12, 31, 0.6)); }
+.isp__panel-rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cian); }
+.isp__panel-titulo { font-size: clamp(1.4rem, 1.15rem + 0.8vw, 1.85rem); line-height: 1.15; }
+.isp__munis { display: flex; flex-wrap: wrap; gap: 8px; }
+.isp__muni { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; border: 1px dashed rgba(34, 211, 238, 0.45); background: rgba(34, 211, 238, 0.06); font-size: 0.9375rem; line-height: 1.2; color: var(--texto); }
+.isp__muni::before, .isp__ley { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 8px rgba(34, 211, 238, 0.7); }
+.isp__muni.is-oficina { border-style: solid; border-color: rgba(255, 140, 58, 0.5); background: rgba(240, 106, 10, 0.1); }
+.isp__muni.is-oficina::before, .isp__ley--oficina { background: var(--naranja-claro); box-shadow: 0 0 8px rgba(255, 140, 58, 0.8); }
+.isp__panel-nota { display: flex; align-items: center; gap: 8px; font-size: var(--t-chica); color: var(--texto-suave); }
+.isp__ley { display: inline-block; }
+.isp__mapa { justify-self: start; }
+
+.isp__pasos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: clamp(2.5rem, 5vw, 4rem); counter-reset: paso; }
+.isp__paso { position: relative; display: grid; gap: 8px; padding: 20px 20px 22px; border-radius: var(--radio-chico); border-top: 2px solid rgba(34, 211, 238, 0.5); background: rgba(255, 255, 255, 0.03); }
+.isp__paso-num { font-family: var(--f-titulo); font-weight: 700; font-size: var(--t-chica); letter-spacing: 0.12em; color: var(--cian); }
+.isp__paso-titulo { font-size: 1.25rem; letter-spacing: -0.01em; }
+.isp__paso p { color: var(--texto-suave); font-size: 1rem; line-height: 1.55; }
+.isp__nota { margin-top: 16px; font-size: var(--t-chica); color: var(--texto-tenue); }
+
+@media (max-width: 1024px) {
+  .isp__rejilla { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .isp__puntos, .isp__pasos { grid-template-columns: minmax(0, 1fr); }
+  .isp__acciones .boton { flex: 1 1 100%; }
+}

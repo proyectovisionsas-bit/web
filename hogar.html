@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Internet para el hogar · Proyectovisión</title>
+<meta name="description" content="Planes y precios de internet por fibra óptica para hogares en Cartagena del Chairá, Florencia (con televisión Más Media), El Paujil y El Doncello, y radioenlace para zonas rurales.">
+<meta name="theme-color" content="#050c1f">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Proyectovisión">
+<meta property="og:title" content="Internet para el hogar · Proyectovisión">
+<meta property="og:description" content="Planes y precios de internet por fibra óptica para hogares en Cartagena del Chairá, Florencia (con televisión Más Media), El Paujil y El Doncello, y radioenlace para zonas rurales.">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Internet para el hogar · Proyectovisión">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Internet para el hogar · Proyectovisión">
+<meta name="twitter:description" content="Planes y precios de internet por fibra óptica para hogares en Cartagena del Chairá, Florencia (con televisión Más Media), El Paujil y El Doncello, y radioenlace para zonas rurales.">
+<meta name="twitter:image" content="assets/og.jpg">
+<!-- Cuando haya dominio: añadir <meta property="og:url" content="https://DOMINIO/"> y poner og:image y twitter:image con URL absoluta
+     (https://DOMINIO/assets/og.jpg): WhatsApp y Facebook no resuelven rutas relativas. El og.jpg (1200×630) sale de la portada (.web2/og.mjs). -->
+<link rel="icon" href="assets/gen/logo-emblema.png">
+<link rel="preload" href="vendor/fonts/clash-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="vendor/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="vendor/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/velocidad.css">
+<link rel="stylesheet" href="css/planes.css">
+<link rel="stylesheet" href="css/porque.css">
+<link rel="stylesheet" href="css/portada.css">
+<link rel="stylesheet" href="css/contacto.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="saltar" href="#inicio">Ir al contenido</a>
+<!-- 00-nav.html -->
+<header class="topbar" id="arriba">
+  <div class="topbar__barra">
+    <div class="topbar__fondo" aria-hidden="true"></div>
+    <div class="topbar__borde" aria-hidden="true">
+      <span class="topbar__progreso"></span>
+      <span class="topbar__pulso"></span>
+    </div>
+    <div class="contenedor--ancho topbar__fila">
+      <a class="topbar__marca" href="index.html" aria-label="Proyectovisión, ir al inicio">
+        <span class="topbar__logo"><span class="topbar__anillo" aria-hidden="true"></span><span class="topbar__logo-clip"><img src="assets/gen/logo-emblema.png" width="150" height="87" alt="" decoding="async"></span></span>
+        <span class="topbar__nombre">Proyectovisión</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Secciones de la página">
+        <ul class="topbar__lista">
+          <li><a class="topbar__enlace is-pagina" aria-current="page" href="hogar.html">Hogar</a></li>
+          <li><a class="topbar__enlace" href="empresas.html">Empresas e ISP</a></li>
+          <li><a class="topbar__enlace" href="oficinas.html">Oficinas y pagos</a></li>
+          <li><a class="topbar__enlace" href="soporte.html">Soporte</a></li>
+          <li><a class="topbar__enlace" href="informacion-usuarios.html#pqr">PQR</a></li>
+          <li><a class="topbar__enlace topbar__enlace--usuarios" href="informacion-usuarios.html">Información importante para usuarios</a></li>
+        </ul>
+        <span class="topbar__cursor" aria-hidden="true"></span>
+      </nav>
+      <a class="boton topbar__cta" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5l1.4-.6 1.2 2.3-1 .8c.6 1.3 1.6 2.3 2.9 2.9l.8-1 2.3 1.2-.6 1.4c-.3.6-.9.9-1.5.7-3-.9-5.3-3.2-6.2-6.2-.2-.6.1-1.2.7-1.5z"/></svg>
+        <span class="topbar__cta-texto">Solicitar servicio</span>
+      </a>
+      <button class="topbar__menu" type="button" aria-expanded="false" aria-controls="topbar-panel" aria-label="Abrir el menú">
+        <span class="topbar__hamburguesa" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="topbar__panel" id="topbar-panel" data-lenis-prevent>
+    <div class="fondo-aurora" aria-hidden="true"></div>
+    <div class="rejilla" aria-hidden="true"></div>
+    <svg class="topbar__hilo" viewBox="0 0 400 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="topbar-hilo-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" class="topbar__hilo-stop1"/>
+          <stop offset="0.55" class="topbar__hilo-stop2"/>
+          <stop offset="1" class="topbar__hilo-stop3"/>
+        </linearGradient>
+      </defs>
+      <path class="topbar__hilo-base" pathLength="1000" d="M335 -20 C 335 240, 40 290, 110 470 C 170 620, 420 650, 300 920"/>
+      <path class="topbar__hilo-pulso" pathLength="1000" d="M335 -20 C 335 240, 40 290, 110 470 C 170 620, 420 650, 300 920"/>
+    </svg>
+    <nav class="topbar__panel-nav" aria-label="Menú">
+      <p class="eyebrow topbar__panel-eyebrow">Menú</p>
+      <ol class="topbar__panel-lista">
+        <li class="topbar__panel-item" style="--i: 0"><a class="topbar__panel-enlace" href="index.html"><span class="topbar__panel-num">01</span><span class="topbar__panel-texto">Inicio</span></a></li>
+        <li class="topbar__panel-item" style="--i: 1"><a class="topbar__panel-enlace is-pagina" aria-current="page" href="hogar.html"><span class="topbar__panel-num">02</span><span class="topbar__panel-texto">Hogar</span></a></li>
+        <li class="topbar__panel-item" style="--i: 2"><a class="topbar__panel-enlace" href="empresas.html"><span class="topbar__panel-num">03</span><span class="topbar__panel-texto">Empresas e ISP</span></a></li>
+        <li class="topbar__panel-item" style="--i: 3"><a class="topbar__panel-enlace" href="oficinas.html"><span class="topbar__panel-num">04</span><span class="topbar__panel-texto">Oficinas y pagos</span></a></li>
+        <li class="topbar__panel-item" style="--i: 4"><a class="topbar__panel-enlace" href="soporte.html"><span class="topbar__panel-num">05</span><span class="topbar__panel-texto">Soporte</span></a></li>
+        <li class="topbar__panel-item" style="--i: 5"><a class="topbar__panel-enlace" href="index.html#nosotros"><span class="topbar__panel-num">06</span><span class="topbar__panel-texto">Nosotros</span></a></li>
+      </ol>
+      <ul class="topbar__panel-extra">
+        <li><a class="topbar__panel-usuarios" href="informacion-usuarios.html">Información importante para usuarios</a></li>
+        <li><a class="topbar__panel-usuarios" href="informacion-usuarios.html#pqr">PQR: peticiones, quejas y reclamos</a></li>
+      </ul>
+      <div class="topbar__panel-pie">
+        <div class="linea-luz"></div>
+        <a class="boton boton--fuego boton--grande topbar__panel-cta" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5l1.4-.6 1.2 2.3-1 .8c.6 1.3 1.6 2.3 2.9 2.9l.8-1 2.3 1.2-.6 1.4c-.3.6-.9.9-1.5.7-3-.9-5.3-3.2-6.2-6.2-.2-.6.1-1.2.7-1.5z"/></svg>
+          Solicitar servicio
+        </a>
+        <p class="topbar__panel-nota">Internet por fibra óptica y radioenlace en el Caquetá. Cada oficina atiende por su propio WhatsApp.</p>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Ventana "¿Desde qué municipio nos escribe?": la abre nav.js en los enlaces con data-elegir-oficina.
+     Sin JavaScript esos enlaces llevan a oficinas.html, donde están los WhatsApp. La lista la escribe .web2/generar.mjs -->
+<dialog class="elegir" id="elegir-oficina" aria-labelledby="elegir-titulo">
+  <div class="elegir__caja">
+    <button class="elegir__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <p class="eyebrow">WhatsApp de su oficina</p>
+    <h2 class="elegir__titulo" id="elegir-titulo">¿En qué municipio se encuentra?</h2>
+    <p class="elegir__texto">Lo atiende directamente la oficina de su municipio.</p>
+    <ul class="elegir__lista">
+<!-- GEN:elegir -->
+      <li><a class="elegir__op" href="https://wa.me/573115457323" data-wa="573115457323" data-municipio="Cartagena del Chairá" target="_blank" rel="noopener"><span class="elegir__muni">Cartagena del Chairá</span><span class="elegir__der"><span class="elegir__num nums">311 545 7323</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573228476612" data-wa="573228476612" data-municipio="Florencia" target="_blank" rel="noopener"><span class="elegir__muni">Florencia</span><span class="elegir__der"><span class="elegir__num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573186219451" data-wa="573186219451" data-municipio="El Paujil" target="_blank" rel="noopener"><span class="elegir__muni">El Paujil</span><span class="elegir__der"><span class="elegir__num nums">318 621 9451</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573157033416" data-wa="573157033416" data-municipio="El Doncello" target="_blank" rel="noopener"><span class="elegir__muni">El Doncello</span><span class="elegir__der"><span class="elegir__num nums">315 703 3416</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+<!-- /GEN:elegir -->
+    </ul>
+  </div>
+</dialog>
+
+<!-- 30-portada-hogar.html -->
+<section id="inicio" class="portada portada--hogar seccion" aria-labelledby="portada-titulo">
+  <div class="portada__fondo" aria-hidden="true">
+    <img class="portada__foto" src="assets/gen/pueblo-cielo-estrellado-1600.jpg" srcset="assets/gen/pueblo-cielo-estrellado-640.jpg 640w, assets/gen/pueblo-cielo-estrellado-1000.jpg 1000w, assets/gen/pueblo-cielo-estrellado-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="" decoding="async" fetchpriority="high">
+  </div>
+  <div class="fondo-aurora portada__aurora" aria-hidden="true"></div>
+  <div class="rejilla portada__rejilla" aria-hidden="true"></div>
+  <div class="contenedor portada__contenido">
+    <nav class="portada__migas" aria-label="Ruta de navegación"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Hogar</span></nav>
+    <p class="eyebrow">Internet para el hogar</p>
+    <h1 class="portada__titulo" id="portada-titulo">Internet para su <span class="grad-texto">hogar</span></h1>
+    <p class="lead portada__lead">Fibra óptica hasta su casa en Cartagena del Chairá, Florencia, El Paujil y El Doncello, y radioenlace para fincas y veredas de El Paujil, El Doncello y Cartagena del Chairá. En Florencia, los planes incluyen televisión Más Media. Usted elige la velocidad; si necesita más, le diseñamos un plan a la medida.</p>
+    <div class="portada__acciones">
+      <a class="boton boton--fuego boton--grande" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet para mi hogar"><svg class="portada__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span>Solicitar servicio</span></a>
+      <a class="boton boton--fantasma boton--grande" href="#planes"><span>Ver planes</span><svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="portada__indice">
+      <p class="portada__indice-rotulo">En esta página</p>
+      <ul class="portada__indice-lista">
+        <li><a class="portada__ir" href="#velocidad">Elegir oficina y plan</a></li>
+        <li><a class="portada__ir" href="#planes">Planes y tarifas</a></li>
+        <li><a class="portada__ir" href="#tecnologias">Fibra óptica y radioenlace</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="portada__borde linea-luz" aria-hidden="true"></div>
+</section>
+
+<!-- 05-velocidad.html -->
+<section id="velocidad" class="velocidad seccion seccion--pegada" aria-labelledby="velocidad-titulo">
+  <div class="rejilla" aria-hidden="true"></div>
+  <div class="velocidad__resplandor" aria-hidden="true"></div>
+  <div class="umbral" aria-hidden="true"></div>
+  <div class="contenedor velocidad__rejilla">
+
+    <div class="velocidad__columna velocidad__columna--texto">
+      <div class="cabecera velocidad__cabecera">
+        <span class="eyebrow" data-reveal>Calcule su plan</span>
+        <h2 class="titulo" id="velocidad-titulo" data-reveal>¿Cuántos megas necesita?</h2>
+        <p class="lead" data-reveal>Primero elija la oficina de su municipio; luego indique para qué usan internet y cuántas personas se conectan. Le mostramos el plan recomendado con su valor mensual y lo puede solicitar por WhatsApp.</p>
+      </div>
+
+      <fieldset class="velocidad__oficinas" id="velocidad-oficinas" data-reveal>
+        <legend class="velocidad__legenda"><span class="velocidad__paso nums" aria-hidden="true">1</span>Elija su oficina</legend>
+        <div class="velocidad__oficinas-lista">
+<!-- GEN:velocidad-oficinas -->
+            <label class="velocidad__oficina">
+              <input class="velocidad__oficina-radio" type="radio" name="velocidad-oficina" value="cartagena">
+              <span class="velocidad__oficina-caja">
+                <span class="velocidad__oficina-marca" aria-hidden="true"></span>
+                <span class="velocidad__oficina-nombre">Cartagena del Chairá</span>
+                <span class="velocidad__oficina-nota">Sede principal · desde $50.000</span>
+              </span>
+            </label>
+            <label class="velocidad__oficina">
+              <input class="velocidad__oficina-radio" type="radio" name="velocidad-oficina" value="florencia">
+              <span class="velocidad__oficina-caja">
+                <span class="velocidad__oficina-marca" aria-hidden="true"></span>
+                <span class="velocidad__oficina-nombre">Florencia</span>
+                <span class="velocidad__oficina-nota">desde $70.000 · con TV Más Media</span>
+              </span>
+            </label>
+            <label class="velocidad__oficina">
+              <input class="velocidad__oficina-radio" type="radio" name="velocidad-oficina" value="paujil">
+              <span class="velocidad__oficina-caja">
+                <span class="velocidad__oficina-marca" aria-hidden="true"></span>
+                <span class="velocidad__oficina-nombre">El Paujil</span>
+                <span class="velocidad__oficina-nota">desde $60.000</span>
+              </span>
+            </label>
+            <label class="velocidad__oficina">
+              <input class="velocidad__oficina-radio" type="radio" name="velocidad-oficina" value="doncello">
+              <span class="velocidad__oficina-caja">
+                <span class="velocidad__oficina-marca" aria-hidden="true"></span>
+                <span class="velocidad__oficina-nombre">El Doncello</span>
+                <span class="velocidad__oficina-nota">desde $55.000</span>
+              </span>
+            </label>
+<!-- /GEN:velocidad-oficinas -->
+        </div>
+      </fieldset>
+
+      <div class="velocidad__app">
+        <fieldset class="velocidad__usos">
+          <legend class="velocidad__legenda"><span class="velocidad__paso nums" aria-hidden="true">2</span>¿Para qué usan internet?</legend>
+          <div class="velocidad__chips">
+          <button type="button" class="velocidad__chip" aria-pressed="true" data-uso="series" data-megas="4" data-nombre="series y películas" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="12" rx="2.5"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span class="velocidad__chip-texto">Series y películas</span>
+            <span class="velocidad__chip-mas" aria-label="suma 4 megas">+4</span>
+          </button>
+          <button type="button" class="velocidad__chip" aria-pressed="true" data-uso="video" data-megas="4" data-nombre="videollamadas" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="7" width="13" height="10" rx="2.5"/><path d="m16 11 5-3v8l-5-3"/></svg></span>
+            <span class="velocidad__chip-texto">Videollamadas</span>
+            <span class="velocidad__chip-mas" aria-label="suma 4 megas">+4</span>
+          </button>
+          <button type="button" class="velocidad__chip" aria-pressed="false" data-uso="juegos" data-megas="20" data-nombre="juegos en línea" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 8h10a4.5 4.5 0 0 1 4.5 4.5v1.8a2.7 2.7 0 0 1-4.7 1.8l-1.5-1.6H8.7l-1.5 1.6A2.7 2.7 0 0 1 2.5 14.3v-1.8A4.5 4.5 0 0 1 7 8Z"/><path d="M8 11.2v3M6.5 12.7h3M16.2 12.2h.01M18.3 13.6h.01"/></svg></span>
+            <span class="velocidad__chip-texto">Juegos en línea</span>
+            <span class="velocidad__chip-mas" aria-label="suma 20 megas">+20</span>
+          </button>
+          <button type="button" class="velocidad__chip" aria-pressed="false" data-uso="camaras" data-megas="50" data-nombre="cámaras" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 9.2 15.4 5l2 5.4-11.9 4.2Z"/><path d="M5.5 14.6 6.3 17H4v4M17.4 10.4l3.1-1.1M8.5 8.4l-1-2.8"/></svg></span>
+            <span class="velocidad__chip-texto">Cámaras de seguridad</span>
+            <span class="velocidad__chip-mas" aria-label="suma 50 megas">+50</span>
+          </button>
+          <button type="button" class="velocidad__chip" aria-pressed="false" data-uso="oficina" data-megas="15" data-nombre="trabajo u oficina" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18M12 12v3"/></svg></span>
+            <span class="velocidad__chip-texto">Trabajo u oficina</span>
+            <span class="velocidad__chip-mas" aria-label="suma 15 megas">+15</span>
+          </button>
+          <button type="button" class="velocidad__chip" aria-pressed="false" data-uso="dispositivos" data-megas="60" data-nombre="muchos dispositivos" data-reveal>
+            <span class="velocidad__chip-icono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="4.5" width="13" height="10" rx="2"/><rect x="16" y="9" width="5.5" height="10.5" rx="1.6"/><path d="M6 19h6M9 14.5V19M18.7 16.7h.01"/></svg></span>
+            <span class="velocidad__chip-texto">Muchos dispositivos</span>
+            <span class="velocidad__chip-mas" aria-label="suma 60 megas">+60</span>
+          </button>
+          </div>
+        </fieldset>
+
+        <div class="velocidad__personas" data-reveal>
+          <div class="velocidad__personas-cab">
+            <label for="velocidad-personas" class="velocidad__legenda"><span class="velocidad__paso nums" aria-hidden="true">3</span>Personas conectadas</label>
+            <output for="velocidad-personas" class="velocidad__personas-valor"><b>2</b> <span>personas</span></output>
+          </div>
+          <input type="range" id="velocidad-personas" class="velocidad__rango" min="1" max="8" step="1" value="2" aria-valuetext="2 personas">
+          <div class="velocidad__escala" aria-hidden="true"><button type="button" tabindex="-1" data-v="1">1</button><button type="button" tabindex="-1" data-v="2" class="is-activo">2</button><button type="button" tabindex="-1" data-v="3">3</button><button type="button" tabindex="-1" data-v="4">4</button><button type="button" tabindex="-1" data-v="5">5</button><button type="button" tabindex="-1" data-v="6">6</button><button type="button" tabindex="-1" data-v="7">7</button><button type="button" tabindex="-1" data-v="8">8</button></div>
+        </div>
+
+        <p class="velocidad__formula nums" data-reveal aria-live="polite">5 de base + 4 series y películas + 4 videollamadas + 2 por 1 persona más = 15 megas en uso simultáneo. Elija su oficina para ver el plan recomendado y su valor.</p>
+      </div>
+
+      <div class="velocidad__sinjs">
+<!-- GEN:velocidad-sinjs -->
+        <p>Los planes de internet por fibra óptica para el hogar son simétricos: la misma velocidad de bajada y de subida. Le ofrecemos la velocidad que necesite; si requiere más de la que aparece en la lista, le diseñamos un plan a la medida.</p>
+        <table class="velocidad__tabla">
+          <caption>Planes en Cartagena del Chairá</caption>
+          <thead><tr><th scope="col">Plan</th><th scope="col">Valor mensual</th><th scope="col">Recomendado para</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">25 megas</th><td>$50.000</td><td>Un hogar pequeño: series, clases y videollamadas</td></tr>
+            <tr><th scope="row">40 megas</th><td>$60.000</td><td>Familias con varias pantallas y trabajo desde casa</td></tr>
+            <tr><th scope="row">150 megas</th><td>$70.000</td><td>Hogares con muchos equipos, oficinas y locales</td></tr>
+          </tbody>
+        </table>
+        <table class="velocidad__tabla">
+          <caption>Planes en Florencia</caption>
+          <thead><tr><th scope="col">Plan</th><th scope="col">Valor mensual</th><th scope="col">Recomendado para</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">50 megas + TV Más Media</th><td>$70.000</td><td>Internet y televisión para toda la familia</td></tr>
+            <tr><th scope="row">60 megas + TV Más Media</th><td>$95.000</td><td>Más velocidad para varias pantallas</td></tr>
+            <tr><th scope="row">100 megas + TV Más Media</th><td>$100.000</td><td>Hogares con muchos equipos y negocios</td></tr>
+          </tbody>
+        </table>
+        <p class="velocidad__tabla-nota">Los planes de Florencia incluyen televisión Más Media.</p>
+        <table class="velocidad__tabla">
+          <caption>Planes en El Paujil</caption>
+          <thead><tr><th scope="col">Plan</th><th scope="col">Valor mensual</th><th scope="col">Recomendado para</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">15 megas</th><td>$60.000</td><td>Para 1 o 2 personas: redes, series y videollamadas</td></tr>
+            <tr><th scope="row">50 megas</th><td>$70.000</td><td>Familias con varias pantallas y trabajo desde casa</td></tr>
+            <tr><th scope="row">150 megas</th><td>$90.000</td><td>Oficinas y locales con muchos equipos</td></tr>
+            <tr><th scope="row">500 megas</th><td>$200.000</td><td>Hogares y negocios con uso intensivo</td></tr>
+          </tbody>
+        </table>
+        <table class="velocidad__tabla">
+          <caption>Planes en El Doncello</caption>
+          <thead><tr><th scope="col">Plan</th><th scope="col">Valor mensual</th><th scope="col">Recomendado para</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">40 megas</th><td>$55.000</td><td>Familias con varias pantallas y trabajo desde casa</td></tr>
+            <tr><th scope="row">150 megas</th><td>$65.000</td><td>Hogares con muchos equipos, oficinas y locales</td></tr>
+            <tr><th scope="row">300 megas</th><td>$89.000</td><td>Archivos pesados, cámaras y muchos usuarios</td></tr>
+          </tbody>
+        </table>
+<!-- /GEN:velocidad-sinjs -->
+      </div>
+    </div>
+
+    <div class="velocidad__columna velocidad__columna--panel">
+      <div class="velocidad__medidor" data-reveal="zoom">
+        <img class="velocidad__fondo" src="assets/gen/fibra-tunel-naranja-800.jpg" alt="" width="800" height="600" loading="lazy" decoding="async">
+        <div class="velocidad__esfera">
+          <svg class="velocidad__svg" viewBox="-24 0 448 318" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="velocidad-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop class="velocidad__grad-a" offset="0"/>
+                <stop class="velocidad__grad-b" offset="0.55"/>
+                <stop class="velocidad__grad-c" offset="1"/>
+              </linearGradient>
+              <radialGradient id="velocidad-brillo" cx="0.5" cy="0.5" r="0.5">
+                <stop class="velocidad__brillo-a" offset="0"/>
+                <stop class="velocidad__brillo-b" offset="0.42"/>
+                <stop class="velocidad__brillo-c" offset="1"/>
+              </radialGradient>
+            </defs>
+            <path class="velocidad__pista" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+            <g class="velocidad__ticks"></g>
+            <g class="velocidad__halos">
+              <path class="velocidad__arco-halo velocidad__arco-halo--4" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+              <path class="velocidad__arco-halo velocidad__arco-halo--3" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+              <path class="velocidad__arco-halo velocidad__arco-halo--2" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+              <path class="velocidad__arco-halo velocidad__arco-halo--1" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+            </g>
+            <path class="velocidad__arco" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="1"/>
+            <line class="velocidad__aguja" x1="90.9" y1="269" x2="59.7" y2="287"/>
+            <circle class="velocidad__onda" cx="70.1" cy="281" r="8"/>
+            <circle class="velocidad__punto-glow" cx="70.1" cy="281" r="24"/>
+            <circle class="velocidad__punto" cx="70.1" cy="281" r="6.5"/>
+          </svg>
+          <svg class="velocidad__svg velocidad__svg--pulso" viewBox="-24 0 448 318" aria-hidden="true" focusable="false">
+            <path class="velocidad__pulso" d="M70.1 281A150 150 0 1 1 329.9 281" pathLength="1" stroke-dashoffset="0.09"/>
+          </svg>
+          <div class="velocidad__lectura">
+            <div class="velocidad__cifra nums"><span class="velocidad__cifra-num">15</span></div>
+            <div class="velocidad__cifra-unidad">megas simétricos</div>
+            <div class="velocidad__cifra-nota nums">en uso simultáneo: <b>15</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="velocidad__plan" data-reveal>
+        <div class="velocidad__plan-cuerpo" aria-live="polite">
+          <div class="velocidad__plan-cab">
+            <span class="velocidad__plan-titulo">Velocidad recomendada</span>
+            <span class="velocidad__plan-sede" hidden></span>
+            <a class="velocidad__plan-cambiar" href="#velocidad-oficinas" hidden>Cambiar oficina</a>
+          </div>
+          <div class="velocidad__plan-fila">
+            <div class="velocidad__plan-megas nums"><span class="velocidad__plan-megas-num">15</span>megas</div>
+            <div class="velocidad__plan-precio nums"><span class="velocidad__plan-precio-num grad-texto">—</span><span class="velocidad__plan-precio-mes" hidden>al mes</span></div>
+          </div>
+          <p class="velocidad__plan-tv" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="12" rx="2.5"/><path d="M8 21h8M12 17v4"/></svg><span>Incluye TV <strong class="velocidad__plan-tv-nombre"></strong></span></p>
+          <p class="velocidad__plan-para">Elija su oficina para ver el plan recomendado y su valor mensual.</p>
+          <p class="velocidad__plan-ref etiqueta" hidden>Le confirmamos el valor por WhatsApp.</p>
+          <div class="velocidad__plan-acciones">
+            <a class="boton boton--fuego velocidad__plan-cta" href="oficinas.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L4 21l1.6-4.4A8.5 8.5 0 1 1 21 12Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg><span>Solicitar este plan por WhatsApp</span></a>
+            <a class="boton boton--texto velocidad__plan-todos" href="#planes">Ver todos los planes <svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="velocidad__medida">¿Necesita más velocidad? <a href="oficinas.html" data-elegir-oficina="Buen día, quiero cotizar un plan de internet a la medida.">Le ofrecemos un plan a la medida</a>.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- GEN:velocidad-datos -->
+  <script type="application/json" id="velocidad-datos">{"escala":[15,25,40,50,100,150,300,500],"municipios":[{"clave":"cartagena","nombre":"Cartagena del Chairá","wa":"573115457323","whatsapp":"311 545 7323","confirmado":true,"planes":[{"megas":25,"precio":"$50.000","para":"Un hogar pequeño: series, clases y videollamadas","tv":""},{"megas":40,"precio":"$60.000","para":"Familias con varias pantallas y trabajo desde casa","tv":""},{"megas":150,"precio":"$70.000","para":"Hogares con muchos equipos, oficinas y locales","tv":""}]},{"clave":"florencia","nombre":"Florencia","wa":"573228476612","whatsapp":"322 847 6612","confirmado":true,"planes":[{"megas":50,"precio":"$70.000","para":"Internet y televisión para toda la familia","tv":"Más Media"},{"megas":60,"precio":"$95.000","para":"Más velocidad para varias pantallas","tv":"Más Media"},{"megas":100,"precio":"$100.000","para":"Hogares con muchos equipos y negocios","tv":"Más Media"}]},{"clave":"paujil","nombre":"El Paujil","wa":"573186219451","whatsapp":"318 621 9451","confirmado":true,"planes":[{"megas":15,"precio":"$60.000","para":"Para 1 o 2 personas: redes, series y videollamadas","tv":""},{"megas":50,"precio":"$70.000","para":"Familias con varias pantallas y trabajo desde casa","tv":""},{"megas":150,"precio":"$90.000","para":"Oficinas y locales con muchos equipos","tv":""},{"megas":500,"precio":"$200.000","para":"Hogares y negocios con uso intensivo","tv":""}]},{"clave":"doncello","nombre":"El Doncello","wa":"573157033416","whatsapp":"315 703 3416","confirmado":true,"planes":[{"megas":40,"precio":"$55.000","para":"Familias con varias pantallas y trabajo desde casa","tv":""},{"megas":150,"precio":"$65.000","para":"Hogares con muchos equipos, oficinas y locales","tv":""},{"megas":300,"precio":"$89.000","para":"Archivos pesados, cámaras y muchos usuarios","tv":""}]}]}</script>
+<!-- /GEN:velocidad-datos -->
+</section>
+
+<!-- 06-planes.html -->
+<section id="planes" class="planes seccion seccion--pegada" aria-labelledby="planes-titulo">
+  <svg class="planes__sprite" aria-hidden="true" focusable="false">
+    <symbol id="pv-planes-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+    <symbol id="pv-planes-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+    <symbol id="pv-planes-flechas" viewBox="0 0 24 24"><path d="M8 20V5M8 5l-3.5 3.5M8 5l3.5 3.5"/><path d="M16 4v15M16 19l3.5-3.5M16 19l-3.5-3.5"/></symbol>
+    <symbol id="pv-planes-flecha" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="pv-planes-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></symbol>
+    <symbol id="pv-planes-tv" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12.5" rx="2.5"/><path d="M8 21h8M12 17.5V21"/><path d="M9.5 9.2l5 2.1-5 2.1z"/></symbol>
+    <symbol id="pv-planes-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <!-- iconos de uso: para quién es cada plan -->
+    <symbol id="pv-planes-casa" viewBox="0 0 24 24"><path d="M3.5 10.5 12 4l8.5 6.5"/><path d="M5.5 9.2V20h13V9.2"/><path d="M10 20v-5.5h4V20"/></symbol>
+    <symbol id="pv-planes-pantallas" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="12.5" height="9" rx="1.8"/><path d="M6.5 17.5h4.5M8.75 13.5v4"/><rect x="14.5" y="9" width="7" height="11" rx="1.8"/><path d="M17 17.5h2"/></symbol>
+    <symbol id="pv-planes-familia" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="16.8" cy="9.5" r="2.5"/><path d="M15.2 15.1a4.5 4.5 0 0 1 5.3 4.4"/></symbol>
+    <symbol id="pv-planes-camara" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12.5" rx="2.5"/><circle cx="12" cy="13.2" r="3.3"/><path d="M8.5 7l1.4-2.5h4.2L15.5 7"/></symbol>
+    <symbol id="pv-planes-oficina" viewBox="0 0 24 24"><rect x="4.5" y="3.5" width="15" height="17" rx="1.5"/><path d="M8.5 7.5h2M13.5 7.5h2M8.5 11.5h2M13.5 11.5h2M8.5 15.5h2M13.5 15.5h2"/><path d="M10.5 20.5v-2.5h3v2.5"/></symbol>
+    <symbol id="pv-planes-nube" viewBox="0 0 24 24"><path d="M6.8 17.5a3.8 3.8 0 0 1-.4-7.57A5.5 5.5 0 0 1 17 8.9a3.6 3.6 0 0 1 .5 7.15"/><path d="M12 20.5v-8M9.2 15.3 12 12.5l2.8 2.8"/></symbol>
+    <symbol id="pv-planes-rayo" viewBox="0 0 24 24"><path d="M13.2 2.5 5.5 13.5h5.8l-1 8L18.5 10.5h-5.8z"/></symbol>
+    <symbol id="pv-planes-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="pv-planes-billete" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+  </svg>
+  <div class="fondo-aurora planes__aurora" aria-hidden="true"></div>
+  <div class="umbral" aria-hidden="true"></div>
+  <div class="contenedor">
+
+    <div class="cabecera planes__cabecera">
+      <p class="eyebrow" data-reveal>Planes para hogar y negocio</p>
+      <h2 class="titulo" id="planes-titulo" data-reveal>Planes de internet</h2>
+      <p class="lead" data-reveal>Seleccione su municipio para ver los planes, la oficina de atención y su WhatsApp. Si necesita una velocidad diferente, le diseñamos un plan a la medida.</p>
+    </div>
+
+    <div class="planes__barra" data-reveal>
+      <div class="planes__tabs" role="tablist" aria-label="Municipio">
+        <span class="planes__indicador" aria-hidden="true"></span>
+<!-- GEN:planes-tabs -->
+        <button class="planes__tab is-activa" role="tab" type="button" id="planes-tab-cartagena" aria-selected="true" aria-controls="planes-panel-cartagena" tabindex="0" data-clave="cartagena">Cartagena del Chairá</button>
+        <button class="planes__tab" role="tab" type="button" id="planes-tab-florencia" aria-selected="false" aria-controls="planes-panel-florencia" tabindex="-1" data-clave="florencia">Florencia</button>
+        <button class="planes__tab" role="tab" type="button" id="planes-tab-paujil" aria-selected="false" aria-controls="planes-panel-paujil" tabindex="-1" data-clave="paujil">El Paujil</button>
+        <button class="planes__tab" role="tab" type="button" id="planes-tab-doncello" aria-selected="false" aria-controls="planes-panel-doncello" tabindex="-1" data-clave="doncello">El Doncello</button>
+<!-- /GEN:planes-tabs -->
+      </div>
+      <p class="planes__sede"><svg class="planes__ico planes__ico--pin" aria-hidden="true"><use href="#pv-planes-pin"/></svg><span class="planes__sede-texto"><strong class="planes__sede-nombre">Oficina</strong><span class="planes__sede-sep" aria-hidden="true">·</span><span class="planes__sede-dir"></span></span></p>
+      <span class="planes__haz" aria-hidden="true"><i></i></span>
+    </div>
+
+    <!-- lo que tienen todos los planes de hogar, una sola vez (no se repite en cada tarjeta) -->
+    <p class="planes__comun" data-reveal>
+      <span class="planes__comun-titulo">Los planes de hogar por fibra óptica incluyen</span>
+      <span class="planes__comun-item"><svg class="planes__ico planes__ico--check" aria-hidden="true"><use href="#pv-planes-check"/></svg><span>Fibra óptica hasta su hogar</span></span>
+      <span class="planes__comun-item"><svg class="planes__ico planes__ico--check" aria-hidden="true"><use href="#pv-planes-check"/></svg><span>Velocidad simétrica</span></span>
+      <span class="planes__comun-item"><svg class="planes__ico planes__ico--check" aria-hidden="true"><use href="#pv-planes-check"/></svg><span>Equipo wifi en comodato</span></span>
+    </p>
+
+    <div class="planes__paneles">
+<!-- GEN:planes-paneles -->
+    <div class="planes__panel" role="tabpanel" id="planes-panel-cartagena" aria-labelledby="planes-tab-cartagena" data-clave="cartagena" data-nombre="Cartagena del Chairá" data-direccion="Cra. 2 # 2-45, B/ Centro">
+      <h3 class="planes__grupo"><span>Internet por fibra óptica · valor mensual</span><span class="planes__grupo-muni">Cartagena del Chairá</span></h3>
+      <ul class="planes__rejilla" data-n="3">
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="25">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">25</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$50.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-casa"/></svg><span>Un hogar pequeño: series, clases y videollamadas</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2025%20megas%20(%2450.000%20al%20mes)%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 25 megas en Cartagena del Chairá"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="40">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">40</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$60.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-pantallas"/></svg><span>Familias con varias pantallas y trabajo desde casa</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2040%20megas%20(%2460.000%20al%20mes)%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 40 megas en Cartagena del Chairá"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="150">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">150</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$70.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-oficina"/></svg><span>Hogares con muchos equipos, oficinas y locales</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20150%20megas%20(%2470.000%20al%20mes)%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 150 megas en Cartagena del Chairá"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      </ul>
+      <div class="planes__medida tarjeta tarjeta-luz">
+        <div class="icono planes__medida-icono"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-rayo"/></svg></div>
+        <div class="planes__medida-texto">
+          <p class="planes__medida-grupo">Plan a la medida</p>
+          <h4 class="planes__medida-titulo">¿Necesita más de 150 megas?</h4>
+          <p class="planes__medida-desc">Le ofrecemos la velocidad que su hogar o negocio requiera. Cuéntenos el uso y le enviamos la propuesta.</p>
+        </div>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20un%20plan%20de%20internet%20a%20la%20medida%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp un plan a la medida en Cartagena del Chairá"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Cotizar plan a la medida</span></a>
+      </div>
+      <div class="planes__oficina">
+        <p class="planes__oficina-titulo">Oficina Cartagena del Chairá <span class="etiqueta etiqueta--naranja">Sede principal</span></p>
+        <p class="planes__oficina-dir"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-pin"/></svg><span>Cra. 2 # 2-45, B/ Centro, Cartagena del Chairá</span></p>
+        <p class="planes__oficina-red"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8M9 21h6"/><circle cx="12" cy="10.5" r="2"/><path d="M8 6.5a6 6 0 0 0 0 8M16 6.5a6 6 0 0 1 0 8M5.2 3.8a10 10 0 0 0 0 13.4M18.8 3.8a10 10 0 0 1 0 13.4"/></svg><span>Fibra óptica y <strong>radioenlace</strong> para fincas, veredas y sectores donde aún no llega la fibra.</span></p>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-reloj"/></svg><dl class="planes__horario"><div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 12:00 m. y 2:10 p. m. – 5:46 p. m.</dd></div><div><dt>Sábados</dt><dd>8:00 a. m. – 12:00 m.</dd></div></dl></div>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-billete"/></svg><p class="planes__pagos"><span class="planes__pagos-rotulo">Medios de pago:</span> Efectivo en la oficina · Transferencia Bancolombia</p></div>
+        <a class="boton boton--fantasma planes__oficina-wa" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20internet%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span>WhatsApp <span class="nums">311 545 7323</span></span></a>
+      </div>
+    </div>
+    <div class="planes__panel" role="tabpanel" id="planes-panel-florencia" aria-labelledby="planes-tab-florencia" data-clave="florencia" data-nombre="Florencia" data-direccion="Cra. 6 # 12-24, B/ El Raicero">
+      <h3 class="planes__grupo"><span>Internet por fibra óptica y televisión · valor mensual</span><span class="planes__grupo-muni">Florencia</span></h3>
+      <p class="planes__tv-aviso"><svg class="planes__ico planes__ico--tv" aria-hidden="true"><use href="#pv-planes-tv"/></svg><span>Los planes de Florencia incluyen televisión Más Media.</span></p>
+      <ul class="planes__rejilla" data-n="3">
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="50">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">50</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$70.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__incluye"><svg class="planes__ico planes__ico--tv" aria-hidden="true"><use href="#pv-planes-tv"/></svg><span>Incluye TV <strong>Más Media</strong></span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-tv"/></svg><span>Internet y televisión para toda la familia</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2050%20megas%20%2B%20TV%20M%C3%A1s%20Media%20(%2470.000%20al%20mes)%20en%20Florencia." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 50 megas + TV Más Media en Florencia"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="60">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">60</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$95.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__incluye"><svg class="planes__ico planes__ico--tv" aria-hidden="true"><use href="#pv-planes-tv"/></svg><span>Incluye TV <strong>Más Media</strong></span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-pantallas"/></svg><span>Más velocidad para varias pantallas</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2060%20megas%20%2B%20TV%20M%C3%A1s%20Media%20(%2495.000%20al%20mes)%20en%20Florencia." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 60 megas + TV Más Media en Florencia"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="100">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">100</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$100.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__incluye"><svg class="planes__ico planes__ico--tv" aria-hidden="true"><use href="#pv-planes-tv"/></svg><span>Incluye TV <strong>Más Media</strong></span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-camara"/></svg><span>Hogares con muchos equipos y negocios</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20100%20megas%20%2B%20TV%20M%C3%A1s%20Media%20(%24100.000%20al%20mes)%20en%20Florencia." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 100 megas + TV Más Media en Florencia"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      </ul>
+      <div class="planes__medida tarjeta tarjeta-luz">
+        <div class="icono planes__medida-icono"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-rayo"/></svg></div>
+        <div class="planes__medida-texto">
+          <p class="planes__medida-grupo">Plan a la medida</p>
+          <h4 class="planes__medida-titulo">¿Necesita más de 100 megas?</h4>
+          <p class="planes__medida-desc">Le ofrecemos la velocidad que su hogar o negocio requiera. Cuéntenos el uso y le enviamos la propuesta.</p>
+        </div>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20un%20plan%20de%20internet%20a%20la%20medida%20en%20Florencia." target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp un plan a la medida en Florencia"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Cotizar plan a la medida</span></a>
+      </div>
+      <div class="planes__oficina">
+        <p class="planes__oficina-titulo">Oficina Florencia</p>
+        <p class="planes__oficina-dir"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-pin"/></svg><span>Cra. 6 # 12-24, B/ El Raicero, Florencia</span></p>
+        <p class="planes__oficina-red"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8M9 21h6"/><circle cx="12" cy="10.5" r="2"/><path d="M8 6.5a6 6 0 0 0 0 8M16 6.5a6 6 0 0 1 0 8M5.2 3.8a10 10 0 0 0 0 13.4M18.8 3.8a10 10 0 0 1 0 13.4"/></svg><span>Fibra óptica hasta su hogar o negocio.</span></p>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-reloj"/></svg><dl class="planes__horario"><div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 12:00 m. y 2:10 p. m. – 5:46 p. m.</dd></div><div><dt>Sábados</dt><dd>8:00 a. m. – 12:00 m.</dd></div></dl></div>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-billete"/></svg><p class="planes__pagos"><span class="planes__pagos-rotulo">Medios de pago:</span> Efectivo en la oficina · Transferencia Bancolombia · Efecty (convenio 113556)</p></div>
+        <a class="boton boton--fantasma planes__oficina-wa" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20internet%20en%20Florencia." target="_blank" rel="noopener"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span>WhatsApp <span class="nums">322 847 6612</span></span></a>
+      </div>
+    </div>
+    <div class="planes__panel" role="tabpanel" id="planes-panel-paujil" aria-labelledby="planes-tab-paujil" data-clave="paujil" data-nombre="El Paujil" data-direccion="Cra. 5 con Cl. 5, esquina, B/ Centro">
+      <h3 class="planes__grupo"><span>Internet por fibra óptica · valor mensual</span><span class="planes__grupo-muni">El Paujil</span></h3>
+      <ul class="planes__rejilla" data-n="4">
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="15">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">15</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$60.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-casa"/></svg><span>Para 1 o 2 personas: redes, series y videollamadas</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2015%20megas%20(%2460.000%20al%20mes)%20en%20El%20Paujil." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 15 megas en El Paujil"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="50">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">50</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$70.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-pantallas"/></svg><span>Familias con varias pantallas y trabajo desde casa</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2050%20megas%20(%2470.000%20al%20mes)%20en%20El%20Paujil." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 50 megas en El Paujil"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="150">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">150</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$90.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-oficina"/></svg><span>Oficinas y locales con muchos equipos</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20150%20megas%20(%2490.000%20al%20mes)%20en%20El%20Paujil." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 150 megas en El Paujil"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="500">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">500</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$200.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-rayo"/></svg><span>Hogares y negocios con uso intensivo</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20500%20megas%20(%24200.000%20al%20mes)%20en%20El%20Paujil." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 500 megas en El Paujil"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      </ul>
+      <div class="planes__medida tarjeta tarjeta-luz">
+        <div class="icono planes__medida-icono"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-rayo"/></svg></div>
+        <div class="planes__medida-texto">
+          <p class="planes__medida-grupo">Plan a la medida</p>
+          <h4 class="planes__medida-titulo">¿Necesita más de 500 megas?</h4>
+          <p class="planes__medida-desc">Le ofrecemos la velocidad que su hogar o negocio requiera. Cuéntenos el uso y le enviamos la propuesta.</p>
+        </div>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20un%20plan%20de%20internet%20a%20la%20medida%20en%20El%20Paujil." target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp un plan a la medida en El Paujil"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Cotizar plan a la medida</span></a>
+      </div>
+      <div class="planes__oficina">
+        <p class="planes__oficina-titulo">Oficina El Paujil</p>
+        <p class="planes__oficina-dir"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-pin"/></svg><span>Cra. 5 con Cl. 5, esquina, B/ Centro, El Paujil</span></p>
+        <p class="planes__oficina-red"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8M9 21h6"/><circle cx="12" cy="10.5" r="2"/><path d="M8 6.5a6 6 0 0 0 0 8M16 6.5a6 6 0 0 1 0 8M5.2 3.8a10 10 0 0 0 0 13.4M18.8 3.8a10 10 0 0 1 0 13.4"/></svg><span>Fibra óptica y <strong>radioenlace</strong> para fincas, veredas y sectores donde aún no llega la fibra.</span></p>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-reloj"/></svg><dl class="planes__horario"><div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 12:00 m. y 2:10 p. m. – 5:46 p. m.</dd></div><div><dt>Sábados</dt><dd>8:00 a. m. – 12:00 m.</dd></div></dl></div>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-billete"/></svg><p class="planes__pagos"><span class="planes__pagos-rotulo">Medios de pago:</span> Efectivo en la oficina · Transferencia Bancolombia</p></div>
+        <a class="boton boton--fantasma planes__oficina-wa" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20internet%20en%20El%20Paujil." target="_blank" rel="noopener"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span>WhatsApp <span class="nums">318 621 9451</span></span></a>
+      </div>
+    </div>
+    <div class="planes__panel" role="tabpanel" id="planes-panel-doncello" aria-labelledby="planes-tab-doncello" data-clave="doncello" data-nombre="El Doncello" data-direccion="Cra. 5 # 5-56, B/ Recreo">
+      <h3 class="planes__grupo"><span>Internet por fibra óptica · valor mensual</span><span class="planes__grupo-muni">El Doncello</span></h3>
+      <ul class="planes__rejilla" data-n="3">
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="40">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">40</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$55.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-pantallas"/></svg><span>Familias con varias pantallas y trabajo desde casa</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%2040%20megas%20(%2455.000%20al%20mes)%20en%20El%20Doncello." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 40 megas en El Doncello"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="150">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">150</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$65.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-oficina"/></svg><span>Hogares con muchos equipos, oficinas y locales</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20150%20megas%20(%2465.000%20al%20mes)%20en%20El%20Doncello." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 150 megas en El Doncello"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      <li class="planes__tarjeta tarjeta tarjeta-luz" data-megas="300">
+        <i class="planes__aura" aria-hidden="true"></i>
+        <span class="etiqueta planes__etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Recomendado</span>
+        <div class="planes__megas">
+          <span class="planes__megas-n">300</span>
+          <span class="planes__megas-u">megas<small><svg class="planes__ico planes__ico--flechas" aria-hidden="true"><use href="#pv-planes-flechas"/></svg>simétrico</small></span>
+        </div>
+        <p class="planes__precio"><span class="planes__precio-n">$89.000</span><span class="planes__mes">/mes</span></p>
+        <p class="planes__para"><svg class="planes__ico planes__ico--uso" aria-hidden="true"><use href="#pv-planes-nube"/></svg><span>Archivos pesados, cámaras y muchos usuarios</span></p>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20solicitar%20el%20plan%20de%20300%20megas%20(%2489.000%20al%20mes)%20en%20El%20Doncello." target="_blank" rel="noopener" aria-label="Solicitar por WhatsApp el plan de 300 megas en El Doncello"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Solicitar por WhatsApp</span></a>
+      </li>
+      </ul>
+      <div class="planes__medida tarjeta tarjeta-luz">
+        <div class="icono planes__medida-icono"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-rayo"/></svg></div>
+        <div class="planes__medida-texto">
+          <p class="planes__medida-grupo">Plan a la medida</p>
+          <h4 class="planes__medida-titulo">¿Necesita más de 300 megas?</h4>
+          <p class="planes__medida-desc">Le ofrecemos la velocidad que su hogar o negocio requiera. Cuéntenos el uso y le enviamos la propuesta.</p>
+        </div>
+        <a class="boton boton--fantasma planes__cta" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20un%20plan%20de%20internet%20a%20la%20medida%20en%20El%20Doncello." target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp un plan a la medida en El Doncello"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span class="planes__cta-texto">Cotizar plan a la medida</span></a>
+      </div>
+      <div class="planes__oficina">
+        <p class="planes__oficina-titulo">Oficina El Doncello</p>
+        <p class="planes__oficina-dir"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-pin"/></svg><span>Cra. 5 # 5-56, B/ Recreo, El Doncello</span></p>
+        <p class="planes__oficina-red"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8M9 21h6"/><circle cx="12" cy="10.5" r="2"/><path d="M8 6.5a6 6 0 0 0 0 8M16 6.5a6 6 0 0 1 0 8M5.2 3.8a10 10 0 0 0 0 13.4M18.8 3.8a10 10 0 0 1 0 13.4"/></svg><span>Fibra óptica y <strong>radioenlace</strong> para fincas, veredas y sectores donde aún no llega la fibra.</span></p>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-reloj"/></svg><dl class="planes__horario"><div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 12:00 m. y 2:10 p. m. – 5:46 p. m.</dd></div><div><dt>Sábados</dt><dd>8:00 a. m. – 12:00 m. y 2:10 p. m. – 5:46 p. m.</dd></div></dl></div>
+        <div class="planes__oficina-fila"><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-billete"/></svg><p class="planes__pagos"><span class="planes__pagos-rotulo">Medios de pago:</span> Efectivo en la oficina · Transferencia Bancolombia</p></div>
+        <a class="boton boton--fantasma planes__oficina-wa" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20internet%20en%20El%20Doncello." target="_blank" rel="noopener"><svg class="planes__ico planes__ico--chat" aria-hidden="true"><use href="#pv-planes-chat"/></svg><span>WhatsApp <span class="nums">315 703 3416</span></span></a>
+      </div>
+    </div>
+<!-- /GEN:planes-paneles -->
+    </div>
+
+    <p class="planes__nota" data-reveal>Valores mensuales en pesos colombianos. Consulte en su oficina si al servicio le aplica IVA (depende del estrato y del uso). Antes de firmar el contrato le informamos el valor de la instalación y si el plan tiene o no cláusula de permanencia mínima. <a href="informacion-usuarios.html#comparador">Comparador de planes y tarifas</a></p>
+
+    <div class="planes__empresas" id="planes-empresas" data-reveal="zoom">
+      <img class="planes__empresas-foto" src="assets/gen/fibra-patch-panel-cian-1600.jpg" srcset="assets/gen/fibra-patch-panel-cian-640.jpg 640w, assets/gen/fibra-patch-panel-cian-1000.jpg 1000w, assets/gen/fibra-patch-panel-cian-1600.jpg 1600w" sizes="(min-width: 1376px) 1280px, 100vw" width="1600" height="1067" alt="Latiguillos de fibra óptica cian entrando a un panel de parcheo" loading="lazy" decoding="async" data-parallax="0.1">
+      <div class="planes__empresas-velo" aria-hidden="true"></div>
+      <div class="planes__empresas-cuerpo">
+        <p class="eyebrow eyebrow--naranja">Empresas, instituciones e ISP</p>
+        <h3 class="planes__empresas-titulo">Internet dedicado y capacidad a la medida</h3>
+        <p class="planes__empresas-texto">Canal exclusivo con velocidad simétrica por contrato, canal alterno de respaldo, IP pública y soporte en sitio. También suministramos capacidad a proveedores de internet en los municipios del Caquetá donde llegue la fibra óptica.</p>
+      </div>
+      <div class="planes__empresas-lado">
+        <div class="planes__empresas-precio">
+          <span class="planes__empresas-precio-eti">Capacidad y valor</span>
+          <span class="planes__empresas-precio-n">Según su necesidad</span>
+        </div>
+        <a class="boton boton--fuego boton--grande" href="empresas.html"><span>Soluciones empresariales</span><svg class="planes__ico" aria-hidden="true"><use href="#pv-planes-flecha"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 03-porque.html -->
+<section id="porque" class="porque seccion" aria-labelledby="porque-titulo">
+  <div class="rejilla" aria-hidden="true"></div>
+  <div class="porque__resplandor" aria-hidden="true"></div>
+  <div class="porque__resplandor porque__resplandor--der" aria-hidden="true"></div>
+  <div class="contenedor">
+
+    <div class="porque__cabecera" id="tecnologias">
+      <div class="porque__titular">
+        <p class="eyebrow" data-reveal>Tecnologías</p>
+        <h2 id="porque-titulo" class="titulo porque__titulo" data-reveal>La conexión adecuada para <span class="grad-texto">cada lugar</span></h2>
+      </div>
+      <p class="lead porque__intro" data-reveal="der" style="--retardo: 180ms">En el casco urbano llevamos fibra óptica hasta su hogar o negocio. En fincas, veredas y sectores donde aún no llega la fibra, lo conectamos por radioenlace.</p>
+    </div>
+
+    <div class="porque__cuerpo">
+
+      <figure class="porque__marco" data-reveal="izq">
+        <img class="porque__img" src="assets/gen/porque-fibra-1400.jpg" srcset="assets/gen/porque-fibra-800.jpg 800w, assets/gen/porque-fibra-1400.jpg 1400w" sizes="(min-width: 960px) 38vw, 100vw" width="1400" height="934" alt="Haces de fibra óptica encendidos en cian, vistos muy de cerca sobre fondo oscuro" loading="lazy" decoding="async" data-parallax="0.18">
+        <div class="porque__velo" aria-hidden="true"></div>
+        <div class="porque__escaner" aria-hidden="true"></div>
+        <div class="porque__linea porque__linea--arriba linea-luz" aria-hidden="true"><i class="porque__pulso"></i></div>
+        <div class="porque__linea porque__linea--abajo linea-luz" aria-hidden="true"><i class="porque__pulso"></i></div>
+        <figcaption class="porque__chip etiqueta"><span class="punto punto--late" aria-hidden="true"></span>Fibra óptica: la señal viaja como luz</figcaption>
+      </figure>
+
+      <div class="porque__tarjetas">
+
+        <article class="porque__tarjeta tarjeta tarjeta-luz" data-reveal>
+          <span class="porque__num" aria-hidden="true">01</span>
+          <div class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path pathLength="1" d="M8 20V4"/><path pathLength="1" d="M4 8l4-4 4 4"/><path pathLength="1" d="M16 4v16"/><path pathLength="1" d="M12 16l4 4 4-4"/></svg>
+          </div>
+          <h3>Velocidad simétrica</h3>
+          <p>En fibra óptica, la velocidad de subida es igual a la de bajada. Videollamadas, cámaras de seguridad y envío de archivos funcionan con la misma agilidad que las descargas.</p>
+        </article>
+
+        <article class="porque__tarjeta tarjeta tarjeta-luz" data-reveal>
+          <span class="porque__num" aria-hidden="true">02</span>
+          <div class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path pathLength="1" d="M13 2 4.5 13.5h6.5L11 22l8.5-11.5H13z"/></svg>
+          </div>
+          <h3>Baja latencia</h3>
+          <p>La señal viaja como luz a través de la fibra, con un retardo mínimo para videollamadas, videojuegos en línea, plataformas educativas y aplicaciones de trabajo.</p>
+        </article>
+
+        <article class="porque__tarjeta tarjeta tarjeta-luz" data-reveal>
+          <span class="porque__num" aria-hidden="true">03</span>
+          <div class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path pathLength="1" d="M7 16a3.5 3.5 0 0 1-.5-6.96A6 6 0 0 1 18 9.5a3.3 3.3 0 0 1-.5 6.5z"/><path pathLength="1" d="M8 19v2.5"/><path pathLength="1" d="M12 19v3"/><path pathLength="1" d="M16 19v2.5"/></svg>
+          </div>
+          <h3>Servicio estable</h3>
+          <p>La fibra óptica no conduce electricidad ni le afecta la humedad. Nuestra red cuenta con respaldo de internet y de energía solar, y si se presenta un daño, normalmente lo atendemos el mismo día o al día siguiente.</p>
+        </article>
+
+        <article class="porque__tarjeta tarjeta tarjeta-luz" data-reveal>
+          <span class="porque__num" aria-hidden="true">04</span>
+          <div class="icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><rect pathLength="1" x="3" y="3.5" width="18" height="7" rx="2"/><rect pathLength="1" x="3" y="13.5" width="18" height="7" rx="2"/><path pathLength="1" d="M6.5 7h1"/><path pathLength="1" d="M6.5 17h1"/></svg>
+          </div>
+          <h3>Velocidad a la medida</h3>
+          <p>Le ofrecemos la velocidad que necesite, sin un tope fijo. Cuando requiera más, se cambia el plan, no la instalación.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="porque__tec">
+      <div class="porque__tec-cab" data-reveal>
+        <h3 class="porque__tec-titulo">Nuestras formas de conexión</h3>
+        <p class="porque__tec-nota">Antes de instalar, verificamos la disponibilidad en su dirección y le recomendamos la tecnología adecuada.</p>
+      </div>
+      <ul class="porque__tec-lista">
+        <li class="porque__tec-item tarjeta tarjeta-luz" data-reveal>
+          <p class="porque__tec-rotulo">Fibra óptica al hogar</p>
+          <h4 class="porque__tec-nombre">Hasta su hogar o negocio</h4>
+          <p class="porque__tec-texto">Conexión por fibra óptica con velocidad simétrica, para hogares, negocios y oficinas.</p>
+          <ul class="porque__tec-datos">
+            <li>Cascos urbanos de Cartagena del Chairá, Florencia, El Paujil y El Doncello</li>
+            <li>Planes de hogar y planes a la medida</li>
+          </ul>
+        </li>
+        <li class="porque__tec-item tarjeta tarjeta-luz" data-reveal>
+          <p class="porque__tec-rotulo">Radioenlace</p>
+          <h4 class="porque__tec-nombre">Para zonas rurales</h4>
+          <p class="porque__tec-texto">Conexión inalámbrica desde nuestra red para fincas, veredas y sectores donde aún no llega la fibra óptica.</p>
+          <ul class="porque__tec-datos">
+            <li>El Paujil, El Doncello y Cartagena del Chairá</li>
+            <li>Disponibilidad según la ubicación del predio</li>
+          </ul>
+        </li>
+        <li class="porque__tec-item tarjeta tarjeta-luz" data-reveal>
+          <p class="porque__tec-rotulo">Internet dedicado</p>
+          <h4 class="porque__tec-nombre">Para empresas e instituciones</h4>
+          <p class="porque__tec-texto">Canal exclusivo con la capacidad contratada, direcciones IP públicas y canal alterno de respaldo.</p>
+          <ul class="porque__tec-datos">
+            <li>En los municipios del Caquetá donde llegue la fibra óptica</li>
+            <li>También capacidad para proveedores de internet (ISP)</li>
+          </ul>
+          <a class="boton boton--texto porque__tec-ir" href="empresas.html">Soluciones empresariales<svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </li>
+      </ul>
+      <div class="porque__tec-accion" data-reveal>
+        <a class="boton boton--fuego" href="oficinas.html" data-elegir-oficina="Buen día, quiero saber si hay disponibilidad de internet en mi dirección.">Consultar disponibilidad<svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 12-pie.html -->
+<footer class="pie" id="pie">
+  <!-- Banner de la CRC: la norma pide un banner estático del 80 % del ancho, arriba del pie, que lleve al Régimen de Protección de Usuarios -->
+  <div class="pie__crc">
+    <a class="pie__crc-enlace" href="https://www.crcom.gov.co/pagina/regimen-proteccion-usuario" target="_blank" rel="noopener">
+      <img class="pie__crc-img" src="https://www.crcom.gov.co/pp/bannerO.gif" alt="Comisión de Regulación de Comunicaciones (CRC): conoce el Régimen de Protección de los Derechos de los Usuarios de Servicios de Comunicaciones" loading="lazy" decoding="async">
+    </a>
+  </div>
+  <div class="pie__marca" aria-hidden="true"><span class="pie__marca-texto grad-texto">Proyectovisión</span></div>
+  <div class="contenedor">
+    <div class="pie__cuerpo">
+      <div class="pie__intro" data-reveal>
+        <p class="pie__intro-nombre">Proyectovisión</p>
+        <p class="pie__intro-texto">Internet por fibra óptica y radioenlace para hogares, empresas, instituciones y proveedores de internet del Caquetá, desde 2018.</p>
+        <a class="boton boton--fantasma pie__cta" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet">Solicitar servicio<svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <nav class="pie__col" aria-labelledby="pie-oficinas" data-reveal>
+        <h3 class="pie__col-titulo" id="pie-oficinas">WhatsApp de cada oficina</h3>
+        <ul>
+<!-- GEN:pie-oficinas -->
+          <li><a class="pie__wa" href="https://wa.me/573115457323" target="_blank" rel="noopener"><span>Cartagena del Chairá</span> <span class="pie__wa-num nums">311 545 7323</span></a></li>
+          <li><a class="pie__wa" href="https://wa.me/573228476612" target="_blank" rel="noopener"><span>Florencia</span> <span class="pie__wa-num nums">322 847 6612</span></a></li>
+          <li><a class="pie__wa" href="https://wa.me/573186219451" target="_blank" rel="noopener"><span>El Paujil</span> <span class="pie__wa-num nums">318 621 9451</span></a></li>
+          <li><a class="pie__wa" href="https://wa.me/573157033416" target="_blank" rel="noopener"><span>El Doncello</span> <span class="pie__wa-num nums">315 703 3416</span></a></li>
+<!-- /GEN:pie-oficinas -->
+        </ul>
+      </nav>
+      <nav class="pie__col" aria-labelledby="pie-servicios" data-reveal>
+        <h3 class="pie__col-titulo" id="pie-servicios">Servicios</h3>
+        <ul>
+          <li><a href="hogar.html">Internet para el hogar</a></li>
+          <li><a href="hogar.html#planes">Planes y tarifas</a></li>
+          <li><a href="empresas.html">Empresas e instituciones</a></li>
+          <li><a href="empresas.html#isp">Proveedores de internet (ISP)</a></li>
+          <li><a href="soporte.html">Soporte técnico</a></li>
+          <li><a href="oficinas.html">Oficinas y pagos</a></li>
+          <li><a href="index.html#nosotros">Nosotros</a></li>
+        </ul>
+      </nav>
+      <nav class="pie__col" aria-labelledby="pie-usuarios" data-reveal>
+        <h3 class="pie__col-titulo" id="pie-usuarios">Usuarios</h3>
+        <ul>
+          <li><a href="informacion-usuarios.html">Información importante para usuarios</a></li>
+          <li><a href="informacion-usuarios.html#formato-pqr">Formato PQR</a></li>
+          <li><a href="informacion-usuarios.html#terminacion">Terminación del contrato</a></li>
+          <li><a href="informacion-usuarios.html#comparador">Comparador de planes y tarifas</a></li>
+          <li><a href="informacion-usuarios.html#datos-personales">Tratamiento de datos personales</a></li>
+          <li><a href="informacion-usuarios.html#menores">Protección de menores (Ley 679 de 2001)</a></li>
+          <li><a href="index.html#cobertura">Mapa de cobertura</a></li>
+          <li><a href="oficinas.html#pagos">Medios de pago</a></li>
+        </ul>
+      </nav>
+      <div class="pie__col pie__col--empresa" data-reveal>
+        <h3 class="pie__col-titulo">Empresa</h3>
+        <ul>
+          <li>PROYECTOVISION.<wbr>CLICK ZOMAC S.A.S.</li>
+          <li class="nums">NIT 901.162.494-8</li>
+          <li>Notificaciones: Cra. 2 # 2-45, B/ Centro, Cartagena del Chairá, Caquetá</li>
+          <li><a href="mailto:proyectovisions.a.s@gmail.com">proyectovisions.a.s<wbr>@gmail.com</a></li>
+          <li>Línea de atención: <a class="nums" href="tel:+573228476612">322 847 6612</a></li>
+          <li><a href="https://www.sic.gov.co" target="_blank" rel="noopener">Superintendencia de Industria y Comercio (SIC)</a></li>
+          <li><a href="https://www.crcom.gov.co" target="_blank" rel="noopener">Comisión de Regulación de Comunicaciones (CRC)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie__legal">
+      <p class="pie__legal-texto"><strong>PROYECTOVISION.<wbr>CLICK ZOMAC S.A.S.</strong> · NIT 901.162.494-8 · Cra. 2 # 2-45, B/ Centro, Cartagena del Chairá, Caquetá · Medios de pago: transferencia Bancolombia, efectivo en la oficina y Efecty (Florencia) · Autoridad de protección al consumidor: Superintendencia de Industria y Comercio (SIC).</p>
+      <!-- Créditos: solo las fotos de archivo que la página usa de verdad. Cada enlace lleva data-archivo con el archivo al que acredita:
+           si cambias o quitas una foto, cambia aquí. Las de assets/video no se usan. -->
+      <details class="pie__creditos">
+        <summary class="pie__creditos-resumen">
+          <span class="pie__creditos-titulo">Créditos de fotos</span>
+          <span class="pie__creditos-nota">Fotos de archivo de Pexels y Wikimedia Commons; las de la red y las de Cartagena del Chairá son de Proyectovisión</span>
+          <svg class="pie__creditos-flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <p class="pie__creditos-lista">Fotos de archivo con licencia Pexels:
+          <a data-archivo="assets/gen/porque-fibra-1400.jpg" href="https://www.pexels.com/photo/glowing-blue-neons-8640331/" target="_blank" rel="noopener">Georgie Devlin</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-macro-azul-verde.jpg" href="https://www.pexels.com/photo/close-up-shot-of-a-green-and-blue-fiber-optic-12932191/" target="_blank" rel="noopener">Atlantic Ambience</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-patch-panel-cian.jpg" href="https://www.pexels.com/photo/blue-patch-cables-plugged-on-patch-panel-4425157/" target="_blank" rel="noopener">Brett Sayles</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/rack-servidor-azul.jpg" href="https://www.pexels.com/photo/close-up-of-a-blue-server-rack-in-datacenter-37730211/" target="_blank" rel="noopener">panumas nikhomkhai</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/pueblo-cielo-estrellado.jpg" href="https://www.pexels.com/photo/houses-under-a-starry-sky-7762974/" target="_blank" rel="noopener">振中 潘</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/tecnico-poste-silueta.jpg" href="https://www.pexels.com/photo/man-working-on-electricity-post-20458134/" target="_blank" rel="noopener">Bradd Morse</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/torre-telecom-atardecer.jpg" href="https://www.pexels.com/photo/telecommunication-tower-silhouette-at-sunset-36639433/" target="_blank" rel="noopener">Mohit Khare</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-tunel-naranja.jpg" href="https://www.pexels.com/photo/abstract-background-with-multicolored-beams-and-bokeh-effect-4001959/" target="_blank" rel="noopener">An Nguyen</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/rio-amazonas-nubes.jpg" href="https://www.pexels.com/photo/aerial-view-of-amazon-river-in-brasil-38814719/" target="_blank" rel="noopener">Miguel Cuenca</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/solar-granja-aerea.jpg" href="https://www.pexels.com/photo/solar-farm-at-sunny-day-9893729/" target="_blank" rel="noopener">Tom Fisk</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-hilos-violeta.jpg" href="https://www.pexels.com/photo/lights-in-darkness-around-thin-lines-17194840/" target="_blank" rel="noopener">Suki Lee</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-hilos-oscuro.jpg" href="https://www.pexels.com/photo/a-flashing-light-in-the-dark-17194838/" target="_blank" rel="noopener">Suki Lee</a>.
+          Vista aérea de Cartagena del Chairá: <a data-archivo="assets/gen/historia-caguan.jpg" href="https://commons.wikimedia.org/wiki/File:20240913_Cartagena_Del_Chair%C3%A1_Gira_Salvemos_La_Selva-Joel_Gonz%C3%A1lez6961.jpg" target="_blank" rel="noopener">“Cartagena del Chairá, gira Salvemos la Selva”</a>, República de Colombia, dominio público, vía Wikimedia Commons.
+          Las fotos del ODF, la caja NAP, los carretes de fibra y el rack del nodo son de Proyectovisión. Las del atardecer y las canoas en el río Caguán, en Cartagena del Chairá, también son de Proyectovisión.
+        </p>
+      </details>
+    </div>
+  </div>
+  <a class="pie__subir" href="#inicio" aria-label="Subir al inicio">
+    <svg class="pie__subir-anillo" viewBox="0 0 56 56" aria-hidden="true"><circle class="pie__subir-fondo" cx="28" cy="28" r="26"/><circle class="pie__subir-traza" cx="28" cy="28" r="26"/></svg>
+    <svg class="pie__subir-flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+  </a>
+</footer>
+
+<script defer src="vendor/gsap.min.js"></script>
+<script defer src="vendor/ScrollTrigger.min.js"></script>
+<script defer src="vendor/SplitText.min.js"></script>
+<script defer src="vendor/ScrollToPlugin.min.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="js/app.js"></script>
+<script defer src="js/nav.js"></script>
+<script defer src="js/velocidad.js"></script>
+<script defer src="js/planes.js"></script>
+<script defer src="js/porque.js"></script>
+<script defer src="js/contacto.js"></script>
+</body>
+</html>
