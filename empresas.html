@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw='; style-src 'self' 'unsafe-inline'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://www.crcom.gov.co; font-src 'self'; manifest-src 'self'; connect-src 'none'; form-action mailto:; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Empresas e ISP · Proyectovisión</title>
 <meta name="description" content="Internet dedicado, capacidad para proveedores de internet en los municipios del Caquetá con fibra óptica, radioenlaces, torres y energía solar.">
@@ -20,7 +22,10 @@
 <meta name="twitter:description" content="Internet dedicado, capacidad para proveedores de internet en los municipios del Caquetá con fibra óptica, radioenlaces, torres y energía solar.">
 <meta name="twitter:image" content="https://www.proyectovision.com.co/assets/og.jpg">
 <meta property="og:url" content="https://www.proyectovision.com.co/empresas.html">
+<link rel="canonical" href="https://www.proyectovision.com.co/empresas.html">
 <link rel="icon" href="assets/gen/logo-emblema.png">
+<link rel="apple-touch-icon" href="assets/iconos/icono-180.png">
+<link rel="manifest" href="assets/iconos/proyectovision.webmanifest">
 <link rel="preload" href="vendor/fonts/clash-display-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="vendor/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="vendor/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -35,8 +40,8 @@
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<a class="saltar" href="#inicio">Ir al contenido</a>
 <!-- 00-nav.html -->
+<a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="topbar" id="arriba">
   <div class="topbar__barra">
     <div class="topbar__fondo" aria-hidden="true"></div>
@@ -46,7 +51,7 @@
     </div>
     <div class="contenedor--ancho topbar__fila">
       <a class="topbar__marca" href="index.html" aria-label="Proyectovisión, ir al inicio">
-        <span class="topbar__logo"><span class="topbar__anillo" aria-hidden="true"></span><span class="topbar__logo-clip"><img src="assets/gen/logo-emblema.png" width="150" height="87" alt="" decoding="async"></span></span>
+        <span class="topbar__logo"><span class="topbar__anillo" aria-hidden="true"></span><span class="topbar__logo-clip"><img src="assets/gen/logo-emblema-100.png" srcset="assets/gen/logo-emblema-50.png 1x, assets/gen/logo-emblema-100.png 2x, assets/gen/logo-emblema.png 3x" width="50" height="29" alt="" decoding="async"></span></span>
         <span class="topbar__nombre">Proyectovisión</span>
       </a>
       <nav class="topbar__nav" aria-label="Secciones de la página">
@@ -69,6 +74,16 @@
       </button>
     </div>
   </div>
+
+  <!-- Celular y tableta (la barra no tiene sitio para estos enlaces): franja bajo la barra con lo que exige la norma
+       (Circular Única SIC: botón «Información importante para usuarios» y PQR a la vista, sin abrir el menú).
+       Se ve arriba de cada página; al bajar se recoge y la barra queda compacta. En escritorio van en la barra. -->
+  <nav class="topbar__franja" aria-label="Usuarios y PQR">
+    <div class="contenedor--ancho topbar__franja-fila">
+      <a class="topbar__enlace-franja topbar__enlace-franja--usuarios" href="informacion-usuarios.html">Información importante para usuarios</a>
+      <a class="topbar__enlace-franja topbar__enlace-franja--pqr" href="informacion-usuarios.html#pqr">PQR</a>
+    </div>
+  </nav>
 
   <div class="topbar__panel" id="topbar-panel" data-lenis-prevent>
     <div class="fondo-aurora" aria-hidden="true"></div>
@@ -120,14 +135,16 @@
     <p class="elegir__texto">Lo atiende directamente la oficina de su municipio.</p>
     <ul class="elegir__lista">
 <!-- GEN:elegir -->
-      <li><a class="elegir__op" href="https://wa.me/573115457323" data-wa="573115457323" data-municipio="Cartagena del Chairá" target="_blank" rel="noopener"><span class="elegir__muni">Cartagena del Chairá</span><span class="elegir__der"><span class="elegir__num nums">311 545 7323</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
-      <li><a class="elegir__op" href="https://wa.me/573228476612" data-wa="573228476612" data-municipio="Florencia" target="_blank" rel="noopener"><span class="elegir__muni">Florencia</span><span class="elegir__der"><span class="elegir__num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
-      <li><a class="elegir__op" href="https://wa.me/573186219451" data-wa="573186219451" data-municipio="El Paujil" target="_blank" rel="noopener"><span class="elegir__muni">El Paujil</span><span class="elegir__der"><span class="elegir__num nums">318 621 9451</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
-      <li><a class="elegir__op" href="https://wa.me/573157033416" data-wa="573157033416" data-municipio="El Doncello" target="_blank" rel="noopener"><span class="elegir__muni">El Doncello</span><span class="elegir__der"><span class="elegir__num nums">315 703 3416</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573115457323" data-wa="573115457323" data-num="311 545 7323" data-municipio="Cartagena del Chairá" target="_blank" rel="noopener"><span class="elegir__muni">Cartagena del Chairá</span><span class="elegir__der"><span class="elegir__num nums">311 545 7323</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573228476612" data-wa="573228476612" data-num="322 847 6612" data-wa-soporte="573209668548" data-num-soporte="320 966 8548" data-municipio="Florencia" target="_blank" rel="noopener"><span class="elegir__muni">Florencia</span><span class="elegir__der"><span class="elegir__num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573186219451" data-wa="573186219451" data-num="318 621 9451" data-municipio="El Paujil" target="_blank" rel="noopener"><span class="elegir__muni">El Paujil</span><span class="elegir__der"><span class="elegir__num nums">318 621 9451</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+      <li><a class="elegir__op" href="https://wa.me/573157033416" data-wa="573157033416" data-num="315 703 3416" data-municipio="El Doncello" target="_blank" rel="noopener"><span class="elegir__muni">El Doncello</span><span class="elegir__der"><span class="elegir__num nums">315 703 3416</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
 <!-- /GEN:elegir -->
     </ul>
   </div>
 </dialog>
+
+<main id="contenido">
 
 <!-- 31-portada-empresas.html -->
 <section id="inicio" class="portada portada--empresas seccion" aria-labelledby="portada-titulo">
@@ -138,17 +155,33 @@
   <div class="rejilla portada__rejilla" aria-hidden="true"></div>
   <div class="contenedor portada__contenido">
     <nav class="portada__migas" aria-label="Ruta de navegación"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Empresas e ISP</span></nav>
-    <p class="eyebrow">Empresas, instituciones y proveedores de internet</p>
+    <p class="eyebrow">Empresas, instituciones e ISP</p>
     <h1 class="portada__titulo" id="portada-titulo">Capacidad para su empresa <span class="grad-texto">y su red</span></h1>
     <p class="lead portada__lead">Internet dedicado, capacidad para proveedores de internet (ISP), radioenlace, torres y energía solar. Le suministramos la capacidad que necesite en cualquier municipio del Caquetá donde llegue la fibra óptica.</p>
+    <!-- (B2) contacto directo desde la portada (CRIT-13): WhatsApp de la oficina del municipio o la línea de atención, y el correo.
+         «Ver servicios» ya está en el índice «En esta página» -->
     <div class="portada__acciones">
-      <a class="boton boton--fuego boton--grande" href="#isp"><span>Cotizar capacidad</span><svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="boton boton--fantasma boton--grande" href="#servicios"><span>Ver servicios</span><svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <details class="isp__cotizar">
+        <summary class="boton boton--fuego boton--grande"><svg class="portada__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span>Cotizar por WhatsApp</span><svg class="isp__cotizar-flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="isp__cotizar-caja">
+          <p class="isp__cotizar-titulo">¿En qué municipio necesita el servicio?</p>
+          <ul class="isp__ops">
+<!-- GEN:isp-cotizar -->
+          <li><a class="isp__op" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener"><span class="isp__op-muni">Cartagena del Chairá</span><span class="isp__op-der"><span class="isp__op-num nums">311 545 7323</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20Florencia." target="_blank" rel="noopener"><span class="isp__op-muni">Florencia</span><span class="isp__op-der"><span class="isp__op-num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20El%20Paujil." target="_blank" rel="noopener"><span class="isp__op-muni">El Paujil</span><span class="isp__op-der"><span class="isp__op-num nums">318 621 9451</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20El%20Doncello." target="_blank" rel="noopener"><span class="isp__op-muni">El Doncello</span><span class="isp__op-der"><span class="isp__op-num nums">315 703 3416</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20el%20municipio%20de%20" target="_blank" rel="noopener"><span class="isp__op-muni">Otro municipio del Caquetá<span class="isp__op-nota">Línea de atención</span></span><span class="isp__op-der"><span class="isp__op-num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+<!-- /GEN:isp-cotizar -->
+          </ul>
+        </div>
+      </details>
+      <a class="boton boton--fantasma boton--grande" href="mailto:proyectovisions.a.s@gmail.com?subject=Cotizaci%C3%B3n%20de%20capacidad%20-%20Empresas%20e%20ISP"><span>Escribir al correo</span><svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
     </div>
     <ul class="portada__datos" aria-label="Lo que ofrecemos">
       <li><strong>Capacidad a la medida</strong><span>sin topes fijos de velocidad</span></li>
       <li><strong>Doble respaldo</strong><span>fibra óptica y enlace satelital</span></li>
-      <li><strong>Energía solar</strong><span>en nuestros nodos</span></li>
+      <li><strong>Energía solar</strong><span>como respaldo de la red</span></li>
     </ul>
     <div class="portada__indice">
       <p class="portada__indice-rotulo">En esta página</p>
@@ -180,7 +213,7 @@
 
       <article class="servicios__panel servicios__panel--dedicado" id="servicio-dedicado" data-reveal>
         <div class="servicios__visual">
-          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/fibra-patch-panel-cian-1600.jpg" srcset="assets/gen/fibra-patch-panel-cian-640.jpg 640w, assets/gen/fibra-patch-panel-cian-1000.jpg 1000w, assets/gen/fibra-patch-panel-cian-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1067" loading="lazy" decoding="async" alt="Latiguillos de fibra óptica conectados a un panel de parcheo"></div>
+          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/fibra-patch-panel-cian-1600.jpg" srcset="assets/gen/fibra-patch-panel-cian-640.jpg 640w, assets/gen/fibra-patch-panel-cian-1000.jpg 1000w, assets/gen/fibra-patch-panel-cian-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1067" loading="lazy" decoding="async" alt="Imagen de referencia: latiguillos de fibra óptica conectados a un panel de parcheo"></div>
           <div class="servicios__velo" aria-hidden="true"></div>
           <span class="servicios__num grad-texto" aria-hidden="true">01</span>
           <p class="servicios__dato"><span class="punto punto--late" aria-hidden="true"></span>Canal exclusivo</p>
@@ -194,7 +227,7 @@
 
       <article class="servicios__panel servicios__panel--isp" id="servicio-isp" data-reveal>
         <div class="servicios__visual">
-          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/rack-servidor-azul-1600.jpg" srcset="assets/gen/rack-servidor-azul-640.jpg 640w, assets/gen/rack-servidor-azul-1000.jpg 1000w, assets/gen/rack-servidor-azul-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1065" loading="lazy" decoding="async" alt="Servidores en rack iluminados en azul en un centro de datos"></div>
+          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/rack-servidor-azul-1600.jpg" srcset="assets/gen/rack-servidor-azul-640.jpg 640w, assets/gen/rack-servidor-azul-1000.jpg 1000w, assets/gen/rack-servidor-azul-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1065" loading="lazy" decoding="async" alt="Imagen de referencia: servidores en rack iluminados en azul en un centro de datos"></div>
           <div class="servicios__velo" aria-hidden="true"></div>
           <span class="servicios__num grad-texto" aria-hidden="true">02</span>
           <p class="servicios__dato"><span class="punto punto--late" aria-hidden="true"></span>Capacidad mayorista</p>
@@ -208,7 +241,7 @@
 
       <article class="servicios__panel servicios__panel--radio" id="servicio-radioenlace" data-reveal>
         <div class="servicios__visual">
-          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/pueblo-cielo-estrellado-1600.jpg" srcset="assets/gen/pueblo-cielo-estrellado-640.jpg 640w, assets/gen/pueblo-cielo-estrellado-1000.jpg 1000w, assets/gen/pueblo-cielo-estrellado-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1067" loading="lazy" decoding="async" alt="Casas iluminadas de un pueblo bajo un cielo estrellado"></div>
+          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/pueblo-cielo-estrellado-1600.jpg" srcset="assets/gen/pueblo-cielo-estrellado-640.jpg 640w, assets/gen/pueblo-cielo-estrellado-1000.jpg 1000w, assets/gen/pueblo-cielo-estrellado-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1067" loading="lazy" decoding="async" alt="Imagen de referencia: casas iluminadas de un pueblo bajo un cielo estrellado"></div>
           <div class="servicios__velo" aria-hidden="true"></div>
           <span class="servicios__num grad-texto" aria-hidden="true">03</span>
           <p class="servicios__dato"><span class="punto punto--late" aria-hidden="true"></span>Zonas rurales</p>
@@ -222,7 +255,7 @@
 
       <article class="servicios__panel servicios__panel--torres" id="servicio-torres" data-reveal>
         <div class="servicios__visual">
-          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/torre-telecom-atardecer-1600.jpg" srcset="assets/gen/torre-telecom-atardecer-640.jpg 640w, assets/gen/torre-telecom-atardecer-1000.jpg 1000w, assets/gen/torre-telecom-atardecer-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1040" loading="lazy" decoding="async" alt="Torre de telecomunicaciones al atardecer"></div>
+          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/torre-telecom-atardecer-1600.jpg" srcset="assets/gen/torre-telecom-atardecer-640.jpg 640w, assets/gen/torre-telecom-atardecer-1000.jpg 1000w, assets/gen/torre-telecom-atardecer-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1040" loading="lazy" decoding="async" alt="Imagen de referencia: torre de telecomunicaciones al atardecer"></div>
           <div class="servicios__velo" aria-hidden="true"></div>
           <span class="servicios__num grad-texto" aria-hidden="true">04</span>
           <p class="servicios__dato"><span class="punto punto--late" aria-hidden="true"></span>Sitios de difícil acceso</p>
@@ -236,7 +269,7 @@
 
       <article class="servicios__panel servicios__panel--energia" id="servicio-energia" data-reveal>
         <div class="servicios__visual">
-          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/tecnico-poste-silueta-1600.jpg" srcset="assets/gen/tecnico-poste-silueta-640.jpg 640w, assets/gen/tecnico-poste-silueta-1000.jpg 1000w, assets/gen/tecnico-poste-silueta-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1280" loading="lazy" decoding="async" alt="Liniero trabajando en lo alto de un poste de energía"></div>
+          <div class="servicios__media"><img class="servicios__foto" src="assets/gen/tecnico-poste-silueta-1600.jpg" srcset="assets/gen/tecnico-poste-silueta-640.jpg 640w, assets/gen/tecnico-poste-silueta-1000.jpg 1000w, assets/gen/tecnico-poste-silueta-1600.jpg 1600w" sizes="(min-width: 761px) 70vw, 100vw" width="1600" height="1280" loading="lazy" decoding="async" alt="Imagen de referencia: liniero trabajando en lo alto de un poste de energía"></div>
           <div class="servicios__velo" aria-hidden="true"></div>
           <span class="servicios__num grad-texto" aria-hidden="true">05</span>
           <p class="servicios__dato"><span class="punto punto--late" aria-hidden="true"></span>Energía renovable</p>
@@ -277,7 +310,7 @@
       <div class="isp__texto">
         <div class="cabecera isp__cabecera">
           <p class="eyebrow eyebrow--naranja" data-reveal>Proveedores de internet (ISP) y empresas</p>
-          <h2 class="titulo" id="isp-titulo" data-reveal>Capacidad para su red en todo el Caquetá</h2>
+          <h2 class="titulo" id="isp-titulo" data-reveal>Capacidad para su red en el Caquetá</h2>
           <p class="lead" data-reveal>Tenemos la capacidad para suministrar a empresas y proveedores de internet el ancho de banda que requieran, en cualquier municipio del Caquetá donde llegue la fibra óptica.</p>
         </div>
         <ul class="isp__puntos">
@@ -298,8 +331,24 @@
             <div><h3 class="isp__punto-titulo">Soporte técnico en la región</h3><p class="isp__punto-texto">Personal técnico propio en el Caquetá y atención en sitio.</p></div>
           </li>
         </ul>
+        <!-- (B2) cotizar: la oficina del municipio o, en los demás municipios del Caquetá, la línea de atención (CRIT-13).
+             <details> funciona sin JavaScript; la lista la escribe generar.mjs (GEN:isp-cotizar) -->
         <div class="isp__acciones" data-reveal>
-          <a class="boton boton--fuego boton--grande" href="oficinas.html" data-elegir-oficina="Buen día, quiero cotizar capacidad de internet para mi empresa o mi red (ISP)"><svg class="isp__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span>Cotizar por WhatsApp</span></a>
+          <details class="isp__cotizar">
+            <summary class="boton boton--fuego boton--grande"><svg class="isp__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span>Cotizar por WhatsApp</span><svg class="isp__cotizar-flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="isp__cotizar-caja">
+              <p class="isp__cotizar-titulo">¿En qué municipio necesita el servicio?</p>
+              <ul class="isp__ops">
+<!-- GEN:isp-cotizar -->
+          <li><a class="isp__op" href="https://wa.me/573115457323?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20Cartagena%20del%20Chair%C3%A1." target="_blank" rel="noopener"><span class="isp__op-muni">Cartagena del Chairá</span><span class="isp__op-der"><span class="isp__op-num nums">311 545 7323</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20Florencia." target="_blank" rel="noopener"><span class="isp__op-muni">Florencia</span><span class="isp__op-der"><span class="isp__op-num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573186219451?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20El%20Paujil." target="_blank" rel="noopener"><span class="isp__op-muni">El Paujil</span><span class="isp__op-der"><span class="isp__op-num nums">318 621 9451</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573157033416?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20El%20Doncello." target="_blank" rel="noopener"><span class="isp__op-muni">El Doncello</span><span class="isp__op-der"><span class="isp__op-num nums">315 703 3416</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+          <li><a class="isp__op" href="https://wa.me/573228476612?text=Buen%20d%C3%ADa%2C%20quiero%20cotizar%20capacidad%20de%20internet%20para%20mi%20empresa%20o%20mi%20red%20(ISP)%20en%20el%20municipio%20de%20" target="_blank" rel="noopener"><span class="isp__op-muni">Otro municipio del Caquetá<span class="isp__op-nota">Línea de atención</span></span><span class="isp__op-der"><span class="isp__op-num nums">322 847 6612</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span></a></li>
+<!-- /GEN:isp-cotizar -->
+              </ul>
+            </div>
+          </details>
           <a class="boton boton--fantasma boton--grande" href="mailto:proyectovisions.a.s@gmail.com?subject=Cotizaci%C3%B3n%20de%20capacidad%20-%20Empresas%20e%20ISP"><span>Escribir al correo</span><svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
         </div>
       </div>
@@ -354,7 +403,7 @@
         <p class="eyebrow" data-reveal>Nuestra red</p>
         <h2 id="red-titulo" class="titulo red__titulo">Infraestructura propia</h2>
         <p class="red__frase" data-reveal>Todo parte del nodo.</p>
-        <p class="red__texto" data-reveal>En cada nodo operan la OLT, el enrutador de núcleo y el ODF, donde llega la fibra de cada sector. Desde allí salen los cables troncales de 12 hilos hacia las cajas NAP de 16 puertos instaladas en los postes, y de cada caja sale la acometida hasta el usuario. La red cuenta con respaldo de internet por fibra óptica y satelital, y con respaldo de energía solar para seguir operando durante los cortes de energía. Toda la red está georreferenciada, caja por caja.</p>
+        <p class="red__texto" data-reveal>En cada nodo operan la OLT, el enrutador de núcleo y el ODF, donde llega la fibra de cada sector. Desde allí salen los cables troncales de 12 hilos hacia las cajas NAP de 16 puertos instaladas en los postes, y de cada caja sale la acometida hasta el usuario. La red cuenta con respaldo de internet por fibra óptica y satelital, y con respaldo de energía solar, que ayuda a mantenerla en operación durante los cortes de energía. Toda la red está georreferenciada, caja por caja.</p>
       </div>
     </div>
     <div class="red__borde linea-luz" aria-hidden="true"></div>
@@ -391,7 +440,7 @@
             <span class="red__punto" aria-hidden="true"></span>
             <span class="red__num" aria-hidden="true">04</span>
             <h3 class="red__paso-titulo">Usuario</h3>
-            <p class="red__paso-texto">Acometida de fibra hasta el hogar o negocio y equipo wifi en comodato.</p>
+            <p class="red__paso-texto">Acometida de fibra hasta el hogar o negocio y equipo wifi en préstamo (comodato).</p>
           </li>
           <li class="red__luz" aria-hidden="true" role="presentation">
             <span class="red__estela"></span>
@@ -403,7 +452,7 @@
       <!-- la red real, foto por foto: una miniatura por paso (01 → 04), tratamiento uniforme -->
       <div class="red__pruebas">
         <p class="eyebrow red__pruebas-eyebrow" data-reveal>Nuestra red, en fotos</p>
-        <ul class="red__fotos">
+        <ul class="red__fotos" tabindex="0" aria-label="Fotos de nuestra red: nodo, troncal, caja NAP y usuario">
           <li class="red__marco" data-reveal="zoom">
             <figure class="red__foto">
               <div class="red__cuadro">
@@ -446,23 +495,25 @@
   </div>
 </section>
 
+</main>
+
 <!-- 12-pie.html -->
 <footer class="pie" id="pie">
   <!-- Banner de la CRC: la norma pide un banner estático del 80 % del ancho, arriba del pie, que lleve al Régimen de Protección de Usuarios -->
   <div class="pie__crc">
     <a class="pie__crc-enlace" href="https://www.crcom.gov.co/pagina/regimen-proteccion-usuario" target="_blank" rel="noopener">
-      <img class="pie__crc-img" src="https://www.crcom.gov.co/pp/bannerO.gif" alt="Comisión de Regulación de Comunicaciones (CRC): conoce el Régimen de Protección de los Derechos de los Usuarios de Servicios de Comunicaciones" loading="lazy" decoding="async">
+      <img class="pie__crc-img" src="https://www.crcom.gov.co/pp/bannerO.gif" referrerpolicy="no-referrer" width="480" height="174" alt="Comisión de Regulación de Comunicaciones (CRC): Régimen de Protección de los Derechos de los Usuarios de Servicios de Comunicaciones" loading="lazy" decoding="async">
     </a>
   </div>
   <div class="pie__marca" aria-hidden="true"><span class="pie__marca-texto grad-texto">Proyectovisión</span></div>
   <div class="contenedor">
     <div class="pie__cuerpo">
       <div class="pie__intro" data-reveal>
-        <p class="pie__intro-nombre">Proyectovisión</p>
+        <h2 class="pie__intro-nombre">Proyectovisión</h2>
         <p class="pie__intro-texto">Internet por fibra óptica y radioenlace para hogares, empresas, instituciones y proveedores de internet del Caquetá, desde 2018.</p>
         <a class="boton boton--fantasma pie__cta" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet">Solicitar servicio<svg class="boton__flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <nav class="pie__col" aria-labelledby="pie-oficinas" data-reveal>
+      <nav class="pie__col pie__col--oficinas" aria-labelledby="pie-oficinas" data-reveal>
         <h3 class="pie__col-titulo" id="pie-oficinas">WhatsApp de cada oficina</h3>
         <ul>
 <!-- GEN:pie-oficinas -->
@@ -512,15 +563,17 @@
       </div>
     </div>
     <div class="pie__legal">
-      <p class="pie__legal-texto"><strong>PROYECTOVISION.<wbr>CLICK ZOMAC S.A.S.</strong> · NIT 901.162.494-8 · Cra. 2 # 2-45, B/ Centro, Cartagena del Chairá, Caquetá · Medios de pago: transferencia Bancolombia, efectivo en la oficina y Efecty (Florencia) · Autoridad de protección al consumidor: Superintendencia de Industria y Comercio (SIC).</p>
+      <!-- razón social, NIT, dirección, correo y línea de atención van una sola vez, en la columna «Empresa» -->
+      <p class="pie__legal-texto"><strong>Medios de pago:</strong> transferencia Bancolombia, efectivo en la oficina y Efecty (Florencia). <strong>Autoridad de protección al consumidor:</strong> Superintendencia de Industria y Comercio (SIC).</p>
       <!-- Créditos: solo las fotos de archivo que la página usa de verdad. Cada enlace lleva data-archivo con el archivo al que acredita:
-           si cambias o quitas una foto, cambia aquí. Las de assets/video no se usan. -->
+           si cambias o quitas una foto, cambia aquí. Las de assets/video no se usan. Ninguna foto en uso exige atribución
+           (licencia Pexels; la de Wikimedia es de dominio público), pero se conserva el crédito de todas. -->
       <details class="pie__creditos">
         <summary class="pie__creditos-resumen">
-          <span class="pie__creditos-titulo">Créditos de fotos</span>
-          <span class="pie__creditos-nota">Fotos de archivo de Pexels y Wikimedia Commons; las de la red y las de Cartagena del Chairá son de Proyectovisión</span>
+          <span class="pie__creditos-titulo">Créditos de las fotos</span>
           <svg class="pie__creditos-flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
+        <p class="pie__creditos-nota">Las fotos de la red y las del atardecer y las canoas en Cartagena del Chairá son de Proyectovisión; las demás son fotos de archivo de Pexels y de Wikimedia Commons, usadas como imagen de referencia.</p>
         <p class="pie__creditos-lista">Fotos de archivo con licencia Pexels:
           <a data-archivo="assets/gen/porque-fibra-1400.jpg" href="https://www.pexels.com/photo/glowing-blue-neons-8640331/" target="_blank" rel="noopener">Georgie Devlin</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-macro-azul-verde.jpg" href="https://www.pexels.com/photo/close-up-shot-of-a-green-and-blue-fiber-optic-12932191/" target="_blank" rel="noopener">Atlantic Ambience</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-patch-panel-cian.jpg" href="https://www.pexels.com/photo/blue-patch-cables-plugged-on-patch-panel-4425157/" target="_blank" rel="noopener">Brett Sayles</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/rack-servidor-azul.jpg" href="https://www.pexels.com/photo/close-up-of-a-blue-server-rack-in-datacenter-37730211/" target="_blank" rel="noopener">panumas nikhomkhai</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/pueblo-cielo-estrellado.jpg" href="https://www.pexels.com/photo/houses-under-a-starry-sky-7762974/" target="_blank" rel="noopener">振中 潘</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/tecnico-poste-silueta.jpg" href="https://www.pexels.com/photo/man-working-on-electricity-post-20458134/" target="_blank" rel="noopener">Bradd Morse</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/torre-telecom-atardecer.jpg" href="https://www.pexels.com/photo/telecommunication-tower-silhouette-at-sunset-36639433/" target="_blank" rel="noopener">Mohit Khare</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-tunel-naranja.jpg" href="https://www.pexels.com/photo/abstract-background-with-multicolored-beams-and-bokeh-effect-4001959/" target="_blank" rel="noopener">An Nguyen</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/rio-amazonas-nubes.jpg" href="https://www.pexels.com/photo/aerial-view-of-amazon-river-in-brasil-38814719/" target="_blank" rel="noopener">Miguel Cuenca</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/solar-granja-aerea.jpg" href="https://www.pexels.com/photo/solar-farm-at-sunny-day-9893729/" target="_blank" rel="noopener">Tom Fisk</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-hilos-violeta.jpg" href="https://www.pexels.com/photo/lights-in-darkness-around-thin-lines-17194840/" target="_blank" rel="noopener">Suki Lee</a><span class="pie__sep" aria-hidden="true">·</span><a data-archivo="assets/stock/fibra-hilos-oscuro.jpg" href="https://www.pexels.com/photo/a-flashing-light-in-the-dark-17194838/" target="_blank" rel="noopener">Suki Lee</a>.
           Vista aérea de Cartagena del Chairá: <a data-archivo="assets/gen/historia-caguan.jpg" href="https://commons.wikimedia.org/wiki/File:20240913_Cartagena_Del_Chair%C3%A1_Gira_Salvemos_La_Selva-Joel_Gonz%C3%A1lez6961.jpg" target="_blank" rel="noopener">“Cartagena del Chairá, gira Salvemos la Selva”</a>, República de Colombia, dominio público, vía Wikimedia Commons.

@@ -1,22 +1,69 @@
 /* ============================================================
-   Proyectovisión · ayuda.css — sección "Ayuda" (#ayuda): luces del equipo, qué hacer
-   si algo falla (acordeones <details>, funcionan sin JavaScript), cómo medir la velocidad,
-   sugerencias para el wifi y qué tener a mano antes de escribir a soporte.
+   Proyectovisión · ayuda.css — sección "Ayuda" (#ayuda): qué hacer si algo falla (acordeones <details>, funcionan sin
+   JavaScript), qué tener a mano antes de escribir a soporte, las luces del equipo, cómo medir la velocidad y sugerencias
+   para el wifi.
+   (B2, 19-11-2026) Los casos van primero; en escritorio «Antes de escribirnos» queda al lado y fijo (sin huecos al abrir
+   un caso). El acordeón usa el mismo lenguaje que el de preguntas frecuentes (botón «+» en círculo que gira a «×», palabras
+   separadas, tarjeta de vidrio que se enciende al abrir): CRIT-24.
    ============================================================ */
-.ayuda { background: var(--noche); --umbral-de: var(--negro); /* página Soporte: viene de la portada (negro) */ overflow: hidden; }
+/* overflow: clip (y no hidden) para que el bloque fijo (sticky) se mida contra la ventana y no contra la sección */
+.ayuda { background: var(--noche); --umbral-de: var(--negro); /* página Soporte: viene de la portada (negro) */ overflow: hidden; overflow: clip; }
 .ayuda__cabecera { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
-/* el equipo y sus luces */
-.ayuda__equipo { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center; margin: 0 0 clamp(2rem, 4vw, 3rem); padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
-.ayuda__ont { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 18px; padding: 28px 20px 40px; border-radius: 22px; background: linear-gradient(180deg, #f4f6fb, #d9deea); box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08), 0 20px 50px rgba(0, 0, 0, 0.45); color: #2a3350; }
-.ayuda__led { display: grid; justify-items: center; gap: 8px; min-width: 52px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; }
+/* ---------- casos + «Antes de escribirnos» ---------- */
+.ayuda__guia { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 1000px) {
+  .ayuda__guia { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(1.5rem, 3vw, 2.5rem); }
+  .ayuda__guia > .ayuda__bloque--soporte { position: sticky; top: calc(var(--barra) + 24px); }
+}
+
+/* qué hacer si algo falla: una sola columna de ancho de lectura */
+.ayuda__casos { display: grid; gap: 12px; min-width: 0; }
+.ayuda__caso { position: relative; border-radius: var(--radio); background: var(--vidrio); border: 1px solid var(--borde); transition: background-color 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.7s var(--ease); }
+.ayuda__caso[open] { background: rgba(255, 255, 255, 0.065); border-color: rgba(126, 232, 245, 0.3); box-shadow: 0 30px 70px -24px rgba(2, 5, 15, 0.9), 0 0 56px -8px rgba(34, 211, 238, 0.22); }
+.ayuda__caso--rojo[open] { border-color: rgba(255, 120, 120, 0.5); background: rgba(220, 38, 38, 0.07); box-shadow: 0 30px 70px -24px rgba(2, 5, 15, 0.9), 0 0 56px -8px rgba(220, 38, 38, 0.22); }
+@media (hover: hover) {
+  .ayuda__caso:hover { border-color: var(--borde-fuerte); }
+  .ayuda__resumen:hover .ayuda__q { transform: translateX(4px); }
+  .ayuda__resumen:hover .ayuda__mas { border-color: rgba(126, 232, 245, 0.6); color: var(--blanco); }
+}
+.ayuda__resumen { display: flex; align-items: center; gap: 16px; min-height: 76px; padding: 16px 18px 16px 20px; cursor: pointer; list-style: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.ayuda__resumen::-webkit-details-marker { display: none; }
+.ayuda__resumen::marker { content: ''; }
+.ayuda__resumen:focus-visible { outline: 2px solid var(--cian); outline-offset: -2px; border-radius: var(--radio); }
+.ayuda__ico { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); }
+.ayuda__caso--rojo .ayuda__ico { background: rgba(220, 38, 38, 0.14); border-color: rgba(255, 120, 120, 0.45); color: #ff9a9a; }
+.ayuda__ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* mismo titular que .preguntas__q: Clash Display con las palabras separadas */
+.ayuda__q { flex: 1 1 auto; min-width: 0; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem); line-height: 1.2; letter-spacing: 0.005em; word-spacing: 0.14em; color: var(--texto); transition: color 0.4s, transform 0.5s var(--ease); }
+.ayuda__caso[open] .ayuda__q { color: var(--blanco); }
+/* botón «+» en círculo (44 px) que gira a «×» al abrir, como en preguntas frecuentes */
+.ayuda__mas { position: relative; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--borde-fuerte); background: var(--vidrio-2); color: var(--cian-suave); transition: transform 0.55s var(--ease), background-color 0.4s, border-color 0.4s, box-shadow 0.4s, color 0.4s; }
+.ayuda__mas::before, .ayuda__mas::after { content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; margin: -1px 0 0 -8px; border-radius: 2px; background: currentColor; }
+.ayuda__mas::after { transform: rotate(90deg); }
+.ayuda__caso[open] .ayuda__mas { transform: rotate(45deg); background: rgba(26, 46, 230, 0.5); border-color: rgba(126, 232, 245, 0.75); color: var(--blanco); box-shadow: 0 0 22px rgba(34, 211, 238, 0.45), inset 0 0 12px rgba(126, 232, 245, 0.25); }
+.ayuda__resp { padding: 0 24px 24px 78px; color: var(--texto); line-height: 1.6; max-width: 66ch; }
+.ayuda__resp::before { content: ''; display: block; height: 1px; margin: 0 0 16px; background: linear-gradient(90deg, rgba(126, 232, 245, 0.55), rgba(79, 107, 255, 0.25) 60%, transparent); }
+.ayuda__resp p + ol, .ayuda__resp p + ul { margin-top: 10px; }
+.ayuda__resp ol { display: grid; gap: 8px; padding-left: 1.2em; list-style: decimal; }
+.ayuda__resp li::marker { color: var(--cian); font-weight: 700; }
+.ayuda__resp a:not(.boton), .ayuda__bloque a:not(.boton) { color: var(--cian-suave); font-weight: 700; }
+.ayuda__resp strong { color: var(--blanco); }
+/* el botón para escribir a soporte, dentro de la respuesta (CRIT-11) */
+.ayuda__escribir { margin-top: 18px; min-height: 48px; padding: 8px 22px; font-size: 1rem; }
+.ayuda__escribir svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- el equipo y sus luces ---------- */
+.ayuda__equipo { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
+.ayuda__ont { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 18px; padding: 28px 20px 20px; border-radius: 22px; background: linear-gradient(180deg, #f4f6fb, #d9deea); box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08), 0 20px 50px rgba(0, 0, 0, 0.45); color: #2a3350; }
+.ayuda__led { display: grid; justify-items: center; gap: 8px; min-width: 52px; font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.04em; }
 .ayuda__led i { width: 14px; height: 14px; border-radius: 50%; background: #9aa3b8; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35); }
 .ayuda__led--verde i { background: #22c55e; box-shadow: 0 0 10px #22c55e, 0 0 22px rgba(34, 197, 94, 0.6); }
 .ayuda__led--parpadea i { animation: ayuda-parpadeo 1.2s steps(2, jump-none) infinite; }
 @keyframes ayuda-parpadeo { 50% { opacity: 0.35; } }
 .ayuda__led--apagada i { background: #8d95a8; outline: 2px dashed rgba(220, 38, 38, 0.55); outline-offset: 4px; }
-.ayuda__ont-pie { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 0.875rem; font-weight: 700; color: #4a5470; }
-.ayuda__luces-titulo { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); color: var(--blanco); }
+.ayuda__ont-pie { position: static; flex: 0 0 100%; margin-top: 4px; text-align: center; font-size: var(--t-chica); font-weight: 700; line-height: 1.3; color: #4a5470; }
+.ayuda__luces-titulo { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); line-height: 1.15; color: var(--blanco); }
 .ayuda__tabla { display: grid; gap: 8px; margin: 12px 0 0; }
 .ayuda__tabla div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--borde); }
 .ayuda__tabla dt { font-weight: 700; color: var(--cian-suave); }
@@ -24,33 +71,11 @@
 .ayuda__tabla--alerta dt { color: #ff8a8a; }
 .ayuda__luces-nota { margin-top: 10px; font-size: var(--t-chica); color: var(--texto-suave); }
 
-/* qué hacer si algo falla */
-.ayuda__casos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 14px; align-items: start; }
-.ayuda__caso { border-radius: var(--radio); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--borde); transition: border-color 0.25s, background-color 0.25s; }
-.ayuda__caso[open] { border-color: rgba(34, 211, 238, 0.4); background: rgba(34, 211, 238, 0.05); }
-.ayuda__caso--rojo[open] { border-color: rgba(255, 120, 120, 0.5); background: rgba(220, 38, 38, 0.07); }
-.ayuda__resumen { display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 14px 18px; cursor: pointer; list-style: none; }
-.ayuda__resumen::-webkit-details-marker { display: none; }
-.ayuda__ico { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); }
-.ayuda__caso--rojo .ayuda__ico { background: rgba(220, 38, 38, 0.14); border-color: rgba(255, 120, 120, 0.45); color: #ff9a9a; }
-.ayuda__ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.ayuda__q { flex: 1 1 auto; min-width: 0; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); line-height: 1.2; color: var(--blanco); }
-.ayuda__mas { position: relative; flex: none; width: 18px; height: 18px; }
-.ayuda__mas::before, .ayuda__mas::after { content: ''; position: absolute; left: 0; top: 8px; width: 18px; height: 2px; border-radius: 2px; background: var(--cian); transition: transform 0.3s var(--ease); }
-.ayuda__mas::after { transform: rotate(90deg); }
-.ayuda__caso[open] .ayuda__mas::after { transform: rotate(0deg); }
-.ayuda__resp { padding: 0 18px 18px 74px; color: var(--texto); line-height: 1.6; }
-.ayuda__resp p + ol, .ayuda__resp p + ul { margin-top: 10px; }
-.ayuda__resp ol { display: grid; gap: 8px; padding-left: 1.2em; list-style: decimal; }
-.ayuda__resp li::marker { color: var(--cian); font-weight: 700; }
-.ayuda__resp a, .ayuda__bloque a:not(.boton) { color: var(--cian-suave); font-weight: 700; }
-.ayuda__resp strong { color: var(--blanco); }
-
-/* bloques: medir velocidad, sugerencias, antes de escribir */
+/* ---------- bloques: antes de escribir, medir velocidad, sugerencias ---------- */
 .ayuda__bloques { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 16px; margin-top: clamp(2rem, 4vw, 3rem); }
-.ayuda__bloque { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: clamp(1.25rem, 2.6vw, 1.75rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
-.ayuda__bloque--soporte { border-color: rgba(255, 140, 58, 0.45); }
-.ayuda__rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
+.ayuda__bloque { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; padding: clamp(1.25rem, 2.6vw, 1.75rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
+.ayuda__bloque--soporte { border-color: rgba(255, 140, 58, 0.45); background: linear-gradient(180deg, rgba(240, 106, 10, 0.08), rgba(255, 255, 255, 0.03) 60%); }
+.ayuda__rotulo { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
 .ayuda__bloque-titulo { font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.75rem); }
 .ayuda__pasos { display: grid; gap: 8px; padding-left: 1.2em; list-style: decimal; color: var(--texto); line-height: 1.5; }
 .ayuda__pasos li::marker { color: var(--cian); font-weight: 700; }
@@ -59,9 +84,12 @@
 .ayuda__lista li::before { content: ''; position: absolute; left: 2px; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 10px rgba(34, 211, 238, 0.6); }
 .ayuda__nota { color: var(--texto-suave); font-size: 1rem; }
 .ayuda__boton { margin-top: auto; min-height: 48px; font-size: 1rem; }
+.ayuda__guia > .ayuda__bloque--soporte .ayuda__boton { margin-top: 8px; }
 
 @media (max-width: 760px) {
   .ayuda__equipo { grid-template-columns: minmax(0, 1fr); }
-  .ayuda__resp { padding-left: 18px; }
+  .ayuda__resp { padding-left: 20px; padding-right: 20px; }
+  .ayuda__resumen { gap: 12px; min-height: 68px; padding: 14px 14px 14px 16px; }
+  .ayuda__escribir { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .ayuda__led--parpadea i { animation: none; } }

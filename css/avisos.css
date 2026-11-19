@@ -15,7 +15,7 @@
 .avisos__titulo { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; }
 .avisos__texto { color: var(--texto-suave); font-size: 1rem; line-height: 1.5; }
 .avisos__texto strong { color: var(--blanco); }
-.avisos__correo { font-weight: 700; font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); color: var(--blanco); text-decoration: underline; text-decoration-color: rgba(255, 140, 58, 0.7); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.avisos__correo { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); color: var(--blanco); text-decoration: underline; text-decoration-color: rgba(255, 140, 58, 0.7); text-underline-offset: 4px; overflow-wrap: anywhere; }
 .avisos__correo:hover { color: var(--naranja-claro); }
 .avisos__enlace { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-decoration: none; }
 .avisos__enlace:hover { color: var(--blanco); }
@@ -25,3 +25,7 @@
 .avisos__cuerpo { grid-template-columns: minmax(0, 1fr); }
 .avisos__boton { white-space: normal; text-align: center; }
 .avisos__enlace { overflow-wrap: anywhere; }
+/* tableta: el tercer aviso ocupa todo el ancho (no queda solo con media fila vacía) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .avisos__item--info { grid-column: 1 / -1; }
+}

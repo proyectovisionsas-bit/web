@@ -162,6 +162,12 @@
 .hero-c__acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(1.5rem, 3vw, 2.25rem); }
 .hero-c__cta { min-height: 56px; }
 .hero-c__icono { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* «¿Ya es cliente?»: pagar y soporte a un toque desde la portada. Enlaces de texto (no otro botón naranja), zona táctil de 44 px */
+.hero-c__clientes { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: 12px; font-size: 1rem; line-height: 1.3; color: var(--texto-suave); }
+.hero-c__clientes-rotulo { font-weight: 600; color: var(--texto); }
+.hero-c__cliente { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: rgba(126, 232, 245, 0.5); text-underline-offset: 4px; transition: color var(--dur-rapida), text-decoration-color var(--dur-rapida); }
+.hero-c__cliente:hover { color: var(--blanco); text-decoration-color: currentColor; }
+.hero-c__cliente svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .boton__flecha { stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 /* datos rápidos */
@@ -316,6 +322,7 @@
 .js .hero--c:not(.is-lista) .hero-c__eyebrow,
 .js .hero--c:not(.is-lista) .hero-c__lead,
 .js .hero--c:not(.is-lista) .hero-c__acciones,
+.js .hero--c:not(.is-lista) .hero-c__clientes,
 .js .hero--c:not(.is-lista) .hero-c__datos,
 .js .hero--c:not(.is-lista) .hero-c__reactor,
 .js .hero--c:not(.is-lista) .hero-c__nucleo,
@@ -328,6 +335,7 @@
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__eyebrow,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__lead,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__acciones,
+.js .hero--c:not(.is-lista):not(.is-animando) .hero-c__clientes,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__datos,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__reactor,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__nucleo,
@@ -335,7 +343,7 @@
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__fibra,
 .js .hero--c:not(.is-lista):not(.is-animando) .hero-c__suelo { animation: hero-c-rescate 0.6s var(--ease) 2s forwards; }
 @keyframes hero-c-rescate { to { opacity: 1; } }
-.js.calmo .hero--c .hero-c__eyebrow, .js.calmo .hero--c .hero-c__lead, .js.calmo .hero--c .hero-c__acciones, .js.calmo .hero--c .hero-c__datos,
+.js.calmo .hero--c .hero-c__eyebrow, .js.calmo .hero--c .hero-c__lead, .js.calmo .hero--c .hero-c__acciones, .js.calmo .hero--c .hero-c__clientes, .js.calmo .hero--c .hero-c__datos,
 .js.calmo .hero--c .hero-c__reactor, .js.calmo .hero--c .hero-c__nucleo, .js.calmo .hero--c .hero-c__scroll, .js.calmo .hero--c .hero-c__fibra, .js.calmo .hero--c .hero-c__suelo { opacity: 1; }
 
 /* en escritorio el indicador va a la derecha, bajo el reactor, para no chocar con los datos */
@@ -377,6 +385,8 @@
   .hero-c__lead { font-size: 1.0625rem; }
   .hero-c__acciones { flex-direction: column; align-items: stretch; }
   .hero-c__cta { width: 100%; }
+  .hero-c__clientes { margin-top: 10px; gap: 0 18px; }
+  .hero-c__clientes-rotulo { flex: 1 1 100%; padding-top: 4px; }
   .hero-c__datos { grid-template-columns: 1fr; gap: 0; padding-top: 0.25rem; }
   .hero-c__dato { grid-template-columns: minmax(7.5rem, auto) 1fr; align-items: baseline; gap: 12px; padding: 10px 0; }
   .hero-c__dato + .hero-c__dato { padding-left: 0; border-top: 1px solid var(--borde); }

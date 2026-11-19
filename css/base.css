@@ -39,7 +39,7 @@
   --f-texto: 'Satoshi', system-ui, -apple-system, sans-serif;
   --t-base: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);   /* 17–19 px: antes 16–18 */
   --t-chica: 0.9375rem;   /* 15 px: antes 14 */
-  --t-eyebrow: 0.875rem;  /* 14 px: antes 13 */
+  --t-eyebrow: 0.9375rem; /* 15 px (19-11-2026: antes 14; nada de lectura bajo 15 px) */
   --t-h1: clamp(2.75rem, 1.4rem + 6.2vw, 7rem);
   --t-h2: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
   --t-h3: clamp(1.375rem, 1rem + 1.2vw, 2rem);
@@ -53,6 +53,7 @@
   --radio: 20px;
   --radio-chico: 12px;
   --barra: 72px;
+  --franja-h: 0px;   /* alto de la franja «Información importante para usuarios · PQR» (celular y tableta); nav.js pone el real */
   /* movimiento */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-suave: cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,7 +74,12 @@ p, li, dd, dt, td, th, h1, h2, h3, h4, a, span, label, summary, figcaption { ove
 a[href^="mailto:"] { overflow-wrap: anywhere; }
 img, video, svg, canvas, picture { display: block; max-width: 100%; }
 img { height: auto; }
-h1, h2, h3, h4 { font-family: var(--f-titulo); font-weight: 600; line-height: 1.02; letter-spacing: -0.02em; margin: 0; color: var(--blanco); text-wrap: balance; }
+/* word-spacing: Clash Display trae el espacio muy angosto y con el tracking negativo las palabras se pegaban («Unaredpreparada») */
+h1, h2, h3, h4 { font-family: var(--f-titulo); font-weight: 600; line-height: 1.02; letter-spacing: -0.02em; word-spacing: 0.12em; margin: 0; color: var(--blanco); text-wrap: balance; }
+/* el mismo espacio entre palabras en los demás textos con la letra de los títulos (tablas, cinta, historia, calculadora, pie…) */
+caption, .ticker__texto, .soluciones__titulo, .historia__cita-texto, .historia__cierre-hoy, .historia__cierre-frase, .portada__datos strong,
+.velocidad__plan-sede, .velocidad__plan-megas, .velocidad__personas-valor, .velocidad__cifra-unidad, .planes__oficina-titulo, .planes__megas-u,
+.cobertura__nombre, .contacto__canal-valor, .pie__intro-nombre, .preguntas__q, .ayuda__luces-titulo, .hero-c__unidad { word-spacing: 0.12em; }
 h1 { font-size: var(--t-h1); letter-spacing: -0.03em; }
 h2 { font-size: var(--t-h2); }
 h3 { font-size: var(--t-h3); }
@@ -83,12 +89,16 @@ a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 strong, b { font-weight: 700; }
+/* <small> del navegador = 83 % (13 px en una tabla de 16 px): nunca por debajo de 15 px */
+small { font-size: max(var(--t-chica), 0.8em); }
 ::selection { background: var(--azul); color: var(--blanco); }
 /* listas desplegables nativas: la lista de opciones la pinta el sistema (en Windows, fondo blanco);
    sin esto heredaría la letra blanca del sitio y los nombres no se verían */
 select { color-scheme: dark; }
 select option, select optgroup { background-color: #0b1430; color: #e8edff; }
 :focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; border-radius: 4px; }
+/* secciones que reciben el foco al saltar a un #ancla (app.js les pone tabindex="-1"): sin el recuadro alrededor de toda la sección */
+.seccion[tabindex="-1"]:focus, main[tabindex="-1"]:focus { outline: none; }
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--negro); }
 ::-webkit-scrollbar-thumb { background: var(--noche-3); border-radius: 10px; border: 2px solid var(--negro); }
@@ -102,8 +112,17 @@ select option, select optgroup { background-color: #0b1430; color: #e8edff; }
 .seccion--pegada { padding-top: var(--espacio-chico); }
 /* los saltos a #ancla (con y sin JS) dejan sitio para la barra fija: nada queda escondido debajo */
 .seccion, [id] { scroll-margin-top: calc(var(--barra) + 16px); }
-.saltar { position: absolute; left: -999px; top: 8px; z-index: 100; padding: 8px 14px; background: var(--azul); color: var(--blanco); border-radius: 8px; }
+/* celular y tableta (con JS): bajo la barra va la franja «Información importante para usuarios · PQR» (nav.css).
+   Solo se ve arriba de la página, así que solo la primera sección de cada página (#inicio: portada o encabezado)
+   le deja sitio: su --barra local suma el alto de la franja (nav.js lo mide; 3 rem mientras tanto). */
+@media (max-width: 74em) {
+  .js { --franja-h: 3rem; }
+  .js #inicio { --barra: calc(72px + var(--franja-h)); }
+}
+/* «Saltar al contenido»: fuera de la vista hasta que el teclado le da el foco (encima de la barra fija) */
+.saltar { position: absolute; left: -999px; top: 8px; z-index: 300; display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px; background: var(--azul); color: var(--blanco); font-size: 1rem; font-weight: 700; border-radius: 10px; text-decoration: none; box-shadow: 0 10px 30px rgba(2, 5, 15, 0.6); }
 .saltar:focus { left: 8px; }
+.saltar:focus:not(:focus-visible) { left: -999px; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .solo-movil { display: none; }
 @media (max-width: 760px) { .solo-escritorio { display: none !important; } .solo-movil { display: block; } }
@@ -120,7 +139,7 @@ select option, select optgroup { background-color: #0b1430; color: #e8edff; }
 .cabecera--centro { text-align: center; margin-inline: auto; justify-items: center; }
 .grad-texto { background: var(--grad-luz); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .grad-texto--fuego { background: var(--grad-fuego); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.cifra { font-family: var(--f-titulo); font-size: var(--t-cifra); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--blanco); font-variant-numeric: tabular-nums; }
+.cifra { font-family: var(--f-titulo); font-size: var(--t-cifra); font-weight: 700; line-height: 1; letter-spacing: -0.03em; word-spacing: 0.12em; color: var(--blanco); font-variant-numeric: tabular-nums; }
 .nums { font-variant-numeric: tabular-nums; }
 
 /* ---------- botones ---------- */
@@ -130,7 +149,8 @@ select option, select optgroup { background-color: #0b1430; color: #e8edff; }
 .boton--primario::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--grad-luz-h); opacity: 0; transition: opacity var(--dur-rapida); z-index: -1; }
 .boton--primario:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(126, 232, 245, 0.5), var(--brillo-cian); }
 .boton--primario:hover::before { opacity: 1; }
-.boton--fuego { color: var(--blanco); background: var(--grad-fuego); box-shadow: var(--brillo-naranja); }
+/* letra azul noche sobre el naranja de la marca: 6,3–8,4:1 (con letra blanca daba 2,3–3,1:1, ilegible al sol) */
+.boton--fuego { color: var(--noche); background: var(--grad-fuego); box-shadow: var(--brillo-naranja); }
 .boton--fuego:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(240, 106, 10, 0.6); }
 .boton--fantasma { color: var(--blanco); background: rgba(5, 12, 31, 0.55); border: 1px solid var(--borde-fuerte); } /* sin backdrop-filter: fondo semiopaco, mucho más barato al desplazar */
 .boton--fantasma:hover { background: var(--vidrio-2); border-color: rgba(126, 232, 245, 0.6); box-shadow: 0 0 30px rgba(34, 211, 238, 0.2); transform: translateY(-2px); }

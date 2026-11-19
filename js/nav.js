@@ -134,40 +134,102 @@ PV.sections.nav = {
         }).observe(html, { attributes: true, attributeFilter: ['class'] });
       }
       if (abierto) abrir();
-      // Escape cierra; y si la ventana crece a escritorio con el menú abierto, también
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && html.classList.contains('menu-abierto')) boton.click(); });
+      // con el menú abierto el resto de la página está inerte (app.js) y el Tab da la vuelta dentro de la cabecera
+      // (logo, botón de WhatsApp si se ve, botón del menú y los enlaces del panel); Escape cierra y devuelve el foco al botón
+      var enfocable = function (el) { return el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'; };
+      document.addEventListener('keydown', function (e) {
+        if (!html.classList.contains('menu-abierto')) return;
+        if (e.key === 'Escape') { e.preventDefault(); PV.menu(false, { foco: true }); return; }
+        if (e.key !== 'Tab') return;
+        var focos = PV.$$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', barra).filter(enfocable);
+        if (!focos.length) return;
+        var primero = focos[0], ultimo = focos[focos.length - 1], act = document.activeElement;
+        var fuera = !barra.contains(act);
+        if (e.shiftKey && (act === primero || fuera)) { e.preventDefault(); ultimo.focus(); }
+        else if (!e.shiftKey && (act === ultimo || fuera)) { e.preventDefault(); primero.focus(); }
+      });
+      // un enlace del panel a otra parte de esta misma página (p. ej. «Nosotros» estando en el inicio) cierra el menú
+      panel.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a[href]')) PV.menu(false); });
+      // al volver con «atrás» (caché del navegador) la página no debe aparecer con el menú abierto y el fondo inerte
+      window.addEventListener('pageshow', function (e) { if (e.persisted) PV.menu(false); });
       var mq = window.matchMedia('(min-width: 74.01em)'); // igual que el corte de nav.css (74em ≈ 1184 px): arriba de eso la barra muestra los enlaces
-      var cambio = function () { if (mq.matches && html.classList.contains('menu-abierto')) boton.click(); };
+      var cambio = function () { if (mq.matches) PV.menu(false); };
       if (mq.addEventListener) mq.addEventListener('change', cambio); else if (mq.addListener) mq.addListener(cambio);
+    }
+
+    // ---------- 4b. la fila de la barra nunca se sale de la pantalla ----------
+    // Con la letra del celular al 130–160 % o con zoom, «Proyectovisión» + WhatsApp + menú no caben: se esconde el nombre
+    // (queda el logo, y el enlace sigue diciendo «Proyectovisión, ir al inicio»). Se mide de nuevo al cambiar el tamaño.
+    function filaQueCabe() {
+      var fila = PV.$('.topbar__fila', barra);
+      if (!fila) return;
+      var medir = function () {
+        barra.classList.remove('topbar--sin-nombre');
+        if (fila.scrollWidth > fila.clientWidth + 1) barra.classList.add('topbar--sin-nombre');
+      };
+      medir();
+      if ('ResizeObserver' in window) new ResizeObserver(function () { requestAnimationFrame(medir); }).observe(fila);
+      else window.addEventListener('resize', medir);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(medir);
+    }
+
+    // ---------- 4c. franja «Información importante para usuarios · PQR» (celular y tableta) ----------
+    // Su alto real (cambia con la letra y con el ancho) va a --franja-h: la primera sección de la página le deja ese sitio (base.css)
+    function franja() {
+      var f = PV.$('.topbar__franja', barra);
+      if (!f) return;
+      var poner = function () { html.style.setProperty('--franja-h', (f.offsetHeight || 0) + 'px'); };
+      poner();
+      if ('ResizeObserver' in window) new ResizeObserver(poner).observe(f);
+      else window.addEventListener('resize', poner);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(poner);
     }
 
     // ---------- 5. una sola acción naranja por pantalla ----------
     // El botón de la barra va en fantasma mientras el botón naranja de la portada está a la vista (en celular, escondido);
     // cuando ese botón sale por arriba, .topbar.is-sola lo enciende. Sin portada (vista previa sola) se enciende desde el inicio.
+    // Se vigilan todos los botones naranja del contenido (no los de la barra ni los de ventanas): la barra solo se
+    // enciende cuando no hay ninguno a la vista, para que nunca haya dos naranjas a la vez (DESIGN.md §5).
     function ctaSola() {
       var cta = PV.$('.topbar__cta', barra);
       if (!cta) return;
-      var portada = PV.$('#inicio .boton--fuego');
-      if (!portada || !('IntersectionObserver' in window)) { barra.classList.add('is-sola'); return; }
+      var naranjas = Array.prototype.filter.call(document.querySelectorAll('.boton--fuego'), function (b) {
+        return !(b.closest && (b.closest('.topbar') || b.closest('dialog')));
+      });
+      if (!naranjas.length || !('IntersectionObserver' in window) || typeof Set !== 'function') { barra.classList.add('is-sola'); return; }
+      var visibles = new Set();
       var io = new IntersectionObserver(function (en) {
-        barra.classList.toggle('is-sola', !en[0].isIntersecting);
+        en.forEach(function (e) { if (e.isIntersecting) visibles.add(e.target); else visibles.delete(e.target); });
+        barra.classList.toggle('is-sola', visibles.size === 0);
       }, { rootMargin: '-' + Math.round(PV.altoBarra ? PV.altoBarra() : 72) + 'px 0px 0px 0px', threshold: 0 });
-      io.observe(portada);
+      naranjas.forEach(function (b) { io.observe(b); });
     }
 
 
     // ---------- 6. "¿En qué municipio se encuentra?": los botones de WhatsApp generales abren la ventana para elegir la oficina ----------
     // Enlaces con data-elegir-oficina="texto del mensaje". Sin <dialog> (navegador muy viejo) o sin JS, el enlace lleva a oficinas.html.
+    // Soporte técnico: si el botón lo pide (data-tipo="soporte") o el mensaje es de soporte o de una falla, la oficina que tiene
+    // número de soporte propio (hoy Florencia: datos.json → sedes[].soporte, escrito por generar.mjs en data-wa-soporte)
+    // recibe el mensaje en ese número y no en la línea de atención. data-tipo con otro valor (p. ej. "ventas") lo evita.
+    var SOPORTE = /soporte t[eé]cnico|luz roja|sin internet|no tengo internet|no navega|no aparece la red|wifi|internet lento|falla|da[ñn]o/i;
     function elegirOficina() {
       var dlg = document.getElementById('elegir-oficina');
       if (!dlg || typeof dlg.showModal !== 'function') return;
       var ops = PV.$$('.elegir__op', dlg);
-      function abrirDlg(texto) {
+      var eyebrow = PV.$('.eyebrow', dlg), eyebrowTexto = eyebrow ? eyebrow.textContent : '';
+      var disparador = null;
+      function abrirDlg(texto, tipo) {
         var msg = (texto || 'Buen día, quiero información').replace(/[.\s]+$/, '');
+        var soporte = tipo ? tipo === 'soporte' : SOPORTE.test(msg);
         ops.forEach(function (a) {
-          a.href = 'https://wa.me/' + a.getAttribute('data-wa') + '?text=' + encodeURIComponent(msg + ' en ' + a.getAttribute('data-municipio') + '.');
+          var conSoporte = soporte && a.hasAttribute('data-wa-soporte');
+          var numero = a.getAttribute(conSoporte ? 'data-wa-soporte' : 'data-wa');
+          a.href = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(msg + ' en ' + a.getAttribute('data-municipio') + '.');
+          var num = PV.$('.elegir__num', a), visible = a.getAttribute(conSoporte ? 'data-num-soporte' : 'data-num');
+          if (num && visible) num.textContent = visible;
         });
-        if (html.classList.contains('menu-abierto') && boton) boton.click();
+        if (eyebrow) eyebrow.textContent = soporte ? 'Soporte técnico por WhatsApp' : eyebrowTexto;
+        if (html.classList.contains('menu-abierto')) PV.menu(false);
         if (PV.lenis) PV.lenis.stop();
         dlg.showModal();
       }
@@ -177,19 +239,32 @@ PV.sections.nav = {
         if (!a) return;
         e.preventDefault();
         e.stopPropagation();
-        abrirDlg(a.getAttribute('data-elegir-oficina'));
+        disparador = a;
+        abrirDlg(a.getAttribute('data-elegir-oficina'), a.getAttribute('data-tipo'));
       }, true);
       dlg.addEventListener('click', function (e) {
         if (e.target === dlg || (e.target.closest && e.target.closest('[data-cerrar]'))) { dlg.close(); return; }
         if (e.target.closest && e.target.closest('.elegir__op')) setTimeout(function () { if (dlg.open) dlg.close(); }, 200);
       });
-      dlg.addEventListener('close', function () { if (PV.lenis) PV.lenis.start(); });
+      // al cerrar, el foco vuelve al botón que la abrió; si ese botón ya no se ve (estaba en el menú, que se cerró), al botón del menú
+      dlg.addEventListener('close', function () {
+        if (PV.lenis) PV.lenis.start();
+        var d = disparador; disparador = null;
+        setTimeout(function () {
+          var act = document.activeElement;
+          if (act && act !== document.body && act !== document.documentElement) return;
+          var destino = d && d.getClientRects().length ? d : (boton && boton.getClientRects().length ? boton : null);
+          if (destino) destino.focus({ preventScroll: true });
+        }, 0);
+      });
     }
 
     entrada();
     cursorLuz();
     progresoLectura();
     menu();
+    filaQueCabe();
+    franja();
     ctaSola();
     elegirOficina();
   }

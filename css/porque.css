@@ -67,7 +67,7 @@
   .porque__tec-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 .porque__tec-item { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.porque__tec-rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
+.porque__tec-rotulo { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
 .porque__tec-nombre { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.55rem); letter-spacing: -0.015em; }
 .porque__tec-texto { color: var(--texto-suave); font-size: 1rem; line-height: 1.6; }
 .porque__tec-datos { display: grid; gap: 8px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--borde); flex: 1 1 auto; align-content: start; }
@@ -75,6 +75,22 @@
 .porque__tec-datos li::before { content: ''; position: absolute; left: 2px; top: 0.6em; width: 8px; height: 8px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 8px rgba(34, 211, 238, 0.6); }
 .porque__tec-ir { align-self: flex-start; margin-top: 4px; }
 .porque__tec-accion { margin-top: clamp(1.5rem, 3vw, 2.25rem); display: flex; justify-content: center; }
+
+/* ---------- celular (B2, 19-11-2026: CRIT-16) ----------
+   - el marco de la foto deja la altura mínima: con aspect-ratio 4/3 y min-height 260 px se ensanchaba más que la
+     pantalla (347 px en un contenedor de 328) y recortaba el rótulo «Fibra óptica: la señal viaja como luz»;
+   - foto más baja (16:9) y tarjetas compactas (icono junto al título): la sección baja ~0,8 pantallas sin quitar texto. */
+@media (max-width: 639px) {
+  .porque__marco { aspect-ratio: 16 / 9; min-height: 0; }
+  .porque__cabecera { margin-bottom: 2rem; }
+  .porque__tarjeta { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px 14px; padding: 18px; }
+  .porque__tarjeta .icono { width: 44px; height: 44px; }
+  .porque__tarjeta h3 { grid-column: 2; padding-right: 2.5rem; }
+  .porque__tarjeta p { grid-column: 1 / -1; }
+  .porque__tarjeta .porque__num { top: 8px; right: 12px; font-size: 2.5rem; }
+  .porque__tec { margin-top: 2.5rem; padding-top: 2rem; }
+  .porque__tec-item { padding: 18px; }
+}
 
 /* movimiento reducido: nada se mueve y todo se ve */
 .calmo .porque__escaner, .calmo .porque__pulso, .calmo .porque__destello { display: none; }

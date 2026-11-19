@@ -1,5 +1,5 @@
 /* ============================================================
-   Proyectovisión · pagos.js — sección "Paga tu factura" (#pagos).
+   Proyectovisión · pagos.js — sección "Pague su factura" (#pagos).
    Solo agrega el botón "Copiar número de cuenta" cuando el navegador puede copiar.
    Sin JavaScript el número se lee y se selecciona igual.
    ============================================================ */

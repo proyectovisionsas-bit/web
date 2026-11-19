@@ -5,11 +5,12 @@
      opacidad y desplazamiento, sin escala: evita la costura al pintar),
      las megas "suben" al entrar, guarda localStorage['pv-municipio'] y
      dispara "pv:municipio" {detail:{clave}}.
-   - Escucha "pv:municipio" (otras secciones) y la recomendación de la
+   - Escucha "pv:municipio" (otras secciones) y la sugerencia de la
      calculadora de "velocidad": evento "pv:plan" {detail:{megas}} (también
-     "pv:recomendado") y, al arrancar, localStorage['pv-plan']; mueve
-     .is-recomendada a la tarjeta de esos megas (o la primera que los cubra).
-     Si no hay dato, recomienda el plan más chico, igual que la calculadora.
+     "pv:recomendado"); mueve .is-recomendada (etiqueta «Según su cálculo») a la
+     tarjeta de esos megas (o la primera que los cubra).
+     (B2, 19-11-2026: CRIT-07) Sin usar la calculadora en esta visita NO se marca
+     ningún plan: ni por defecto ni con un dato viejo de localStorage['pv-plan'].
    - Sin GSAP o con PV.reduced: todo cambia al instante y se ve entero.
    ============================================================ */
 window.PV = window.PV || {}; PV.sections = PV.sections || {};
@@ -156,17 +157,9 @@ PV.sections.planes = {
       }
       refrescar();
     }
+    // al arrancar ninguna tarjeta va marcada: la etiqueta solo aparece cuando la persona responde la calculadora (evento pv:plan)
     function recomendarInicial() {
-      var v = null;
-      try { v = parseInt(localStorage.getItem('pv-plan'), 10); } catch (e) { v = null; }
-      if (v) { recomendar(v, { silencio: true }); return; }
-      // sin dato de la calculadora: el plan de 100 megas (o, si el municipio no lo tiene, el del medio de su lista)
-      paneles.forEach(function (p) {
-        var tarjetas = PV.$$('.planes__tarjeta', p);
-        var idx = tarjetas.findIndex(function (c) { return parseInt(c.getAttribute('data-megas'), 10) === 100; });
-        if (idx < 0) idx = Math.floor((tarjetas.length - 1) / 2);
-        tarjetas.forEach(function (c, i) { c.classList.toggle('is-recomendada', i === idx); });
-      });
+      paneles.forEach(function (p) { PV.$$('.planes__tarjeta', p).forEach(function (c) { c.classList.remove('is-recomendada'); }); });
     }
 
     // ---- eventos ----
@@ -197,13 +190,12 @@ PV.sections.planes = {
     window.addEventListener('pv:municipio', alMunicipio);
     document.addEventListener('pv:plan', alPlan);          // lo que emite velocidad.js
     document.addEventListener('pv:recomendado', alPlan);   // nombre antiguo, por compatibilidad
-    window.addEventListener('storage', function (e) { if (e.key === 'pv-plan' && e.newValue) recomendar(e.newValue, { silencio: true }); });
 
     var tResize = 0;
     window.addEventListener('resize', function () { clearTimeout(tResize); tResize = setTimeout(function () { moverIndicador(false); }, 120); }, { passive: true });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { moverIndicador(false); });
 
-    // ---- arranque: municipio guardado o el primero; recomendación guardada o el plan más chico ----
+    // ---- arranque: municipio guardado o el primero; ningún plan marcado hasta que se use la calculadora ----
     var guardado = null;
     try { guardado = localStorage.getItem('pv-municipio'); } catch (e) {}
     mostrar(claves.indexOf(guardado) >= 0 ? guardado : claves[0]);

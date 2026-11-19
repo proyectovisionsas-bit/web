@@ -72,40 +72,75 @@ window.PV = window.PV || {};
     else { var top = el.getBoundingClientRect().top + window.scrollY + off; window.scrollTo({ top: top, behavior: PV.reduced ? 'auto' : 'smooth' }); }
   };
 
+  // menú del celular: un solo punto para abrirlo y cerrarlo (botón, Escape, enlaces, ventana de oficinas).
+  // Abierto, todo lo que no es la cabecera queda inerte (el teclado y los lectores de pantalla no salen del menú);
+  // se recorre desde la cabecera hacia arriba, así funciona aunque la cabecera quede dentro de <main>.
+  var inertes = [];
+  function fondoInerte(on) {
+    if (!on) { inertes.forEach(function (el) { el.inert = false; }); inertes = []; return; }
+    var cab = PV.$('.topbar');
+    for (var el = cab; el && el.parentElement && el !== document.body; el = el.parentElement) {
+      Array.prototype.forEach.call(el.parentElement.children, function (h) {
+        if (h === el || h.inert || /^(SCRIPT|STYLE|LINK|TEMPLATE|NOSCRIPT)$/.test(h.tagName)) return;
+        h.inert = true; inertes.push(h);
+      });
+    }
+  }
+  PV.menu = function (abrir, opciones) {
+    var html = document.documentElement, boton = PV.$('.topbar__menu');
+    var ya = html.classList.contains('menu-abierto');
+    if (typeof abrir !== 'boolean') abrir = !ya;
+    if (abrir === ya) return;
+    html.classList.toggle('menu-abierto', abrir);
+    if (boton) { boton.setAttribute('aria-expanded', String(abrir)); boton.setAttribute('aria-label', abrir ? 'Cerrar el menú' : 'Abrir el menú'); }
+    fondoInerte(abrir);
+    if (PV.lenis) { abrir ? PV.lenis.stop() : PV.lenis.start(); }
+    if (!abrir && opciones && opciones.foco && boton) boton.focus({ preventScroll: true });
+  };
+
+  // enlaces a una sección de la misma página («#pagos» o «oficinas.html#pagos» estando en oficinas.html):
+  // desplazamiento suave bajo la barra, cierra el menú y deja el foco en el destino (lo que espera quien usa teclado)
   function anclas() {
     document.addEventListener('click', function (e) {
-      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-      if (!a) return;
-      var id = a.getAttribute('href');
-      if (!id || id.length < 2) return;
-      var el = document.querySelector(id);
+      if (e.defaultPrevented || e.button > 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest ? e.target.closest('a[href*="#"]') : null;
+      if (!a || (a.target && a.target !== '_self')) return;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      if (url.origin !== location.origin || url.pathname.replace(/\/index\.html$/, '/') !== location.pathname.replace(/\/index\.html$/, '/') || url.hash.length < 2) return;
+      var id = url.hash;
+      var el = null;
+      try { el = document.querySelector(id); } catch (err) { return; }
+      // «Saltar al contenido» (#contenido): si la página aún no tiene <main id="contenido">, a la primera sección
+      if (!el && a.classList.contains('saltar')) el = document.querySelector('main') || document.getElementById('inicio');
       if (!el) return;
       e.preventDefault();
-      document.documentElement.classList.remove('menu-abierto');
+      PV.menu(false);
       PV.irA(el);
+      if (!el.matches('a[href], button, input, select, textarea, summary, [tabindex]')) el.setAttribute('tabindex', '-1');
+      try { el.focus({ preventScroll: true }); } catch (err) {}
       try { history.replaceState(null, '', id); } catch (err) {}
     });
   }
 
-  // barra superior: se compacta al bajar; botón de menú en celular (los estilos los pone la sección "nav")
+  // barra superior: se compacta al bajar y, en tableta y escritorio, se esconde al bajar rápido.
+  // En celular vertical (≤ 760 px de ancho) no se esconde: así siempre hay una acción a la vista (WhatsApp y menú) mientras
+  // se lee. Con el celular acostado (poca altura) sí se esconde, para no quitarle una sexta parte a la pantalla.
   function barra() {
     var barra = PV.$('.topbar');
     if (!barra) return;
     var ultimo = 0;
+    var celular = window.matchMedia('(max-width: 760px) and (min-height: 480px)');
     function alBajar() {
       var y = window.scrollY || 0;
       barra.classList.toggle('is-compacta', y > 40);
-      barra.classList.toggle('is-oculta', y > 320 && y > ultimo && !document.documentElement.classList.contains('menu-abierto'));
+      barra.classList.toggle('is-oculta', !celular.matches && y > 320 && y > ultimo && !document.documentElement.classList.contains('menu-abierto'));
       ultimo = y;
     }
     window.addEventListener('scroll', alBajar, { passive: true });
     alBajar();
     var boton = PV.$('.topbar__menu');
-    if (boton) boton.addEventListener('click', function () {
-      var abierto = document.documentElement.classList.toggle('menu-abierto');
-      boton.setAttribute('aria-expanded', String(abierto));
-      if (PV.lenis) { abierto ? PV.lenis.stop() : PV.lenis.start(); }
-    });
+    if (boton) boton.addEventListener('click', function () { PV.menu(); });
     // enlace activo según la sección visible
     var enlaces = PV.$$('.topbar a[href^="#"]');
     var secciones = enlaces.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
@@ -132,9 +167,11 @@ window.PV = window.PV || {};
       var i = hermanos.indexOf(el);
       if (i > 0) el.style.setProperty('--retardo', Math.min(i, 8) * 90 + 'ms');
     });
+    // umbral 0: basta con que asome. Con 5 % del área, una tarjeta alta dentro de un carrusel que solo asoma por el
+    // borde (celular en horizontal) no llegaba nunca al umbral y se quedaba invisible
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
     piezas.forEach(function (el) { io.observe(el); });
     // lo que ya está en pantalla aparece sin esperar; si el rescate de base.css ya lo mostró (el JS llegó tarde),
     // se marca en este mismo cuadro para que al poner html.lista no vuelva a esconderse

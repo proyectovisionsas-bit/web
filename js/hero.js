@@ -22,6 +22,7 @@ PV.sections.hero = {
     var eyebrow = $('.hero-c__eyebrow');
     var lead = $('.hero-c__lead');
     var acciones = $('.hero-c__acciones');
+    var clientes = $('.hero-c__clientes');
     var datos = $('.hero-c__datos');
     var anillos = $('.hero-c__anillos');
     var reactor = $('.hero-c__reactor');
@@ -102,7 +103,8 @@ PV.sections.hero = {
         .fromTo(nucleo, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, 0.45)
         .fromTo(lead, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.9 }, 0.5)
         .fromTo(acciones, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.9 }, 0.62)
-        .fromTo(datos, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 0.74)
+        .fromTo(clientes, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 0.7)
+        .fromTo(datos, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.9 }, 0.78)
         .fromTo(scroll, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.8 }, 1.3);
 
       // la troncal se dibuja desde el suelo hasta el reactor

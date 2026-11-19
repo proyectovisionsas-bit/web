@@ -1,7 +1,9 @@
 /* ============================================================
    Proyectovisión · velocidad.js — "¿Cuántos megas necesita?"
-   Cálculo transparente: 5 de base + megas por uso + 2 por cada persona adicional,
-   redondeado al plan más chico que lo cubra en el municipio elegido.
+   Cálculo: 5 de base + megas por uso + 2 por cada persona adicional, redondeado al plan más chico que lo cubra en el
+   municipio elegido. (B2, 19-11-2026: CRIT-08) Esos valores no están aprobados en datos.json: la página ya no los muestra
+   como hechos (ni «+N» en los usos ni la suma); el resultado se presenta como una sugerencia aproximada y siempre ofrece
+   hablar con la oficina. Los números del velocímetro crecen en pantallas angostas para no quedar por debajo de 15 px.
    Velocímetro SVG: arco luminoso (stroke-dashoffset) con halos sin filtros, punto y aguja, número animado,
    barrido de arranque, pulso de luz por la pista (en su propio SVG; 3 vueltas al encender, 1 por cambio, nunca infinito).
    Respeta PV.reduced y funciona sin GSAP.
@@ -47,18 +49,19 @@ PV.sections.velocidad = {
     var rango = q('.velocidad__rango');
     var salidaNum = q('.velocidad__personas-valor b');
     var salidaTxt = q('.velocidad__personas-valor span');
-    var escala = qa('.velocidad__escala button');
+    var escala = qa('.velocidad__escala span');
     var formula = q('.velocidad__formula');
     var svg = q('.velocidad__svg');
     var pista = q('.velocidad__pista'), arco = q('.velocidad__arco'), halos = qa('.velocidad__arco-halo'), halosG = q('.velocidad__halos');
     var pulso = q('.velocidad__pulso'), pulsoSvg = q('.velocidad__svg--pulso');
     var ticks = q('.velocidad__ticks'), aguja = q('.velocidad__aguja'), punto = q('.velocidad__punto'), puntoGlow = q('.velocidad__punto-glow'), onda = q('.velocidad__onda');
-    var lectura = q('.velocidad__lectura'), cifraNum = q('.velocidad__cifra-num'), cifraNota = q('.velocidad__cifra-nota b');
+    var lectura = q('.velocidad__lectura'), cifraNum = q('.velocidad__cifra-num'), cifraNota = q('.velocidad__cifra-nota');
     var radios = qa('.velocidad__oficina-radio');
     var planSede = q('.velocidad__plan-sede'), planCambiar = q('.velocidad__plan-cambiar'), planTitulo = q('.velocidad__plan-titulo');
     var planTv = q('.velocidad__plan-tv'), planTvNombre = q('.velocidad__plan-tv-nombre');
     var planCuerpo = q('.velocidad__plan-cuerpo'), planMegas = q('.velocidad__plan-megas-num'), planPrecio = q('.velocidad__plan-precio-num');
     var planPara = q('.velocidad__plan-para'), planRef = q('.velocidad__plan-ref'), planCta = q('.velocidad__plan-cta'), planPrecioMes = q('.velocidad__plan-precio-mes');
+    var asesor = q('.velocidad__asesor');
     var medidor = q('.velocidad__medidor');
     if (!svg || !arco || !pista || !rango || !ticks || !aguja || !punto || !cifraNum) return;
 
@@ -81,6 +84,34 @@ PV.sections.velocidad = {
       return posTick(n - 1, n);
     }
 
+    // los números van dentro del SVG (viewBox de 448 de ancho): en un celular angosto 19 unidades se veían de 7 a 14 px.
+    // Se agrandan según el ancho real del SVG (hasta 40 unidades) para que en pantalla midan al menos ~15,5 px.
+    function tamanoTicks() {
+      var w = svg.getBoundingClientRect().width;
+      if (!w) return;
+      var u = Math.min(42, Math.max(19, 15.6 / (w / 448)));
+      ticks.style.setProperty('--velocidad-tick', u.toFixed(1) + 'px');
+      dentroTicks();
+    }
+    // con números grandes, los de los extremos ("300", "500") se correrían fuera del SVG y el marco los recortaría:
+    // se mueven hacia adentro lo justo para quedar dentro del viewBox (−24…424 × 0…318)
+    var VB = { x0: -22, x1: 422, y0: 2, y1: 316 };
+    function dentroTicks() {
+      qa('.velocidad__tick text').forEach(function (t) {
+        if (!t.hasAttribute('data-x')) { t.setAttribute('data-x', t.getAttribute('x')); t.setAttribute('data-y', t.getAttribute('y')); }
+        var x = +t.getAttribute('data-x'), y = +t.getAttribute('data-y');
+        t.setAttribute('x', x); t.setAttribute('y', y);
+        var b;
+        try { b = t.getBBox(); } catch (e) { return; }
+        if (!b || !b.width) return;
+        var dx = 0, dy = 0;
+        if (b.x + b.width > VB.x1) dx = VB.x1 - (b.x + b.width);
+        else if (b.x < VB.x0) dx = VB.x0 - b.x;
+        if (b.y < VB.y0) dy = VB.y0 - b.y;
+        else if (b.y + b.height > VB.y1) dy = VB.y1 - (b.y + b.height);
+        if (dx || dy) { t.setAttribute('x', (x + dx).toFixed(1)); t.setAttribute('y', (y + dy).toFixed(1)); }
+      });
+    }
     var NS = 'http://www.w3.org/2000/svg';
     function crear(nombre, attrs) { var e = document.createElementNS(NS, nombre); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
     function pintarTicks(planes) {
@@ -99,6 +130,7 @@ PV.sections.velocidad = {
         g.appendChild(tx);
         ticks.appendChild(g);
       });
+      dentroTicks();
     }
 
     var estado = { t: 0, num: 0 };
@@ -152,19 +184,19 @@ PV.sections.velocidad = {
       if (!plan) { plan = planes[planes.length - 1]; tope = true; }
       return { need: need, usos: usos, personas: personas, extra: extra, plan: plan, tope: tope, planes: planes, t: posNecesidad(need, planes), municipio: m };
     }
+    // lo que la persona marcó, en palabras (sin las cifras internas del cálculo)
+    function marcado(c) {
+      var partes = c.usos.map(function (u) { return u.nombre; });
+      partes.push(c.personas + (c.personas === 1 ? ' persona' : ' personas'));
+      return partes.join(', ');
+    }
     function textoFormula(c) {
-      var partes = [BASE + ' de base'];
-      c.usos.forEach(function (u) { partes.push(u.megas + ' ' + u.nombre); });
-      if (c.extra > 0) partes.push((c.extra * POR_PERSONA) + ' por ' + c.extra + (c.extra === 1 ? ' persona más' : ' personas más'));
-      var s = partes.join(' + ') + ' = ' + c.need + ' megas en uso simultáneo. ';
-      if (!c.municipio) return s + 'Elija su oficina para ver el plan recomendado y su valor.';
-      if (!c.municipio.conLista) {
-        s += c.tope ? 'Para ese uso le ofrecemos un plan a la medida o internet dedicado en ' + c.municipio.nombre + '.' : 'Le recomendamos un plan de ' + c.plan.megas + ' megas o más; la oficina de ' + c.municipio.nombre + ' le confirma la mejor opción.';
-        return s;
-      }
-      if (c.tope) s += 'Para más de ' + c.plan.megas + ' megas en ' + c.municipio.nombre + ', le ofrecemos un plan a la medida.';
-      else if (c.plan.megas === c.need) s += 'El plan de ' + c.plan.megas + ' megas cubre ese uso.';
-      else s += 'El plan de ' + c.plan.megas + ' megas le deja margen.';
+      var s = 'Según lo que marcó (' + marcado(c) + '), ';
+      if (!c.municipio) return 'Según lo que marcó: ' + marcado(c) + '.';
+      var guia = '';
+      if (!c.municipio.conLista) return s + (c.tope ? 'le sugerimos un plan a la medida o internet dedicado en ' + c.municipio.nombre + '.' : 'le sugerimos un plan de ' + c.plan.megas + ' megas o más en ' + c.municipio.nombre + '.') + guia;
+      if (c.tope) s += 'le sugerimos hablar con la oficina de ' + c.municipio.nombre + ': para más de ' + c.plan.megas + ' megas le ofrecemos un plan a la medida.';
+      else s += 'le sugerimos el plan de ' + c.plan.megas + ' megas en ' + c.municipio.nombre + '.' + guia;
       if (c.plan.tv) s += ' En ' + c.municipio.nombre + ' los planes incluyen TV ' + c.plan.tv + '.';
       return s;
     }
@@ -181,7 +213,9 @@ PV.sections.velocidad = {
     function pintarPlan(c) {
       var p = c.plan, m = c.municipio;
       var cambio = ultimoPlan !== p.megas || ultimaClave !== (m ? m.clave : '');
-      if (planTitulo) planTitulo.textContent = m ? 'Su plan en' : 'Velocidad recomendada';
+      if (planTitulo) planTitulo.textContent = m ? 'Plan sugerido en' : 'Velocidad sugerida';
+      if (cifraNota) cifraNota.textContent = m ? 'plan sugerido' : 'según lo que marcó';
+      ponerAsesor(m);
       if (planSede) { planSede.textContent = m ? m.nombre : ''; planSede.hidden = !m; }
       if (planCambiar) planCambiar.hidden = !m;
       if (planMegas) planMegas.textContent = p.megas;
@@ -190,12 +224,12 @@ PV.sections.velocidad = {
       if (!m) {
         if (planPrecio) planPrecio.textContent = '—';
         if (planPrecioMes) planPrecioMes.hidden = true;
-        if (planPara) planPara.textContent = 'Elija su oficina para ver el plan recomendado y su valor mensual.';
+        if (planPara) planPara.textContent = 'Elija su oficina para ver el plan sugerido y su valor mensual.';
         if (planRef) planRef.hidden = true;
         if (planCta) {
           planCta.href = '#velocidad-oficinas';
           planCta.removeAttribute('target');
-          planCta.setAttribute('aria-label', 'Elegir primero la oficina de su municipio');
+          planCta.removeAttribute('aria-label'); // el texto visible ya dice lo que hace
           if (ctaTexto) ctaTexto.textContent = 'Elija primero su oficina';
         }
         ultimoPlan = p.megas; ultimaClave = '';
@@ -210,7 +244,7 @@ PV.sections.velocidad = {
         var texto = 'Buen día, quiero solicitar el plan de ' + nombre + ' en ' + m.nombre + (m.conLista ? ' (' + p.precio + ' al mes)' : '') + '.';
         planCta.href = 'https://wa.me/' + m.wa + '?text=' + encodeURIComponent(texto);
         planCta.setAttribute('target', '_blank');
-        planCta.setAttribute('aria-label', 'Solicitar el plan de ' + nombre + ' en ' + m.nombre + ' por WhatsApp');
+        planCta.setAttribute('aria-label', 'Solicitar este plan por WhatsApp: ' + nombre + ' en ' + m.nombre); // empieza por el texto visible
         if (ctaTexto) ctaTexto.textContent = 'Solicitar este plan por WhatsApp';
       }
       if (cambio) {
@@ -221,6 +255,22 @@ PV.sections.velocidad = {
         }
       }
       ultimoPlan = p.megas; ultimaClave = m.clave;
+    }
+
+    /* ---------- «hable con su oficina»: sin oficina abre la ventana para elegirla; con oficina, su WhatsApp ---------- */
+    function ponerAsesor(m) {
+      if (!asesor) return;
+      if (!m) {
+        asesor.href = 'oficinas.html';
+        asesor.setAttribute('data-elegir-oficina', 'Buen día, quiero asesoría para elegir mi plan de internet');
+        asesor.removeAttribute('target'); asesor.removeAttribute('rel');
+        asesor.textContent = 'hable con su oficina';
+        return;
+      }
+      asesor.removeAttribute('data-elegir-oficina');
+      asesor.href = 'https://wa.me/' + m.wa + '?text=' + encodeURIComponent('Buen día, quiero asesoría para elegir mi plan de internet en ' + m.nombre + '.');
+      asesor.setAttribute('target', '_blank'); asesor.setAttribute('rel', 'noopener');
+      asesor.textContent = 'hable con la oficina de ' + m.nombre;
     }
 
     /* ---------- pulso de luz que recorre la pista: 3 vueltas al encender, 1 al cambiar el plan o al volver a verse; nunca infinito.
@@ -257,7 +307,6 @@ PV.sections.velocidad = {
     function actualizar() {
       var c = calcular();
       if (formula) formula.textContent = textoFormula(c);
-      if (cifraNota) cifraNota.textContent = c.need;
       qa('.velocidad__tick').forEach(function (g) { g.classList.toggle('is-plan', +g.getAttribute('data-megas') === c.plan.megas); });
       pintarPlan(c);
       if (!entro) return; // la entrada pinta el estado actual al llegar a pantalla
@@ -318,7 +367,6 @@ PV.sections.velocidad = {
       escala.forEach(function (b) { var bv = +b.getAttribute('data-v'); b.classList.toggle('is-activo', bv === v); b.classList.toggle('is-pasado', bv < v); });
     }
     rango.addEventListener('input', function () { pintarRango(); actualizar(); });
-    escala.forEach(function (b) { b.addEventListener('click', function () { rango.value = b.getAttribute('data-v'); pintarRango(); actualizar(); }); });
     radios.forEach(function (r) {
       r.addEventListener('change', function () { if (r.checked) fijarClave(r.value, true); });
     });
@@ -340,6 +388,10 @@ PV.sections.velocidad = {
 
     /* ---------- arranque ---------- */
     marcarRadios();
+    tamanoTicks();
+    if ('ResizeObserver' in window) new ResizeObserver(function () { tamanoTicks(); }).observe(svg);
+    else window.addEventListener('resize', tamanoTicks, { passive: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(dentroTicks); // el ancho de los números depende de la fuente
     pintarTicks(planesActuales());
     pintarRango();
     pintar(0);

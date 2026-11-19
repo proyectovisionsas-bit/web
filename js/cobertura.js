@@ -80,6 +80,9 @@ PV.sections.cobertura = {
     }
     // punto SVG → px dentro del lienzo con el zoom actual
     function aPx(x, y) { return { x: estado.s * (x - Vf.x) * esc + estado.tx, y: estado.s * (y - Vf.y) * esc + estado.ty }; }
+    // en la vista final ninguna etiqueta queda cortada por el borde del marco: si no cabe, se corre hacia adentro
+    // (con letra de 15 px, a 1280 px «San José del Fragua» y «Belén de los Andaquíes» se salían por la izquierda)
+    var BORDE = 6;
     function colocarEtiquetas() {
       var movil = mqMovil.matches;
       for (var i = 0; i < etiquetas.length; i++) {
@@ -88,6 +91,7 @@ PV.sections.cobertura = {
         var p = aPx(parseFloat(e.getAttribute('data-x')), parseFloat(e.getAttribute('data-y')));
         var px = p.x + parseFloat(pos[0]) + t.w * parseFloat(pos[2]) / 100;
         var py = p.y + parseFloat(pos[1]) + t.h * parseFloat(pos[3]) / 100;
+        if (t.w && t.w < ancho - 2 * BORDE) { px = Math.min(Math.max(px, BORDE), ancho - BORDE - t.w); py = Math.min(Math.max(py, BORDE), alto - BORDE - t.h); }
         e.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px)';
       }
     }
@@ -255,11 +259,12 @@ PV.sections.cobertura = {
         if (el.getAttribute('data-sede') === clave || el.getAttribute('data-sede-enlace') === clave) el.classList.toggle('is-activa', on);
       }
     }
+    // focusin/focusout: las tarjetas de oficina ya no son un enlace sino una caja con dos (WhatsApp y mapa)
     function enlazar(el, clave) {
       el.addEventListener('pointerenter', function () { activar(clave, true); });
       el.addEventListener('pointerleave', function () { activar(clave, false); });
-      el.addEventListener('focus', function () { activar(clave, true); });
-      el.addEventListener('blur', function () { activar(clave, false); });
+      el.addEventListener('focusin', function () { activar(clave, true); });
+      el.addEventListener('focusout', function (e) { if (!el.contains(e.relatedTarget)) activar(clave, false); });
     }
     tarjetas.forEach(function (a) { enlazar(a, a.getAttribute('data-sede-enlace')); });
     etiquetas.forEach(function (e) { enlazar(e, e.getAttribute('data-sede')); });

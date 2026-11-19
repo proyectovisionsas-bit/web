@@ -9,7 +9,7 @@
 .pagos__icono { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); }
 .pagos__icono svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .pagos__donde { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
-.pagos__nombre { font-size: clamp(1.625rem, 1.3rem + 1vw, 2.125rem); }
+.pagos__nombre { font-size: clamp(1.625rem, 1.3rem + 1vw, 2.125rem); hyphens: auto; overflow-wrap: anywhere; } /* «Transferencia» con letra al 160 %: parte la palabra en vez de cortarse */
 .pagos__cuenta { display: grid; gap: 8px; width: 100%; margin: 4px 0 0; }
 .pagos__cuenta div { display: grid; gap: 1px; padding-bottom: 8px; border-bottom: 1px solid var(--borde); }
 .pagos__cuenta dt { font-size: var(--t-chica); color: var(--texto-suave); }

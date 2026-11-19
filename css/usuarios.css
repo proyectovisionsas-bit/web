@@ -1,7 +1,7 @@
 /* ============================================================
    Proyectovisión · usuarios.css — página "Información importante para usuarios"
-   (informacion-usuarios.html). Página de lectura: texto cómodo, índice, tablas que
-   se desplazan solas en celular y el formato PQR.
+   (informacion-usuarios.html). Página de lectura: texto cómodo, índice, tablas que en celular
+   se vuelven filas apiladas (comparador y oficinas) y el formato PQR.
    ============================================================ */
 .usuarios { display: block; background: var(--noche); }
 .usuarios__portada { padding-top: calc(var(--barra) + clamp(2rem, 6vw, 4rem)); padding-bottom: clamp(2rem, 5vw, 3.5rem); overflow: hidden; }
@@ -20,7 +20,7 @@
 .usuarios__num { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.12em; color: var(--cian); }
 .usuarios__bloque h2 { margin-top: 6px; margin-bottom: 14px; font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.5rem); line-height: 1.1; }
 .usuarios__bloque h3 { margin-top: 22px; margin-bottom: 8px; font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); }
-.usuarios__bloque p + p { margin-top: 0.8em; }
+.usuarios__bloque p + p, .usuarios__bloque ul + p, .usuarios__bloque ol + p { margin-top: 0.8em; }
 .usuarios__bloque ul, .usuarios__bloque ol { display: grid; gap: 8px; margin-top: 10px; padding-left: 1.3em; }
 .usuarios__bloque ul { list-style: disc; }
 .usuarios__bloque ol { list-style: decimal; }
@@ -47,6 +47,28 @@
 .usuarios__tabla thead th { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-suave); }
 .usuarios__tabla tbody th { color: var(--blanco); font-weight: 700; }
 .usuarios__tabla--oficinas { min-width: 44rem; }
+.usuarios__tabla small { font-size: var(--t-chica); }
+.usuarios__tabla a.nums { display: inline-block; padding-block: 12px; margin-block: -12px; } /* WhatsApp de cada oficina: zona táctil de 44 px o más sin mover el texto */
+
+/* comparador y oficinas en celular: cada fila es una tarjeta (sin desplazar de lado). Los encabezados siguen
+   ahí para los lectores de pantalla; a la vista, cada dato lleva su rótulo (data-th, lo pone .web2/generar.mjs) */
+@media (max-width: 40em) {
+  .usuarios__tabla-caja--apilada { overflow: visible; border: 0; border-radius: 0; }
+  .usuarios__tabla--apilada, .usuarios__tabla--apilada caption, .usuarios__tabla--apilada tbody, .usuarios__tabla--apilada th, .usuarios__tabla--apilada td { display: block; }
+  .usuarios__tabla--apilada { min-width: 0; }
+  .usuarios__tabla--apilada caption { border: 1px solid var(--borde); border-bottom: 0; border-radius: var(--radio-chico) var(--radio-chico) 0 0; }
+  .usuarios__tabla--apilada thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); }
+  .usuarios__tabla--apilada tbody { border: 1px solid var(--borde); border-top: 0; border-radius: 0 0 var(--radio-chico) var(--radio-chico); }
+  .usuarios__tabla--apilada tbody tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 18px; padding: 12px 16px; border-top: 1px solid var(--borde); }
+  .usuarios__tabla--apilada th, .usuarios__tabla--apilada td { min-width: 0; padding: 0; border: 0; }
+  .usuarios__tabla--apilada tbody th { flex: 1 1 100%; order: -2; }
+  .usuarios__tabla--apilada td[data-th]::before { content: attr(data-th) ": "; content: attr(data-th) ": " / ""; font-weight: 700; color: var(--texto-suave); }
+  .usuarios__tabla--apilada .usuarios__precio { flex: 1 1 100%; order: -1; color: var(--blanco); font-weight: 700; }
+  .usuarios__tabla--oficinas.usuarios__tabla--apilada td { flex: 1 1 100%; }
+  .usuarios__tabla--apilada .usuarios__horario::before { display: block; }
+  /* con la letra grande, «Valor mensual: $100.000» parte línea en vez de salirse */
+  .usuarios__tabla.usuarios__tabla--apilada .nums { white-space: normal; }
+}
 
 /* formato PQR */
 .usuarios__formulario { margin-top: 24px; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--borde-fuerte); scroll-margin-top: calc(var(--barra) + 16px); }
@@ -62,8 +84,23 @@
 .pqr [aria-invalid="true"] { border-color: #ff8a8a; }
 .pqr__check { display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
 .pqr__check input { width: 22px; min-height: 22px; height: 22px; margin-top: 2px; flex: none; accent-color: var(--naranja); }
-.pqr__error { color: #ffb4b4; font-weight: 700; }
+/* resumen de errores arriba del formulario: usuarios.js lo muestra, le pone la lista de lo que falta y le da el foco */
+.pqr__error { padding: 14px 18px; border-radius: var(--radio-chico); border: 1px solid rgba(255, 138, 138, 0.55); border-left: 4px solid #ff8a8a; background: rgba(255, 90, 90, 0.08); color: var(--texto); line-height: 1.5; scroll-margin-top: calc(var(--barra) + 16px); }
+.pqr__error:focus { outline: 2px solid #ff8a8a; outline-offset: 3px; }
+.pqr__error-titulo { font-weight: 700; color: #ffc2c2; }
+.usuarios__bloque .pqr__error p + p { margin-top: 4px; }
+.usuarios__bloque .pqr__error-lista { gap: 0; margin-top: 4px; }
+.usuarios__bloque .pqr__error-lista li::marker { color: #ff8a8a; }
+.usuarios__bloque .pqr__error-lista a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blanco); text-decoration: underline; text-underline-offset: 3px; }
+/* explicación de los recursos (debajo de «Tipo de solicitud») */
+.pqr__ayuda { display: grid; gap: 6px; padding: 12px 16px; border-left: 3px solid var(--cian); background: rgba(34, 211, 238, 0.06); border-radius: 0 var(--radio-chico) var(--radio-chico) 0; font-size: 1rem; line-height: 1.5; color: var(--texto); }
+.usuarios__bloque .pqr__ayuda p + p { margin-top: 0; }
+/* confirmación después de abrir el correo o WhatsApp */
+.pqr__estado { padding: 12px 16px; border-radius: var(--radio-chico); border: 1px solid rgba(34, 211, 238, 0.45); background: rgba(34, 211, 238, 0.08); color: var(--texto); line-height: 1.5; }
 .pqr__acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+/* nota de respaldo: solo se ve mientras el formulario no responde (sin JavaScript o si no cargó); usuarios.js pone .pqr--lista */
+.pqr__sinjs { margin: 0; }
+.pqr--lista .pqr__sinjs { display: none; }
 
 .usuarios__tabla .nums { white-space: nowrap; }
 .usuarios__portada > .contenedor > * { min-width: 0; }

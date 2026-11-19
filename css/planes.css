@@ -3,8 +3,8 @@
    Pestañas de municipio con indicador deslizante, línea "todos los planes
    incluyen", rejilla de planes (megas, precio, para quién con icono de uso),
    tarjeta recomendada con aura giratoria, banda de televisión y bloque para
-   empresas con foto y parallax. En celular las tarjetas son filas compactas
-   (megas + precio + CTA) y solo la recomendada queda desplegada.
+   (B2, 19-11-2026) En celular las tarjetas son filas compactas: megas y precio arriba, para quién y un
+   botón con texto debajo; la tarjeta "Según su cálculo" (solo después de usar la calculadora) queda desplegada.
    Solo tokens de base.css.
    ============================================================ */
 .planes { background: var(--negro); --umbral-de: var(--noche-2); /* viene de velocidad (noche-2): el .umbral funde ese fondo y marca el cambio de plano */ overflow: hidden; }
@@ -47,25 +47,28 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__grupo-muni { color: var(--cian-suave); }
 .planes__grupo-muni::before { content: '·'; margin-right: 12px; color: var(--texto-tenue); }
 
-/* rejilla de 6 columnas lógicas: cada tarjeta ocupa 2 (3 por fila); con 5 planes la última fila queda centrada */
+/* rejilla de 6 columnas lógicas: cada tarjeta ocupa 2 (3 por fila); con 4 o 5 planes la última fila queda centrada.
+   Las reglas de 4 y 5 planes van SOLO en escritorio: en tableta y celular mandaban sobre el span de cada tarjeta
+   (más especificidad) y la 4.ª tarjeta de El Paujil quedaba de 103–263 px, con el precio y el botón recortados (CRIT-01). */
 .planes__rejilla { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
-.planes__tarjeta { grid-column: span 2; display: flex; flex-direction: column; padding: clamp(1.5rem, 2.6vw, 2.125rem); }
-.planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(4) { grid-column: 2 / span 2; }
-.planes__rejilla[data-n="4"] .planes__tarjeta:nth-child(4) { grid-column: 3 / span 2; }
+.planes__tarjeta { grid-column: span 2; display: flex; flex-direction: column; min-width: 0; padding: clamp(1.5rem, 2.6vw, 2.125rem); }
+@media (min-width: 921px) {
+  .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(4) { grid-column: 2 / span 2; }
+  .planes__rejilla[data-n="4"] .planes__tarjeta:nth-child(4) { grid-column: 3 / span 2; }
+}
 
 /* ---------- tarjeta de plan ---------- */
 .planes__tarjeta .planes__aura { display: none; position: absolute; inset: 0; z-index: 0; border-radius: inherit; padding: 1.5px; overflow: hidden; pointer-events: none; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
 .planes__aura::before { content: ''; position: absolute; left: 50%; top: 50%; width: 260%; aspect-ratio: 1; transform: translate(-50%, -50%) rotate(0deg); background: conic-gradient(from 0deg, var(--cian-suave) 0%, var(--azul) 22%, transparent 42%, transparent 58%, var(--violeta) 78%, var(--cian-suave) 100%); animation: planes-gira 7s linear infinite; will-change: transform; }
 @keyframes planes-gira { to { transform: translate(-50%, -50%) rotate(360deg); } }
-.planes__tarjeta .planes__etiqueta { display: none; position: absolute; top: 18px; right: 18px; z-index: 2; }
+.planes__tarjeta .planes__etiqueta { display: none; align-self: flex-start; margin-bottom: 14px; } /* en el flujo, arriba del número: «Según su cálculo» no pisa un número de tres cifras */
 
-.planes__megas { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 14px; }
+.planes__cifras { display: contents; }
+.planes__megas { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 14px; }
 .planes__megas-n { font-family: var(--f-titulo); font-weight: 700; font-size: clamp(3.75rem, 2.6rem + 3.2vw, 5.25rem); line-height: 0.86; letter-spacing: -0.045em; color: var(--blanco); font-variant-numeric: tabular-nums; }
-.planes__megas-u { display: flex; flex-direction: column; gap: 5px; padding-bottom: 4px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.125rem; line-height: 1; color: var(--texto-suave); }
-.planes__megas-u small { display: inline-flex; align-items: center; gap: 4px; font-family: var(--f-texto); font-weight: 700; font-size: var(--t-chica); letter-spacing: 0.08em; text-transform: uppercase; color: var(--cian); }
-.planes__megas-u small .planes__ico { width: 16px; height: 16px; stroke-width: 2; }
+.planes__megas-u { padding-bottom: 4px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.125rem; line-height: 1; color: var(--texto-suave); }
 
-.planes__precio { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; }
+.planes__precio { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 6px; margin-bottom: 16px; min-width: 0; }
 .planes__precio-n { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.625rem, 1.3rem + 0.9vw, 2.125rem); letter-spacing: -0.02em; color: var(--blanco); font-variant-numeric: tabular-nums; }
 .planes__mes { font-size: var(--t-chica); font-weight: 500; color: var(--texto-suave); }
 
@@ -74,7 +77,7 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__para .planes__ico { width: 22px; height: 22px; margin-top: 1px; color: var(--cian-suave); }
 
 /* el botón va sobre una tarjeta ya oscura: sin backdrop-filter (evita la costura al revelar la tarjeta) */
-.planes__cta { margin-top: auto; width: 100%; min-height: 50px; padding: 0 18px; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.planes__cta { margin-top: auto; width: 100%; min-height: 50px; padding: 6px 18px; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .planes__cta .planes__ico { width: 20px; height: 20px; }
 
 /* tarjeta recomendada: borde con luz que gira, brillo, número con degradado y botón naranja (la única acción en fuego) */
@@ -109,30 +112,12 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 /* ---------- nota ---------- */
 .planes__nota { margin-top: clamp(1.75rem, 3vw, 2.5rem); max-width: 78ch; font-size: 1rem; line-height: 1.6; color: var(--texto-suave); }
 
-/* ---------- empresas y alcaldías ---------- */
-.planes__empresas { position: relative; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: 32px; margin-top: clamp(2.5rem, 5vw, 4rem); padding: clamp(1.5rem, 4vw, 3.5rem); min-height: 380px; border-radius: var(--radio); border: 1px solid var(--borde-fuerte); overflow: hidden; isolation: isolate; }
-.planes__empresas-foto { position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover; object-position: 62% 38%; z-index: -2; will-change: transform; }
-.planes__empresas-velo { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(2, 5, 15, 0.97) 0%, rgba(2, 5, 15, 0.9) 42%, rgba(2, 5, 15, 0.5) 100%), linear-gradient(180deg, rgba(5, 12, 31, 0.2), rgba(5, 12, 31, 0.9)); }
-.planes__empresas-titulo { font-size: clamp(1.75rem, 1.2rem + 2vw, 3rem); margin-top: 16px; max-width: 15ch; }
-.planes__empresas-texto { margin-top: 16px; color: var(--texto-suave); max-width: 52ch; }
-.planes__empresas-lado { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; justify-self: end; width: min(100%, 380px); padding: clamp(1.25rem, 2.5vw, 2rem); border-radius: var(--radio); background: rgba(5, 12, 31, 0.55); border: 1px solid var(--borde-fuerte); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-.planes__empresas-precio-eti { display: block; margin-bottom: 8px; font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texto-suave); }
-.planes__empresas-precio-n { display: block; font-family: var(--f-titulo); font-weight: 700; font-size: clamp(2rem, 1.5rem + 1.6vw, 2.75rem); line-height: 1; letter-spacing: -0.03em; background: linear-gradient(135deg, var(--blanco) 30%, var(--cian-suave)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.planes__empresas-lado .boton { width: 100%; }
-.planes__empresas-lado .planes__ico { width: 20px; height: 20px; }
-
 /* ---------- responsive ---------- */
 /* tableta en vertical: dos columnas (las tarjetas ya son cortas, así que una de 1024 sigue en tres) */
 @media (max-width: 920px) {
   .planes__tarjeta { grid-column: span 3; }
-  .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(4) { grid-column: span 3; }
-  .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(5) { grid-column: 2 / span 4; }
-  .planes__empresas { grid-template-columns: minmax(0, 1fr); }
-  .planes__empresas-lado { justify-self: stretch; width: 100%; }
-}
-/* tarjetas más angostas: la etiqueta "Recomendado" pasa al flujo (arriba del número) para no pisar un número de tres cifras */
-@media (max-width: 1100px) {
-  .planes__tarjeta .planes__etiqueta { position: static; align-self: flex-start; margin-bottom: 14px; }
+  .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(5),
+  .planes__rejilla[data-n="3"] .planes__tarjeta:nth-child(3) { grid-column: 2 / span 4; }
 }
 @media (max-width: 1024px) {
   .planes__megas-n { font-size: clamp(3.25rem, 2rem + 3vw, 4.5rem); }
@@ -141,21 +126,22 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
   .planes__comun { gap: 8px 18px; }
   .planes__comun-titulo { flex-basis: 100%; }
 }
-/* celular: filas compactas (megas · precio y para quién · botón redondo) y solo la recomendada desplegada */
+/* celular: filas compactas — arriba megas y precio (el precio baja de línea si no cabe), debajo para quién y un botón
+   con texto «Solicitar por WhatsApp» a todo el ancho (antes era un botón redondo sin texto: CRIT-19). La tarjeta
+   «Según su cálculo» (solo tras usar la calculadora) queda desplegada. */
 @media (max-width: 760px) {
-  .planes__tarjeta, .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(4), .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(5) { grid-column: 1 / -1; }
-  .planes__rejilla { gap: 10px; }
-  .planes__tarjeta:not(.is-recomendada) { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: 'megas precio cta' 'megas para cta'; align-items: center; column-gap: 14px; row-gap: 4px; padding: 14px 14px 14px 18px; border-radius: 16px; }
-  .planes__tarjeta:not(.is-recomendada) .planes__megas { grid-area: megas; flex-direction: column; align-items: center; gap: 3px; margin: 0; min-width: 64px; }
-  .planes__tarjeta:not(.is-recomendada) .planes__megas-n { font-size: 2.375rem; line-height: 0.9; }
+  .planes__tarjeta, .planes__rejilla[data-n="5"] .planes__tarjeta:nth-child(5), .planes__rejilla[data-n="3"] .planes__tarjeta:nth-child(3) { grid-column: 1 / -1; }
+  .planes__rejilla { gap: 12px; }
+  .planes__tarjeta:not(.is-recomendada) { gap: 10px; padding: 16px 16px 16px 18px; border-radius: 16px; }
+  .planes__tarjeta:not(.is-recomendada) .planes__cifras { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+  .planes__tarjeta:not(.is-recomendada) .planes__megas { align-items: baseline; gap: 2px 8px; margin: 0; }
+  .planes__tarjeta:not(.is-recomendada) .planes__megas-n { font-size: 2.375rem; line-height: 0.95; }
   .planes__tarjeta:not(.is-recomendada) .planes__megas-u { padding: 0; font-family: var(--f-texto); font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cian); }
-  .planes__tarjeta:not(.is-recomendada) .planes__megas-u small { display: none; }
-  .planes__tarjeta:not(.is-recomendada) .planes__precio { grid-area: precio; align-self: end; margin: 0; }
-  .planes__tarjeta:not(.is-recomendada) .planes__precio-n { font-size: 1.375rem; }
-  .planes__tarjeta:not(.is-recomendada) .planes__para { grid-area: para; align-self: start; min-height: 0; margin: 0; padding: 0; background: none; border: 0; gap: 6px; font-size: var(--t-chica); line-height: 1.4; }
-  .planes__tarjeta:not(.is-recomendada) .planes__para .planes__ico { width: 16px; height: 16px; margin-top: 2px; }
-  .planes__tarjeta:not(.is-recomendada) .planes__cta { grid-area: cta; width: 48px; min-height: 48px; margin: 0; padding: 0; border-radius: 50%; }
-  .planes__tarjeta:not(.is-recomendada) .planes__cta-texto { display: none; }
+  .planes__tarjeta:not(.is-recomendada) .planes__precio { margin: 0; }
+  .planes__tarjeta:not(.is-recomendada) .planes__precio-n { font-size: 1.5rem; }
+  .planes__tarjeta:not(.is-recomendada) .planes__para { min-height: 0; margin: 0; padding: 0; background: none; border: 0; gap: 8px; font-size: var(--t-chica); line-height: 1.45; }
+  .planes__tarjeta:not(.is-recomendada) .planes__para .planes__ico { width: 18px; height: 18px; margin-top: 1px; }
+  .planes__tarjeta:not(.is-recomendada) .planes__cta { min-height: 48px; margin-top: 2px; padding: 6px 18px; font-size: 1rem; }
   .planes__tarjeta.is-recomendada { margin-block: 6px; }
   .planes__tarjeta.is-recomendada .planes__etiqueta { margin-bottom: 16px; }
   .planes__tarjeta.is-recomendada .planes__para { min-height: 0; }
@@ -242,10 +228,9 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__incluye .planes__ico { width: 18px; height: 18px; color: var(--naranja-claro); }
 .planes__incluye strong { color: var(--blanco); }
 @media (max-width: 760px) {
-  .planes__tarjeta:not(.is-recomendada):has(.planes__incluye) { grid-template-areas: 'megas precio cta' 'megas tv cta' 'megas para cta'; }
-  .planes__tarjeta:not(.is-recomendada) .planes__incluye { grid-area: tv; justify-self: start; margin: 2px 0; padding: 3px 10px; }
+  .planes__tarjeta:not(.is-recomendada) .planes__incluye { margin: 0; padding: 3px 10px; }
 }
-/* letra grande en celular: "$100.000/mes" baja el "/mes" a otra línea en vez de salirse */
-@media (max-width: 760px) {
-  .planes__tarjeta:not(.is-recomendada) .planes__precio { flex-wrap: wrap; column-gap: 4px; row-gap: 0; min-width: 0; }
+/* tableta (761–920 px): las cuatro oficinas en 2 × 2, sin una pestaña sola en el segundo renglón */
+@media (min-width: 761px) and (max-width: 920px) {
+  .planes__tabs { grid-template-columns: 1fr 1fr; }
 }

@@ -6,6 +6,13 @@
 .oficinas { background: var(--noche); --umbral-de: var(--negro); overflow: hidden; }
 .oficinas__cabecera { margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem); }
 .oficinas__sedes { margin-top: 0; }
+/* cuatro oficinas: 2 × 2 desde 900 px (con auto-fit quedaban 3 + 1 sola en la segunda fila: CRIT-24).
+   Dos clases: contacto.css se carga después y su .contacto__sedes ganaría con una sola */
+@media (min-width: 900px) {
+  .contacto__sedes.oficinas__sedes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* el número de soporte técnico se toca con comodidad: zona de 44 px de alto (antes 114 × 20) */
+.oficinas__sedes .contacto__sede-soporte a { display: inline-flex; align-items: center; min-height: 44px; }
 .oficinas__sedes .contacto__sede { background: linear-gradient(180deg, rgba(16, 31, 69, 0.85), rgba(5, 12, 31, 0.9)); }
 .contacto__sede-red { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 1rem; font-weight: 700; color: var(--cian-suave); }
 .contacto__sede-red svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

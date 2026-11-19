@@ -57,6 +57,8 @@
 .red__pruebas { margin-top: var(--espacio-chico); }
 .red__pruebas-eyebrow { justify-content: center; width: 100%; }
 .red__fotos { display: grid; grid-template-columns: repeat(4, minmax(0, 220px)); justify-content: center; gap: clamp(14px, 2vw, 24px); margin-top: 28px; }
+/* en celular la tira se desliza: tabindex="0" la deja recorrer con el teclado (axe: scrollable-region-focusable) */
+.red__fotos:focus-visible { outline: 2px solid var(--cian); outline-offset: 6px; border-radius: var(--radio-chico); }
 .red__marco { min-width: 0; }
 .red__foto { margin: 0; display: grid; gap: 10px; }
 .red__cuadro { position: relative; aspect-ratio: 1; border-radius: var(--radio-chico); overflow: hidden; background: var(--noche-2); box-shadow: 0 0 0 1px var(--borde), 0 14px 34px rgba(2, 5, 15, 0.5); transition: transform 0.55s var(--ease), box-shadow 0.55s var(--ease); }

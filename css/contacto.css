@@ -24,6 +24,11 @@
 @keyframes contacto-cometa { to { offset-distance: 100%; } }
 @media (prefers-reduced-motion: reduce) { .contacto__cometa { display: none; } }
 .contacto__titulo { font-size: clamp(2.75rem, 1.5rem + 6vw, 7rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.04em; margin-top: 18px; text-shadow: 0 0 60px rgba(34, 211, 238, 0.25); }
+/* «Hablemos» mide ≈ 4,6 em: nunca más ancho que su columna (con zoom, la «s» final quedaba cortada) */
+@supports (container-type: inline-size) {
+  .contacto__texto { container-type: inline-size; }
+  .contacto__titulo { font-size: min(clamp(2.75rem, 1.5rem + 6vw, 7rem), 20cqi); }
+}
 .contacto__lead { margin-top: 22px; max-width: 46ch; }
 .contacto__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: clamp(1.75rem, 3vw, 2.5rem); }
 .contacto__whatsapp { gap: 12px; }
@@ -31,8 +36,6 @@
 @keyframes contacto-onda { 0% { transform: scale(1); opacity: 0.7; } 65%, 100% { transform: scale(1.22); opacity: 0; } }
 .contacto__ico { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .contacto .boton__flecha, .pie .boton__flecha { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.contacto__pista { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-chica); color: var(--texto-suave); }
-.contacto__pista strong { color: var(--texto); }
 
 /* canales: teléfonos y correo */
 .contacto__canales { display: grid; gap: 12px; }
@@ -40,7 +43,7 @@
 .contacto__canal .icono { flex: 0 0 48px; }
 .contacto__canal-cuerpo { display: grid; gap: 3px; min-width: 0; flex: 1 1 auto; }
 .contacto__canal-etiqueta { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-tenue); }
-.contacto__canal-valor { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blanco); overflow-wrap: anywhere; }
+.contacto__canal-valor { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem); line-height: 1.1; letter-spacing: -0.01em; word-spacing: 0.12em; color: var(--blanco); overflow-wrap: anywhere; }
 .contacto__canal-valor--correo { font-family: var(--f-texto); font-weight: 700; font-size: 1rem; letter-spacing: 0; white-space: normal; overflow-wrap: anywhere; }
 .contacto__canal-flecha { flex: 0 0 20px; width: 20px; height: 20px; stroke: var(--cian); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.6; transition: transform var(--dur-rapida) var(--ease), opacity var(--dur-rapida); }
 @media (hover: hover) {
@@ -80,7 +83,7 @@
 }
 
 @media (max-width: 960px) {
-  .contacto__cta { grid-template-columns: 1fr; }
+  .contacto__cta { grid-template-columns: minmax(0, 1fr); }
   .contacto__cta::after { background: radial-gradient(70% 50% at 0% 0%, rgba(34, 211, 238, 0.1), transparent 60%); }
 }
 @media (max-width: 560px) {
@@ -112,18 +115,23 @@
   .pie__cuerpo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pie__intro { grid-column: 1 / -1; }
 }
-.pie__intro-nombre { font-family: var(--f-titulo); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--blanco); }
+/* encabezado del pie (h2: los títulos de columna son h3); antes un <p> con cara de título (axe p-as-heading) */
+.pie__intro-nombre { font-family: var(--f-titulo); font-weight: 600; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--blanco); }
 .pie__intro-texto { margin-top: 12px; max-width: 32ch; color: var(--texto-suave); font-size: 1rem; line-height: 1.55; }
 .pie__cta { margin-top: 22px; min-height: 48px; padding: 0 22px; font-size: 1rem; }
-.pie__col-titulo { font-family: var(--f-texto); font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--texto-tenue); margin-bottom: 8px; }
-.pie__col ul { display: grid; }
-.pie__col li { display: flex; align-items: center; min-height: 40px; font-size: 1rem; color: var(--texto-suave); overflow-wrap: break-word; }
+.pie__col-titulo { font-family: var(--f-texto); font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; word-spacing: normal; text-transform: uppercase; color: var(--texto-tenue); margin-bottom: 8px; }
+/* renglones en bloque (antes flex: se comía el espacio de «Línea de atención: 322…») y 4 px entre enlaces,
+   para que dos enlaces de dos renglones seguidos no se lean como un solo párrafo */
+.pie__col ul { display: grid; gap: 4px; }
+.pie__col li { display: block; font-size: 1rem; line-height: 1.4; color: var(--texto-suave); overflow-wrap: break-word; }
+.pie__col--empresa li { padding-block: 5px; }
+.pie__col--empresa li:has(> a) { padding-block: 0; }
+.pie__col a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 6px; line-height: 1.35; color: var(--texto); text-decoration: none; position: relative; transition: color var(--dur-rapida); }
+.pie__col a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: var(--grad-luz-h); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-rapida) var(--ease); }
 /* WhatsApp de cada oficina: el municipio arriba y el número debajo, sin partir el número */
-.pie__wa { display: grid !important; gap: 0; padding: 4px 0; line-height: 1.3; }
+.pie__col a.pie__wa { display: grid; gap: 0; padding-block: 4px; line-height: 1.3; }
 .pie__wa-num { color: var(--texto-suave); white-space: nowrap; }
-.pie__wa::after { bottom: 2px !important; }
-.pie__col a { display: inline-flex; align-items: center; min-height: 44px; color: var(--texto); text-decoration: none; position: relative; transition: color var(--dur-rapida); }
-.pie__col a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--grad-luz-h); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-rapida) var(--ease); }
+.pie__col a.pie__wa::after { bottom: 2px; }
 @media (hover: hover) {
   .pie__col a:hover { color: var(--cian-suave); }
   .pie__col a:hover::after { transform: scaleX(1); }
@@ -131,20 +139,21 @@
 .pie__legal { display: grid; gap: 12px; margin-top: clamp(2.5rem, 5vw, 4rem); padding: 22px 96px 0 0; border-top: 1px solid var(--borde); }
 .pie__legal-texto { font-size: var(--t-chica); color: var(--texto-suave); line-height: 1.6; }
 .pie__legal-texto strong { color: var(--texto); }
-/* créditos de fotos: plegados en un <details> cerrado por defecto (una sola línea; la lista solo al abrir) */
+/* créditos de fotos: un solo renglón discreto («Créditos de las fotos ⌄»); la nota, los autores y las licencias, al abrir */
 .pie__creditos { font-size: var(--t-chica); color: var(--texto-tenue); line-height: 1.7; }
-.pie__creditos-resumen { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-height: 44px; padding: 4px 0; cursor: pointer; list-style: none; user-select: none; -webkit-user-select: none; color: var(--texto-tenue); transition: color var(--dur-rapida); }
+.pie__creditos-resumen { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 0; cursor: pointer; list-style: none; user-select: none; -webkit-user-select: none; color: var(--texto-tenue); transition: color var(--dur-rapida); }
 .pie__creditos-resumen::-webkit-details-marker { display: none; }
 .pie__creditos-resumen::marker { content: ''; }
-.pie__creditos-titulo { font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--texto-tenue); transition: color var(--dur-rapida); }
-.pie__creditos-nota { flex: 1 1 auto; min-width: 0; }
-.pie__creditos-flecha { flex: 0 0 18px; width: 18px; height: 18px; margin-left: auto; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.4s var(--ease); }
+.pie__creditos-titulo { font-weight: 600; color: var(--texto-tenue); transition: color var(--dur-rapida); }
+.pie__creditos-flecha { flex: 0 0 18px; width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.4s var(--ease); }
 .pie__creditos[open] .pie__creditos-flecha { transform: rotate(180deg); }
 @media (hover: hover) {
   .pie__creditos-resumen:hover, .pie__creditos-resumen:hover .pie__creditos-titulo { color: var(--texto-suave); }
 }
+.pie__creditos-nota { padding-top: 2px; }
 .pie__creditos-lista { padding: 2px 0 6px; }
-.pie__creditos[open] .pie__creditos-lista { animation: pie-creditos-abre 0.45s var(--ease) both; }
+.pie__creditos-nota + .pie__creditos-lista { margin-top: 0.5em; }
+.pie__creditos[open] .pie__creditos-nota, .pie__creditos[open] .pie__creditos-lista { animation: pie-creditos-abre 0.45s var(--ease) both; }
 @keyframes pie-creditos-abre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 .pie__creditos a { color: inherit; text-decoration: underline; text-decoration-color: rgba(107, 120, 158, 0.45); text-underline-offset: 3px; transition: color var(--dur-rapida); }
 .pie__creditos a:hover { color: var(--texto-suave); text-decoration-color: var(--cian); }
@@ -171,17 +180,17 @@
   .pie__legal { padding-right: 64px; }
 }
 
+/* tableta y celular: los WhatsApp de las oficinas a lo ancho (en dos columnas) y «Servicios» y «Usuarios» lado a lado */
 @media (max-width: 900px) {
   .pie__cuerpo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pie__intro, .pie__col--empresa { grid-column: 1 / -1; }
+  .pie__intro, .pie__col--empresa, .pie__col--oficinas { grid-column: 1 / -1; }
+  /* dos columnas si caben (en em: con la letra grande o con zoom pasa sola a una y el número no se corta) */
+  .pie__col--oficinas ul { grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5em), 1fr)); column-gap: 1rem; }
 }
 @media (max-width: 560px) {
   .pie { padding-bottom: calc(var(--espacio-chico) + 64px + env(safe-area-inset-bottom, 0px)); }
   .pie__cuerpo { gap: 1.5rem 1rem; }
-  .pie__col li { min-height: 38px; font-size: 1rem; }
   .pie__legal { padding-right: 60px; }
-  .pie__creditos-resumen { gap: 2px 10px; }
-  .pie__creditos-nota { flex-basis: 100%; order: 3; }
   .pie__sep { margin: 0 6px; }
 }
 
@@ -191,5 +200,7 @@
 /* ---------- banner de la CRC: estático, 80 % del ancho, en la parte de arriba del pie (lo pide la CRC) ---------- */
 .pie__crc { position: relative; z-index: 2; display: flex; justify-content: center; padding: clamp(18px, 3vw, 28px) 0 0; }
 .pie__crc-enlace { display: block; width: 80%; border-radius: 10px; overflow: hidden; background: var(--blanco); line-height: 0; }
+/* width/height="480"/"174" en el HTML (medida real del banner): el navegador reserva el alto antes de que cargue; aquí se
+   escala al 80 % del ancho sin deformarse */
 .pie__crc-img { display: block; width: 100%; height: auto; min-height: 40px; color: #050c1f; font-size: 0.9375rem; line-height: 1.4; }
 .pie__crc-enlace:focus-visible { outline-offset: 4px; }
