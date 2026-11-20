@@ -279,6 +279,47 @@ window.PV = window.PV || {};
     catch (e) { try { return new SplitText(el, { type: tipo || 'lines,words', linesClass: 'linea', wordsClass: 'palabra' }); } catch (err) { return null; } }
   };
 
+  // ---------- modo diurno / nocturno ----------
+  // El script de la cabecera (.web2/plantilla.html) ya puso <html data-tema="claro|oscuro"> antes de pintar: la elección
+  // guardada (localStorage «pv-tema») o, si la persona nunca eligió, el modo de su celular o computador.
+  // Aquí: cambiar de modo (botón sol/luna, nav.js), recordar la elección, seguir al sistema mientras no haya elección
+  // y avisar con el evento «pv:tema» a lo que se pinta con JS (motas del inicio, hilos de contacto, mapa de cobertura).
+  // Si la persona elige lo mismo que su sistema, no se guarda nada: vuelve a seguir al sistema.
+  PV.tema = (function () {
+    var html = document.documentElement, CLAVE = 'pv-tema';
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+    var leer = function () { try { return localStorage.getItem(CLAVE); } catch (e) { return null; } };
+    var sistema = function () { return mq && mq.matches ? 'claro' : 'oscuro'; };
+    var actual = function () { return html.getAttribute('data-tema') === 'claro' ? 'claro' : 'oscuro'; };
+    function aplicar(t) {
+      if (t === actual() && html.hasAttribute('data-tema')) return;
+      html.setAttribute('data-tema', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'claro' ? '#f4f7fc' : '#050c1f');
+      var ev; try { ev = new CustomEvent('pv:tema', { detail: t }); } catch (e) { ev = document.createEvent('CustomEvent'); ev.initCustomEvent('pv:tema', false, false, t); }
+      document.dispatchEvent(ev);
+    }
+    function poner(t) {
+      try { if (t === sistema()) localStorage.removeItem(CLAVE); else localStorage.setItem(CLAVE, t); } catch (e) {}
+      // cambio con un fundido corto donde el navegador lo sabe hacer (View Transitions); si no, de una vez
+      if (document.startViewTransition && !PV.reduced) { try { document.startViewTransition(function () { aplicar(t); }); return; } catch (e) {} }
+      aplicar(t);
+    }
+    var guardado = leer();
+    if (guardado !== 'claro' && guardado !== 'oscuro') guardado = null;
+    if (!html.hasAttribute('data-tema')) aplicar(guardado || sistema());   // por si el script de la cabecera no corrió
+    if (mq) {
+      var alCambiar = function () { var g = leer(); if (g !== 'claro' && g !== 'oscuro') aplicar(sistema()); };
+      if (mq.addEventListener) mq.addEventListener('change', alCambiar); else if (mq.addListener) mq.addListener(alCambiar);
+    }
+    return { actual: actual, poner: poner, alternar: function () { poner(actual() === 'claro' ? 'oscuro' : 'claro'); } };
+  })();
+  // color de un token (rgb «r g b») para pintar en canvas: «r, g, b»
+  PV.tokenRgb = function (nombre, porDefecto) {
+    var v = getComputedStyle(document.documentElement).getPropertyValue(nombre).trim();
+    return v ? v.split(/[\s,]+/).slice(0, 3).join(', ') : porDefecto;
+  };
+
   // utilidades de canvas compartidas
   PV.dpr = function (max) { return Math.min(window.devicePixelRatio || 1, max || 1.5); };
   // ejecuta cb(ts) solo mientras el elemento esté en pantalla y la pestaña visible

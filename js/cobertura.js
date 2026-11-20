@@ -141,7 +141,8 @@ PV.sections.cobertura = {
       if (animado) aplicarCapas();
       colocarEtiquetas();
     }
-    function claveActual() { return Math.round(ancho) + 'x' + Math.round(alto) + '@' + PV.dpr(1.5) + '|' + base.getAttribute('viewBox'); }
+    // el modo (diurno / nocturno) va en la clave: los colores del mapa están pintados en los bitmaps
+    function claveActual() { return Math.round(ancho) + 'x' + Math.round(alto) + '@' + PV.dpr(1.5) + '|' + base.getAttribute('viewBox') + '|' + document.documentElement.getAttribute('data-tema'); }
     // vista final en los dos SVG (una vez por refresh), trazos y marcadores en px, ondas en su sitio
     function aplicarVista() {
       Vf = vistaFin(); Vi = vistaInicio();
@@ -246,6 +247,16 @@ PV.sections.cobertura = {
         pintarCapa(it[0], clonBase(it[1], it[2], it[3]), it[4], function (bien) { ok = ok && bien; setTimeout(paso, 0); });
       })();
     }
+
+    // al cambiar de modo, los bitmaps del mapa base se vuelven a pintar con los colores nuevos (el SVG vivo cambia solo)
+    // (si en ese momento se están pintando, se espera a que terminen)
+    var esperasTema = 0;
+    document.addEventListener('pv:tema', function repintar(e) {
+      if (e) esperasTema = 0;
+      if (!animado || modo === 'vivo') return;
+      if (construyendo || modo === 'pendiente') { if (esperasTema++ < 40) setTimeout(repintar, 250); return; }
+      if (claveActual() !== claveCapas) construirCapas(claveActual(), function (ok) { modo = ok ? 'bitmaps' : 'vivo'; aplicarCapas(); });
+    });
 
     // las ondas solo corren con el mapa en pantalla
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { lienzo.classList.toggle('is-visible', en[0].isIntersecting); }, { threshold: 0.01 }).observe(lienzo);

@@ -35,7 +35,13 @@ function contactoLienzo(PV, sec) {
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext('2d');
   if (!ctx) return;
-  var colores = [contactoRgb(contactoToken('--cian', '#22d3ee')), contactoRgb(contactoToken('--azul-claro', '#4f6bff')), contactoRgb(contactoToken('--violeta', '#7c3aed')), contactoRgb(contactoToken('--cian-suave', '#7ee8f5'))];
+  // colores del modo actual; de noche la luz se suma ('lighter'), de día se pinta encima (sumar luz sobre blanco no se ve)
+  var colores = [], suma = 'lighter';
+  function leerColores() {
+    colores = [contactoRgb(contactoToken('--cian', '#22d3ee')), contactoRgb(contactoToken('--azul-claro', '#4f6bff')), contactoRgb(contactoToken('--violeta', '#7c3aed')), contactoRgb(contactoToken('--cian-suave', '#7ee8f5'))];
+    suma = document.documentElement.getAttribute('data-tema') === 'claro' ? 'source-over' : 'lighter';
+  }
+  leerColores();
   var W = 0, H = 0, dpr = 1, hilos = [], capa = null, brillos = [];
 
   function sprite(c) {
@@ -82,7 +88,7 @@ function contactoLienzo(PV, sec) {
     dt = Math.min(dt || 16, 50) / 1000;
     ctx.clearRect(0, 0, W, H);
     if (capa) ctx.drawImage(capa, 0, 0, W, H);
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = suma;
     ctx.lineCap = 'round';
     for (var i = 0; i < hilos.length; i++) {
       var h = hilos[i];
@@ -116,6 +122,8 @@ function contactoLienzo(PV, sec) {
 
   var reconstruir = contactoRebotar(function () { construir(); if (PV.reduced) estatico(); }, 180);
   window.addEventListener('resize', reconstruir);
+  // al cambiar de modo (botón sol/luna o el sistema), los hilos se vuelven a pintar con los colores nuevos
+  document.addEventListener('pv:tema', function () { leerColores(); construir(); if (PV.reduced) estatico(); });
   if ('ResizeObserver' in window) {
     var ultimoH = sec.clientHeight;
     new ResizeObserver(function () { if (Math.abs(sec.clientHeight - ultimoH) > 12) { ultimoH = sec.clientHeight; reconstruir(); } }).observe(sec);

@@ -25,7 +25,7 @@
   pointer-events: none;
   background:
     radial-gradient(60% 140% at 50% 50%, rgba(26, 46, 230, 0.24), transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%, transparent 60%, rgba(255, 255, 255, 0.02));
+    linear-gradient(180deg, rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k))), transparent 40%, transparent 60%, rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k))));
 }
 
 /* ---------- cinta ---------- */
@@ -49,7 +49,7 @@
   height: 2px;
   pointer-events: none;
   background: linear-gradient(90deg, transparent, var(--cian-suave) 50%, transparent);
-  box-shadow: 0 0 14px rgba(34, 211, 238, 0.9), 0 0 32px rgba(34, 211, 238, 0.45);
+  box-shadow: 0 0 14px rgb(var(--cian-rgb) / 0.9), 0 0 32px rgb(var(--cian-rgb) / 0.45);
   transform: translateX(-260px);
   animation: ticker-pulso 7s var(--ease-suave) infinite;
   will-change: transform;
@@ -109,11 +109,11 @@
   line-height: 1;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--blanco);
+  color: var(--tinta);
 }
 .ticker__item--sede .ticker__texto {
   color: var(--cian-suave);
-  text-shadow: 0 0 22px rgba(34, 211, 238, 0.45);
+  text-shadow: 0 0 22px rgb(var(--cian-rgb) / 0.45);
 }
 .ticker__punto { flex: none; }
 
@@ -136,3 +136,6 @@ html.calmo .ticker__cinta::after { animation: none; }
 @media (prefers-reduced-motion: reduce) {
   .ticker__pista, .ticker__cinta::before, .ticker__cinta::after { animation: none; }
 }
+
+/* ---------- modo diurno ---------- */
+[data-tema="claro"] .ticker__item--sede .ticker__texto { text-shadow: none; }

@@ -2,12 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw='; style-src 'self' 'unsafe-inline'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://www.crcom.gov.co; font-src 'self'; manifest-src 'self'; connect-src 'none'; form-action mailto:; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-vJd6Dd/8A0CQ1cEYtdli26mbiTuWHqyWyPnIXcv1Lgc='; style-src 'self' 'unsafe-inline'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://www.crcom.gov.co; font-src 'self'; manifest-src 'self'; connect-src 'none'; form-action mailto:; base-uri 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Información importante para usuarios · Proyectovisión</title>
 <meta name="description" content="Planes y tarifas, factores que limitan la velocidad, calidad del servicio, gestión de tráfico, seguridad de la red, PQR, terminación del contrato y tratamiento de datos de Proyectovisión.">
 <meta name="theme-color" content="#050c1f">
+<meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Proyectovisión">
@@ -34,7 +35,7 @@
 <link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet" href="css/usuarios.css">
 <link rel="stylesheet" href="css/contacto.css">
-<script>document.documentElement.classList.add('js');</script>
+<script>(function(d){d.classList.add('js');var t=null;try{t=localStorage.getItem('pv-tema')}catch(e){}if(t!=='claro'&&t!=='oscuro')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'claro':'oscuro';d.setAttribute('data-tema',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='claro'?'#f4f7fc':'#050c1f')})(document.documentElement)</script>
 </head>
 <body>
 <!-- 00-nav.html -->
@@ -62,6 +63,13 @@
         </ul>
         <span class="topbar__cursor" aria-hidden="true"></span>
       </nav>
+      <!-- modo diurno / nocturno (nav.js y app.js): el icono es el del modo al que cambia; el CSS muestra el que toca.
+           En celular no cabe en la barra: va dentro del menú (botón con texto). Sin JS no se muestra. -->
+      <button class="topbar__tema tema-boton" type="button" data-tema-boton data-tema-aviso>
+        <svg class="tema-boton__sol" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.1M12 19.3v2.1M5.35 5.35l1.5 1.5M17.15 17.15l1.5 1.5M2.6 12h2.1M19.3 12h2.1M5.35 18.65l1.5-1.5M17.15 6.85l1.5-1.5"/></svg>
+        <svg class="tema-boton__luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.9A8.3 8.3 0 0 1 9.1 4a8.3 8.3 0 1 0 10.9 10.9z"/></svg>
+        <span class="visually-hidden tema-boton__a-claro">Cambiar a modo diurno</span><span class="visually-hidden tema-boton__a-oscuro">Cambiar a modo nocturno</span>
+      </button>
       <a class="boton topbar__cta" href="oficinas.html" data-elegir-oficina="Buen día, quiero solicitar el servicio de internet">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 20.5l1.4-4.1A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5l1.4-.6 1.2 2.3-1 .8c.6 1.3 1.6 2.3 2.9 2.9l.8-1 2.3 1.2-.6 1.4c-.3.6-.9.9-1.5.7-3-.9-5.3-3.2-6.2-6.2-.2-.6.1-1.2.7-1.5z"/></svg>
         <span class="topbar__cta-texto">Solicitar servicio</span>
@@ -97,7 +105,14 @@
       <path class="topbar__hilo-pulso" pathLength="1000" d="M335 -20 C 335 240, 40 290, 110 470 C 170 620, 420 650, 300 920"/>
     </svg>
     <nav class="topbar__panel-nav" aria-label="Menú">
-      <p class="eyebrow topbar__panel-eyebrow">Menú</p>
+      <div class="topbar__panel-cab">
+        <p class="eyebrow topbar__panel-eyebrow">Menú</p>
+        <button class="topbar__panel-tema tema-boton" type="button" data-tema-boton>
+          <svg class="tema-boton__sol" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.1M12 19.3v2.1M5.35 5.35l1.5 1.5M17.15 17.15l1.5 1.5M2.6 12h2.1M19.3 12h2.1M5.35 18.65l1.5-1.5M17.15 6.85l1.5-1.5"/></svg>
+          <svg class="tema-boton__luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.9A8.3 8.3 0 0 1 9.1 4a8.3 8.3 0 1 0 10.9 10.9z"/></svg>
+          <span class="tema-boton__a-claro">Modo diurno</span><span class="tema-boton__a-oscuro">Modo nocturno</span>
+        </button>
+      </div>
       <ol class="topbar__panel-lista">
         <li class="topbar__panel-item" style="--i: 0"><a class="topbar__panel-enlace" href="index.html"><span class="topbar__panel-num">01</span><span class="topbar__panel-texto">Inicio</span></a></li>
         <li class="topbar__panel-item" style="--i: 1"><a class="topbar__panel-enlace" href="hogar.html"><span class="topbar__panel-num">02</span><span class="topbar__panel-texto">Hogar</span></a></li>

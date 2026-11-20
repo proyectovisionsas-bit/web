@@ -67,8 +67,10 @@ PV.sections.servicios = {
     // ---------- escritorio: pin + scroll horizontal ----------
     function horizontal() {
       seccion.classList.add('is-horizontal');
-      // en este modo el revelado lo hace GSAP por piezas; se quita el revelado genérico de las tarjetas
-      paneles.forEach(function (p) { p.removeAttribute('data-reveal'); p.classList.remove('is-in'); });
+      // en este modo el revelado lo hace GSAP por piezas; se quita el revelado genérico de las tarjetas.
+      // .tema-oscuro (base.css): la foto ocupa todo el panel con la letra encima, así que los paneles siguen oscuros
+      // también en modo diurno (con un velo claro, las fotos oscuras quedaban grises y la letra se leía mal)
+      paneles.forEach(function (p) { p.removeAttribute('data-reveal'); p.classList.remove('is-in'); p.classList.add('tema-oscuro'); });
 
       var html = document.documentElement;
       var dist = 0, pad0 = 0, paso = 0, ancho = 0, vw = 0, anchoProgreso = 0, activo = -1;
@@ -194,7 +196,7 @@ PV.sections.servicios = {
         seccion.removeEventListener('click', alChip);
         seccion.classList.remove('is-horizontal');
         html.classList.remove('servicios-fijo');
-        paneles.forEach(function (p) { p.classList.remove('is-activa'); });
+        paneles.forEach(function (p) { p.classList.remove('is-activa', 'tema-oscuro'); });
       };
     }
 

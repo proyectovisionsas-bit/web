@@ -19,23 +19,24 @@
 .planes__barra { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 32px; padding-bottom: 26px; margin-bottom: 24px; }
 .planes__tabs { position: relative; display: inline-flex; flex-wrap: wrap; max-width: 100%; gap: 4px; padding: 5px; border-radius: 999px; background: var(--vidrio); border: 1px solid var(--borde); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); isolation: isolate; }
 .planes__tab { position: relative; z-index: 1; min-height: 44px; padding: 0 22px; border-radius: 999px; font-weight: 700; font-size: 1rem; color: var(--texto-suave); white-space: nowrap; transition: color 0.35s var(--ease); -webkit-tap-highlight-color: transparent; }
-.planes__tab:hover, .planes__tab.is-activa { color: var(--blanco); }
+.planes__tab:hover { color: var(--tinta); }
+.planes__tab.is-activa { color: var(--blanco); } /* sobre el degradado de luz: blanca también de día */
 .planes__tab:focus-visible { outline-offset: -3px; }
-.planes__indicador { position: absolute; left: 0; top: 0; width: 0; height: 44px; border-radius: 999px; background: var(--grad-luz); box-shadow: inset 0 0 0 1px rgba(126, 232, 245, 0.28), 0 6px 24px rgba(26, 46, 230, 0.45), 0 0 32px rgba(34, 211, 238, 0.22); opacity: 0; will-change: transform, width; }
+.planes__indicador { position: absolute; left: 0; top: 0; width: 0; height: 44px; border-radius: 999px; background: var(--grad-luz); box-shadow: inset 0 0 0 1px rgb(var(--cian-suave-rgb) / 0.28), 0 6px 24px rgba(26, 46, 230, 0.45), 0 0 32px rgb(var(--cian-rgb) / 0.22); opacity: 0; will-change: transform, width; }
 .planes__indicador.is-lista { opacity: 1; transition: opacity 0.3s; }
 .planes__sede { display: flex; align-items: center; gap: 10px; font-size: 1rem; color: var(--texto-suave); }
 .planes__sede .planes__ico { color: var(--cian); }
-.planes__sede-nombre { color: var(--blanco); }
+.planes__sede-nombre { color: var(--tinta); }
 .planes__sede-sep { margin: 0 8px; color: var(--texto-tenue); }
 .planes__haz { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; overflow: hidden; background: var(--borde); }
-.planes__haz i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 32%, rgba(126, 232, 245, 0.95) 50%, transparent 68%); animation: planes-haz 4.5s var(--ease-suave) infinite; will-change: transform; }
+.planes__haz i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 32%, rgb(var(--cian-suave-rgb) / 0.95) 50%, transparent 68%); animation: planes-haz 4.5s var(--ease-suave) infinite; will-change: transform; }
 @keyframes planes-haz { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 
 /* ---------- "todos los planes incluyen": una sola vez, encima de la rejilla ---------- */
 .planes__comun { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 24px; margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem); font-size: 1rem; color: var(--texto); }
 .planes__comun-titulo { color: var(--texto-suave); font-weight: 500; }
 .planes__comun-item { display: inline-flex; align-items: center; gap: 9px; }
-.planes__comun-item .planes__ico { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: rgba(34, 211, 238, 0.12); color: var(--cian-suave); stroke-width: 2.2; }
+.planes__comun-item .planes__ico { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: rgb(var(--cian-rgb) / 0.12); color: var(--cian-suave); stroke-width: 2.2; }
 
 /* sin JS: las pestañas no hacen nada, así que no se muestran; los cuatro paneles se leen seguidos */
 html:not(.js) .planes__barra { display: none; }
@@ -65,15 +66,15 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 
 .planes__cifras { display: contents; }
 .planes__megas { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 14px; }
-.planes__megas-n { font-family: var(--f-titulo); font-weight: 700; font-size: clamp(3.75rem, 2.6rem + 3.2vw, 5.25rem); line-height: 0.86; letter-spacing: -0.045em; color: var(--blanco); font-variant-numeric: tabular-nums; }
+.planes__megas-n { font-family: var(--f-titulo); font-weight: 700; font-size: clamp(3.75rem, 2.6rem + 3.2vw, 5.25rem); line-height: 0.86; letter-spacing: -0.045em; color: var(--tinta); font-variant-numeric: tabular-nums; }
 .planes__megas-u { padding-bottom: 4px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.125rem; line-height: 1; color: var(--texto-suave); }
 
 .planes__precio { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 6px; margin-bottom: 16px; min-width: 0; }
-.planes__precio-n { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.625rem, 1.3rem + 0.9vw, 2.125rem); letter-spacing: -0.02em; color: var(--blanco); font-variant-numeric: tabular-nums; }
+.planes__precio-n { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.625rem, 1.3rem + 0.9vw, 2.125rem); letter-spacing: -0.02em; color: var(--tinta); font-variant-numeric: tabular-nums; }
 .planes__mes { font-size: var(--t-chica); font-weight: 500; color: var(--texto-suave); }
 
 /* para quién: icono de uso + texto, en un panel sutil (lo único que cambia entre tarjetas además de megas y precio) */
-.planes__para { display: flex; align-items: flex-start; gap: 10px; min-height: 4.6em; margin-bottom: 18px; padding: 12px 14px; border-radius: var(--radio-chico); background: rgba(255, 255, 255, 0.03); border: 1px solid var(--borde); color: var(--texto-suave); font-size: 1rem; line-height: 1.5; }
+.planes__para { display: flex; align-items: flex-start; gap: 10px; min-height: 4.6em; margin-bottom: 18px; padding: 12px 14px; border-radius: var(--radio-chico); background: rgb(var(--superficie-rgb) / calc(0.03 * var(--superficie-k))); border: 1px solid var(--borde); color: var(--texto-suave); font-size: 1rem; line-height: 1.5; }
 .planes__para .planes__ico { width: 22px; height: 22px; margin-top: 1px; color: var(--cian-suave); }
 
 /* el botón va sobre una tarjeta ya oscura: sin backdrop-filter (evita la costura al revelar la tarjeta) */
@@ -81,11 +82,11 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__cta .planes__ico { width: 20px; height: 20px; }
 
 /* tarjeta recomendada: borde con luz que gira, brillo, número con degradado y botón naranja (la única acción en fuego) */
-.planes__tarjeta.is-recomendada { border-color: rgba(34, 211, 238, 0.4); background: linear-gradient(180deg, rgba(34, 211, 238, 0.09), rgba(26, 46, 230, 0.05) 60%, rgba(255, 255, 255, 0.02)); box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12), 0 30px 70px -30px rgba(26, 46, 230, 0.8), var(--brillo-cian); }
+.planes__tarjeta.is-recomendada { border-color: rgb(var(--cian-rgb) / 0.4); background: linear-gradient(180deg, rgb(var(--cian-rgb) / 0.09), rgba(26, 46, 230, 0.05) 60%, rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k)))); box-shadow: 0 0 0 1px rgb(var(--cian-rgb) / 0.12), 0 30px 70px -30px rgba(26, 46, 230, 0.8), var(--brillo-cian); }
 .planes__tarjeta.is-recomendada .planes__aura, .planes__tarjeta.is-recomendada .planes__etiqueta { display: block; }
 .planes__tarjeta.is-recomendada .planes__etiqueta { display: inline-flex; }
-.planes__tarjeta.is-recomendada .planes__megas-n { background: linear-gradient(135deg, var(--blanco) 20%, var(--cian-suave)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.35)); }
-.planes__tarjeta.is-recomendada .planes__para { background: rgba(34, 211, 238, 0.07); border-color: rgba(34, 211, 238, 0.22); color: var(--texto); }
+.planes__tarjeta.is-recomendada .planes__megas-n { background: linear-gradient(135deg, var(--tinta) 20%, var(--cian-suave)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 18px rgb(var(--cian-rgb) / 0.35)); }
+.planes__tarjeta.is-recomendada .planes__para { background: rgb(var(--cian-rgb) / 0.07); border-color: rgb(var(--cian-rgb) / 0.22); color: var(--texto); }
 .planes__tarjeta.is-recomendada .planes__cta { background: var(--grad-fuego); border-color: transparent; box-shadow: var(--brillo-naranja); }
 .planes__tarjeta.is-recomendada .planes__cta:hover { box-shadow: 0 0 60px rgba(240, 106, 10, 0.6); border-color: transparent; background: var(--grad-fuego); }
 
@@ -94,19 +95,19 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__tv-grupo { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cian); }
 .planes__tv-nombre { font-size: 1.375rem; margin-top: 4px; }
 .planes__tv-desc { color: var(--texto-suave); font-size: 1rem; margin-top: 4px; }
-.planes__tv-precio { display: flex; align-items: baseline; gap: 4px; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.625rem, 1.3rem + 0.9vw, 2.125rem); letter-spacing: -0.02em; color: var(--blanco); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.planes__tv-precio { display: flex; align-items: baseline; gap: 4px; font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.625rem, 1.3rem + 0.9vw, 2.125rem); letter-spacing: -0.02em; color: var(--tinta); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .planes__tv-mas { color: var(--cian); }
 .planes__tv .planes__cta { width: auto; margin-top: 0; padding: 0 24px; }
 
 /* televisión sin dato confirmado (El Doncello): una sola línea que manda a la sede, sin hueco de precio */
 .planes__tv-pregunta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 20px; padding: 14px 20px; border-radius: var(--radio-chico); background: var(--vidrio); border: 1px solid var(--borde); color: var(--texto-suave); font-size: 1rem; line-height: 1.5; }
 .planes__tv-pregunta .planes__ico--tv { color: var(--cian); }
-.planes__tv-pregunta strong { color: var(--blanco); }
+.planes__tv-pregunta strong { color: var(--tinta); }
 .planes__tv-pregunta-texto { flex: 1 1 0; min-width: 200px; }
 .planes__tv-pregunta-cta { min-height: 44px; font-size: 1rem; }
 .planes__tv-pregunta-cta .planes__ico { width: 18px; height: 18px; }
 
-.planes__referencia { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 9px 16px 9px 12px; border-radius: 999px; background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.22); color: var(--cian-suave); font-size: var(--t-chica); font-weight: 500; line-height: 1.4; }
+.planes__referencia { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 9px 16px 9px 12px; border-radius: 999px; background: rgb(var(--cian-rgb) / 0.08); border: 1px solid rgb(var(--cian-rgb) / 0.22); color: var(--cian-suave); font-size: var(--t-chica); font-weight: 500; line-height: 1.4; }
 .planes__referencia .planes__ico { width: 20px; height: 20px; }
 
 /* ---------- nota ---------- */
@@ -176,7 +177,7 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__panel:has(.planes__cotiza) { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: stretch; }
 .planes__panel:has(.planes__cotiza)[hidden] { display: none; }
 .planes__panel:has(.planes__cotiza) > .planes__grupo { grid-column: 1 / -1; margin-bottom: 0; }
-.planes__cotiza { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: clamp(1.5rem, 3vw, 2.5rem); border-color: rgba(34, 211, 238, 0.35); background: linear-gradient(180deg, rgba(34, 211, 238, 0.08), rgba(26, 46, 230, 0.04) 60%, rgba(255, 255, 255, 0.02)); }
+.planes__cotiza { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: clamp(1.5rem, 3vw, 2.5rem); border-color: rgb(var(--cian-rgb) / 0.35); background: linear-gradient(180deg, rgb(var(--cian-rgb) / 0.08), rgba(26, 46, 230, 0.04) 60%, rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k)))); }
 .planes__cotiza-rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cian); }
 .planes__cotiza-titulo { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
 .planes__cotiza-texto { max-width: 54ch; color: var(--texto); font-size: 1.0625rem; line-height: 1.6; }
@@ -184,17 +185,17 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__cotiza-acciones .planes__ico { width: 20px; height: 20px; }
 
 /* ---------- la oficina del municipio: dirección, horario, medios de pago y WhatsApp ---------- */
-.planes__oficina { display: grid; align-content: start; gap: 12px; margin-top: 20px; padding: clamp(1.25rem, 2.4vw, 1.75rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.035); border: 1px solid var(--borde); }
+.planes__oficina { display: grid; align-content: start; gap: 12px; margin-top: 20px; padding: clamp(1.25rem, 2.4vw, 1.75rem); border-radius: var(--radio); background: rgb(var(--superficie-rgb) / calc(0.035 * var(--superficie-k))); border: 1px solid var(--borde); }
 .planes__panel:has(.planes__cotiza) > .planes__oficina { margin-top: 0; }
-.planes__oficina-titulo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.375rem; line-height: 1.15; color: var(--blanco); }
+.planes__oficina-titulo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.375rem; line-height: 1.15; color: var(--tinta); }
 .planes__oficina-dir, .planes__oficina-fila { display: flex; align-items: flex-start; gap: 10px; color: var(--texto); font-size: 1.0625rem; line-height: 1.5; }
 .planes__oficina-dir .planes__ico, .planes__oficina-fila > .planes__ico { width: 22px; height: 22px; margin-top: 1px; color: var(--cian); }
 .planes__horario { display: grid; gap: 4px; margin: 0; }
 .planes__horario div { display: grid; gap: 0; }
-.planes__horario dt { font-weight: 700; color: var(--blanco); }
+.planes__horario dt { font-weight: 700; color: var(--tinta); }
 .planes__horario dd { margin: 0; color: var(--texto-suave); }
 .planes__pagos { color: var(--texto-suave); }
-.planes__pagos-rotulo { font-weight: 700; color: var(--blanco); }
+.planes__pagos-rotulo { font-weight: 700; color: var(--tinta); }
 .planes__oficina-wa { justify-self: start; min-height: 48px; padding: 8px 20px; gap: 8px; font-size: 1rem; }
 .planes__oficina-wa .planes__ico { width: 20px; height: 20px; }
 /* debajo de la rejilla de planes (municipio con lista), la oficina se reparte a lo ancho */
@@ -205,7 +206,7 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 }
 
 /* plan a la medida (después de la lista de precios): la velocidad no tiene tope */
-.planes__medida { margin-top: 20px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 20px 28px; padding: clamp(1.25rem, 2.2vw, 1.75rem) clamp(1.5rem, 2.6vw, 2.125rem); border-color: rgba(255, 140, 58, 0.4); background: linear-gradient(120deg, rgba(240, 106, 10, 0.12), rgba(255, 255, 255, 0.02) 60%); }
+.planes__medida { margin-top: 20px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 20px 28px; padding: clamp(1.25rem, 2.2vw, 1.75rem) clamp(1.5rem, 2.6vw, 2.125rem); border-color: rgba(255, 140, 58, 0.4); background: linear-gradient(120deg, rgba(240, 106, 10, 0.12), rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k))) 60%); }
 .planes__medida-icono { color: var(--naranja-claro); }
 .planes__medida-grupo { font-size: var(--t-chica); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--naranja-claro); }
 .planes__medida-titulo { font-size: 1.375rem; margin-top: 4px; }
@@ -218,7 +219,7 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 /* tecnología de la oficina (fibra / radioenlace) */
 .planes__oficina-red { display: flex; align-items: flex-start; gap: 10px; color: var(--texto); font-size: 1.0625rem; line-height: 1.5; }
 .planes__oficina-red svg { width: 22px; height: 22px; flex: none; margin-top: 1px; stroke: var(--cian); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.planes__oficina-red strong { color: var(--blanco); }
+.planes__oficina-red strong { color: var(--tinta); }
 .planes__rejilla ~ .planes__oficina .planes__oficina-red { grid-column: 1 / -1; }
 
 /* ---------- televisión incluida (solo Florencia: TV Más Media en sus planes) ---------- */
@@ -226,7 +227,7 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 .planes__tv-aviso .planes__ico { width: 22px; height: 22px; color: var(--naranja-claro); }
 .planes__incluye { display: inline-flex; align-items: center; align-self: flex-start; gap: 8px; margin: -4px 0 16px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255, 140, 58, 0.45); background: rgba(240, 106, 10, 0.12); color: var(--texto); font-size: var(--t-chica); line-height: 1.3; }
 .planes__incluye .planes__ico { width: 18px; height: 18px; color: var(--naranja-claro); }
-.planes__incluye strong { color: var(--blanco); }
+.planes__incluye strong { color: var(--tinta); }
 @media (max-width: 760px) {
   .planes__tarjeta:not(.is-recomendada) .planes__incluye { margin: 0; padding: 3px 10px; }
 }
@@ -234,3 +235,6 @@ html:not(.js) .planes__panel + .planes__panel { margin-top: var(--espacio-chico)
 @media (min-width: 761px) and (max-width: 920px) {
   .planes__tabs { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---------- modo diurno ---------- */
+[data-tema="claro"] .planes__tarjeta.is-recomendada .planes__megas-n { filter: none; }

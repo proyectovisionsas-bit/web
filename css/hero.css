@@ -23,7 +23,7 @@
   /* base de color fija (sin blur, barata) debajo de las manchas animadas */
   background:
     radial-gradient(1100px 720px at 80% 14%, rgba(26, 46, 230, 0.42), transparent 62%),
-    radial-gradient(900px 620px at 6% 88%, rgba(34, 211, 238, 0.2), transparent 62%),
+    radial-gradient(900px 620px at 6% 88%, rgb(var(--cian-rgb) / 0.2), transparent 62%),
     radial-gradient(760px 520px at 48% 46%, rgba(124, 58, 237, 0.16), transparent 62%),
     var(--negro);
   color: var(--texto);
@@ -32,7 +32,7 @@
 /* ---------- aurora intensificada (azul + cian de base.css, más la violeta) ---------- */
 /* sin filter: blur (carísimo en celular y en render por software): el degradado radial ya es suave */
 .hero--c .hero-c__aurora::before { width: 72vmax; height: 72vmax; opacity: 0.55; top: -28vmax; right: -14vmax; filter: none; background: radial-gradient(circle, rgba(26, 46, 230, 0.85), rgba(26, 46, 230, 0.3) 32%, transparent 66%); }
-.hero--c .hero-c__aurora::after { width: 64vmax; height: 64vmax; opacity: 0.45; bottom: -30vmax; left: -22vmax; filter: none; background: radial-gradient(circle, rgba(34, 211, 238, 0.7), rgba(34, 211, 238, 0.22) 32%, transparent 66%); }
+.hero--c .hero-c__aurora::after { width: 64vmax; height: 64vmax; opacity: 0.45; bottom: -30vmax; left: -22vmax; filter: none; background: radial-gradient(circle, rgb(var(--cian-rgb) / 0.7), rgb(var(--cian-rgb) / 0.22) 32%, transparent 66%); }
 .hero-c__mancha {
   position: absolute;
   width: 48vmax;
@@ -68,7 +68,7 @@
 .hero--c .hero-c__rejilla {
   inset: auto 0 -64px 0;
   height: 240%;
-  background-image: linear-gradient(rgba(126, 232, 245, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(126, 232, 245, 0.08) 1px, transparent 1px);
+  background-image: linear-gradient(rgb(var(--cian-suave-rgb) / 0.08) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--cian-suave-rgb) / 0.08) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: none;
   mask-image: none;
@@ -89,7 +89,7 @@
   right: 20%;
   top: 0;
   height: 36%;
-  background: radial-gradient(ellipse 50% 100% at 50% 0, rgba(34, 211, 238, 0.22), transparent 70%);
+  background: radial-gradient(ellipse 50% 100% at 50% 0, rgb(var(--cian-rgb) / 0.22), transparent 70%);
 }
 
 /* ---------- motas de luz (canvas) ---------- */
@@ -99,8 +99,8 @@
 .hero-c__fibra { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .hero-c__troncal { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .hero-c__troncal path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.hero-c__troncal-halo { stroke: rgba(34, 211, 238, 0.12); stroke-width: 8; }
-.hero-c__troncal-base { stroke: rgba(126, 232, 245, 0.42); stroke-width: 1.5; }
+.hero-c__troncal-halo { stroke: rgb(var(--cian-rgb) / 0.12); stroke-width: 8; }
+.hero-c__troncal-base { stroke: rgb(var(--cian-suave-rgb) / 0.42); stroke-width: 1.5; }
 /* el pulso: una estela de 120 px que hero.js coloca con transform (cabeza en el punto del camino) */
 .hero-c__pulso {
   position: absolute;
@@ -110,8 +110,8 @@
   height: 3px;
   border-radius: 2px;
   transform-origin: 100% 50%;
-  background: linear-gradient(90deg, transparent, rgba(126, 232, 245, 0.95));
-  box-shadow: 0 0 12px rgba(34, 211, 238, 0.65);
+  background: linear-gradient(90deg, transparent, rgb(var(--cian-suave-rgb) / 0.95));
+  box-shadow: 0 0 12px rgb(var(--cian-rgb) / 0.65);
   opacity: 0;
   will-change: transform, opacity;
 }
@@ -124,7 +124,7 @@
   height: 14px;
   margin-top: -7px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--blanco) 0, rgba(126, 232, 245, 0.9) 32%, rgba(34, 211, 238, 0) 70%);
+  background: radial-gradient(circle, var(--blanco) 0, rgb(var(--cian-suave-rgb) / 0.9) 32%, rgb(var(--cian-rgb) / 0) 70%);
 }
 
 /* ---------- composición ---------- */
@@ -145,7 +145,7 @@
   font-size: var(--t-h1);
   word-spacing: 0.12em; /* Clash Display tiene el espacio muy estrecho con tracking negativo */
   max-width: 11ch;
-  text-shadow: 0 10px 60px rgba(2, 5, 15, 0.8);
+  text-shadow: 0 10px 60px rgb(var(--sombra-rgb) / calc(0.8 * var(--sombra-k)));
 }
 @media (min-width: 1200px) { .hero-c__titulo { font-size: calc(var(--t-h1) * 1.1); } }
 /* «luz»: degradado que termina en --azul-claro (≈4,5:1 sobre --noche) y halo cian; sin la sombra del h1,
@@ -154,7 +154,7 @@
   padding-right: 0.04em;
   background-image: linear-gradient(90deg, var(--cian-suave), var(--cian) 45%, var(--azul-claro));
   text-shadow: none;
-  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.45));
+  filter: drop-shadow(0 0 22px rgb(var(--cian-rgb) / 0.45));
 }
 /* las líneas partidas por SplitText llevan aire abajo para que la máscara no corte los descendentes */
 .hero-c__titulo .linea { padding-bottom: 0.14em; margin-bottom: -0.14em; }
@@ -165,8 +165,8 @@
 /* «¿Ya es cliente?»: pagar y soporte a un toque desde la portada. Enlaces de texto (no otro botón naranja), zona táctil de 44 px */
 .hero-c__clientes { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: 12px; font-size: 1rem; line-height: 1.3; color: var(--texto-suave); }
 .hero-c__clientes-rotulo { font-weight: 600; color: var(--texto); }
-.hero-c__cliente { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: rgba(126, 232, 245, 0.5); text-underline-offset: 4px; transition: color var(--dur-rapida), text-decoration-color var(--dur-rapida); }
-.hero-c__cliente:hover { color: var(--blanco); text-decoration-color: currentColor; }
+.hero-c__cliente { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: rgb(var(--cian-suave-rgb) / 0.5); text-underline-offset: 4px; transition: color var(--dur-rapida), text-decoration-color var(--dur-rapida); }
+.hero-c__cliente:hover { color: var(--tinta); text-decoration-color: currentColor; }
 .hero-c__cliente svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .boton__flecha { stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -182,8 +182,8 @@
 }
 .hero-c__dato { display: grid; gap: 4px; position: relative; }
 .hero-c__dato + .hero-c__dato { padding-left: clamp(1.25rem, 3vw, 2.75rem); }
-.hero-c__dato + .hero-c__dato::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(180deg, transparent, rgba(126, 232, 245, 0.5), transparent); }
-.hero-c__dato-valor { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.5rem, 1rem + 1.4vw, 2.125rem); line-height: 1.05; letter-spacing: -0.02em; word-spacing: 0.1em; color: var(--blanco); white-space: nowrap; }
+.hero-c__dato + .hero-c__dato::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(180deg, transparent, rgb(var(--cian-suave-rgb) / 0.5), transparent); }
+.hero-c__dato-valor { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.5rem, 1rem + 1.4vw, 2.125rem); line-height: 1.05; letter-spacing: -0.02em; word-spacing: 0.1em; color: var(--tinta); white-space: nowrap; }
 .hero-c__dato-etiqueta { font-size: var(--t-chica); color: var(--texto-suave); line-height: 1.35; max-width: 26ch; }
 /* el 500 solo aparece una vez por pantalla: con el núcleo visible la fila muestra el precio; sin él, los megas */
 .hero-c__dato--movil { display: none; }
@@ -241,8 +241,8 @@
   font-size: clamp(3.25rem, 1.5rem + 5.6vw, 6.75rem);
   line-height: 0.95;
   letter-spacing: -0.045em;
-  color: var(--blanco);
-  text-shadow: 0 0 28px rgba(34, 211, 238, 0.55), 0 0 90px rgba(26, 46, 230, 0.5);
+  color: var(--tinta);
+  text-shadow: 0 0 28px rgb(var(--cian-rgb) / 0.55), 0 0 90px rgba(26, 46, 230, 0.5);
 }
 .hero-c__unidad { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1rem, 0.85rem + 0.7vw, 1.4rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--cian-suave); margin-top: 4px; }
 .hero-c__nota { font-size: var(--t-chica); color: var(--texto-suave); margin-top: 6px; }
@@ -254,8 +254,8 @@
   height: 40%;
   margin: -20% 0 0 -20%;
   border-radius: 50%;
-  border: 1.5px solid rgba(126, 232, 245, 0.9);
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+  border: 1.5px solid rgb(var(--cian-suave-rgb) / 0.9);
+  box-shadow: 0 0 30px rgb(var(--cian-rgb) / 0.5);
   opacity: 0;
   transform: scale(0.6);
   will-change: transform, opacity;
@@ -272,7 +272,7 @@
   left: 0;
   width: 30%;
   height: 180%;
-  background: linear-gradient(90deg, transparent 0, rgba(34, 211, 238, 0.05) 35%, rgba(232, 237, 255, 0.14) 50%, rgba(34, 211, 238, 0.05) 65%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0, rgb(var(--cian-rgb) / 0.05) 35%, rgba(232, 237, 255, 0.14) 50%, rgb(var(--cian-rgb) / 0.05) 65%, transparent 100%);
   transform: translateX(-160%) skewX(-18deg);
   will-change: transform;
   animation: hero-c-barrido 14s linear infinite;
@@ -304,7 +304,7 @@
   text-transform: uppercase;
 }
 .hero-c__scroll:hover { color: var(--cian-suave); }
-.hero-c__scroll-linea { position: relative; width: 1px; height: 34px; background: rgba(126, 232, 245, 0.25); overflow: hidden; }
+.hero-c__scroll-linea { position: relative; width: 1px; height: 34px; background: rgb(var(--cian-suave-rgb) / 0.25); overflow: hidden; }
 .hero-c__scroll-linea::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 50%; background: var(--grad-luz-h); animation: hero-c-baja 1.8s ease-in-out infinite; }
 @keyframes hero-c-baja { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(220%); } }
 
@@ -405,7 +405,7 @@
   .hero--c {
     background:
       radial-gradient(760px 560px at 85% 10%, rgba(26, 46, 230, 0.34), transparent 62%),
-      radial-gradient(600px 460px at 0% 92%, rgba(34, 211, 238, 0.18), transparent 62%),
+      radial-gradient(600px 460px at 0% 92%, rgb(var(--cian-rgb) / 0.18), transparent 62%),
       radial-gradient(520px 420px at 50% 50%, rgba(124, 58, 237, 0.14), transparent 62%),
       var(--negro);
   }
@@ -442,9 +442,9 @@
   background: #fff;
   box-shadow:
     inset 0 0 0 1px rgba(26, 46, 230, 0.14),
-    0 0 0 1px rgba(126, 232, 245, 0.75),
-    0 0 0 7px rgba(34, 211, 238, 0.1),
-    0 0 46px rgba(34, 211, 238, 0.5),
+    0 0 0 1px rgb(var(--cian-suave-rgb) / 0.75),
+    0 0 0 7px rgb(var(--cian-rgb) / 0.1),
+    0 0 46px rgb(var(--cian-rgb) / 0.5),
     0 0 120px rgba(26, 46, 230, 0.55);
 }
 .hero-c__logo { display: block; width: 75%; height: auto; max-width: none; }
@@ -468,4 +468,36 @@
 /* en celular el núcleo del reactor (el logo) quedaría detrás de «el Caquetá»: solo quedan los anillos de adorno */
 @media (max-width: 760px) {
   .hero-c__nucleo { display: none; }
+}
+
+/* ---------- modo diurno ----------
+   La misma escena con luz de día: base clara con brumas suaves de azul, cian y violeta; la letra sin sombras ni halos
+   (sobre fondo claro ensucian el borde de las letras) y el disco del logo con un aro fino en vez del resplandor grande. */
+[data-tema="claro"] .hero--c {
+  background:
+    radial-gradient(1100px 720px at 80% 14%, rgba(26, 46, 230, 0.16), transparent 62%),
+    radial-gradient(900px 620px at 6% 88%, rgb(var(--cian-rgb) / 0.12), transparent 62%),
+    radial-gradient(760px 520px at 48% 46%, rgba(124, 58, 237, 0.08), transparent 62%),
+    var(--noche);
+}
+[data-tema="claro"] .hero-c__mancha { opacity: 0.3; }
+[data-tema="claro"] .hero-c__titulo { text-shadow: none; }
+[data-tema="claro"] .hero-c__titulo .grad-texto { filter: none; }
+[data-tema="claro"] .hero-c__numero { text-shadow: none; }
+[data-tema="claro"] .hero-c__disco {
+  box-shadow:
+    inset 0 0 0 1px rgba(26, 46, 230, 0.14),
+    0 0 0 1px rgb(var(--cian-suave-rgb) / 0.45),
+    0 0 0 7px rgb(var(--cian-rgb) / 0.08),
+    0 14px 44px rgba(26, 46, 230, 0.24);
+}
+[data-tema="claro"] .hero-c__punto { fill: var(--azul); }
+@media (max-width: 760px) {
+  [data-tema="claro"] .hero--c {
+    background:
+      radial-gradient(760px 560px at 85% 10%, rgba(26, 46, 230, 0.14), transparent 62%),
+      radial-gradient(600px 460px at 0% 92%, rgb(var(--cian-rgb) / 0.11), transparent 62%),
+      radial-gradient(520px 420px at 50% 50%, rgba(124, 58, 237, 0.07), transparent 62%),
+      var(--noche);
+  }
 }

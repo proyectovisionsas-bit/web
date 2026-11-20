@@ -7,14 +7,14 @@
 .soluciones__cabecera { margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem); }
 .soluciones__lista { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .soluciones__item { min-width: 0; }
-.soluciones__tarjeta { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--radio); border: 1px solid var(--borde); background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)); overflow: hidden; color: var(--texto); text-decoration: none; transition: transform var(--dur-rapida) var(--ease), border-color var(--dur-rapida); }
+.soluciones__tarjeta { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--radio); border: 1px solid var(--borde); background: linear-gradient(180deg, rgb(var(--superficie-rgb) / calc(0.05 * var(--superficie-k))), rgb(var(--superficie-rgb) / calc(0.02 * var(--superficie-k)))); overflow: hidden; color: var(--texto); text-decoration: none; transition: transform var(--dur-rapida) var(--ease), border-color var(--dur-rapida); }
 .soluciones__tarjeta > * { position: relative; z-index: 1; }
 .soluciones__media { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--noche-2); }
 .soluciones__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
 .soluciones__tarjeta:hover .soluciones__media img { transform: scale(1.05); }
 .soluciones__cuerpo { display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; padding: clamp(1.1rem, 2vw, 1.5rem); }
 .soluciones__rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
-.soluciones__titulo { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.6rem); line-height: 1.15; color: var(--blanco); }
+.soluciones__titulo { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.6rem); line-height: 1.15; color: var(--tinta); }
 .soluciones__texto { color: var(--texto-suave); font-size: 1rem; line-height: 1.55; flex: 1 1 auto; }
 .soluciones__ir { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 4px; font-weight: 700; color: var(--cian-suave); }
 .soluciones__ir svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur-rapida) var(--ease); }

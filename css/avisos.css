@@ -5,7 +5,7 @@
    ============================================================ */
 .avisos { padding-block: clamp(1.75rem, 3.5vw, 2.75rem); background: linear-gradient(180deg, var(--noche-2), var(--noche)); border-block: 1px solid var(--borde); }
 .avisos__lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 16px; }
-.avisos__item { display: flex; align-items: flex-start; gap: 16px; padding: clamp(1.1rem, 2.2vw, 1.5rem); border-radius: var(--radio); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--borde); }
+.avisos__item { display: flex; align-items: flex-start; gap: 16px; padding: clamp(1.1rem, 2.2vw, 1.5rem); border-radius: var(--radio); background: rgb(var(--superficie-rgb) / calc(0.04 * var(--superficie-k))); border: 1px solid var(--borde); }
 .avisos__item--pqr { border-color: rgba(255, 140, 58, 0.5); background: linear-gradient(180deg, rgba(240, 106, 10, 0.12), rgba(240, 106, 10, 0.03)); }
 .avisos__icono { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: rgba(26, 46, 230, 0.18); border: 1px solid rgba(79, 107, 255, 0.35); color: var(--cian-suave); }
 .avisos__item--pqr .avisos__icono { background: rgba(240, 106, 10, 0.16); border-color: rgba(255, 140, 58, 0.45); color: var(--naranja-claro); }
@@ -14,11 +14,11 @@
 .avisos__rotulo { font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cian); }
 .avisos__titulo { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; }
 .avisos__texto { color: var(--texto-suave); font-size: 1rem; line-height: 1.5; }
-.avisos__texto strong { color: var(--blanco); }
-.avisos__correo { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); color: var(--blanco); text-decoration: underline; text-decoration-color: rgba(255, 140, 58, 0.7); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.avisos__texto strong { color: var(--tinta); }
+.avisos__correo { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); color: var(--tinta); text-decoration: underline; text-decoration-color: rgba(255, 140, 58, 0.7); text-underline-offset: 4px; overflow-wrap: anywhere; }
 .avisos__correo:hover { color: var(--naranja-claro); }
 .avisos__enlace { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; color: var(--cian-suave); text-decoration: none; }
-.avisos__enlace:hover { color: var(--blanco); }
+.avisos__enlace:hover { color: var(--tinta); }
 .avisos__enlace svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .avisos__boton { min-height: 46px; padding: 6px 20px; font-size: 1rem; }
 /* con letra grande (160 %) el botón puede partirse en dos líneas en vez de ensanchar la tarjeta */

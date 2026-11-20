@@ -33,7 +33,7 @@ PV.sections.nav = {
     // ---------- 1. la barra baja desde arriba y sus piezas entran escalonadas ----------
     function entrada() {
       if (!animar || !fila) { barra.classList.add('is-lista'); return; }
-      var piezas = [PV.$('.topbar__marca', barra)].concat(enlaces, [PV.$('.topbar__cta', barra), boton]).filter(Boolean);
+      var piezas = [PV.$('.topbar__marca', barra)].concat(enlaces, [PV.$('.topbar__tema', barra), PV.$('.topbar__cta', barra), boton]).filter(Boolean);
       // sin transiciones CSS mientras GSAP mueve las piezas (clearProps las devuelve al terminar)
       piezas.forEach(function (el) { el.style.transition = 'none'; });
       var tl = gsap.timeline({ onComplete: function () { barra.classList.add('is-lista'); } });
@@ -259,6 +259,20 @@ PV.sections.nav = {
       });
     }
 
+    // ---------- 7. botón sol / luna (barra en tableta y escritorio; dentro del menú en celular) ----------
+    // El icono y el texto de cada botón los cambia el CSS según html[data-tema]; aquí solo el clic y el aviso al pasar el puntero.
+    function botonTema() {
+      var botones = PV.$$('[data-tema-boton]');
+      if (!botones.length || !PV.tema) return;
+      var rotular = function () {
+        var texto = PV.tema.actual() === 'claro' ? 'Cambiar a modo nocturno' : 'Cambiar a modo diurno';
+        botones.forEach(function (b) { if (b.hasAttribute('data-tema-aviso')) b.title = texto; });
+      };
+      botones.forEach(function (b) { b.addEventListener('click', function () { PV.tema.alternar(); }); });
+      document.addEventListener('pv:tema', rotular);
+      rotular();
+    }
+
     entrada();
     cursorLuz();
     progresoLectura();
@@ -267,5 +281,6 @@ PV.sections.nav = {
     franja();
     ctaSola();
     elegirOficina();
+    botonTema();
   }
 };

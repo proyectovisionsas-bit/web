@@ -233,6 +233,9 @@ PV.sections.hero = {
     if (canvas && canvas.getContext) {
       var ctx = canvas.getContext('2d');
       var W = 0, H = 0, dpr = PV.dpr(1.5), motas = [];
+      // color de las motas: --cian-suave del modo actual (de día, un cian oscuro que se ve sobre el fondo claro)
+      var rgbMotas = PV.tokenRgb ? PV.tokenRgb('--cian-suave-rgb', '126, 232, 245') : '126, 232, 245';
+      document.addEventListener('pv:tema', function () { if (PV.tokenRgb) rgbMotas = PV.tokenRgb('--cian-suave-rgb', '126, 232, 245'); });
       function crear(m, inicial) {
         m.x = Math.random() * W;
         m.y = inicial ? Math.random() * H : H + 10;
@@ -266,7 +269,7 @@ PV.sections.hero = {
           var a = m.vida * (0.45 + 0.55 * Math.sin(m.fase)) * Math.max(0, 1 - Math.abs(altura - 0.45) / 0.45);
           if (a <= 0.02) continue;
           ctx.beginPath();
-          ctx.fillStyle = 'rgba(126, 232, 245, ' + a.toFixed(3) + ')';
+          ctx.fillStyle = 'rgba(' + rgbMotas + ', ' + a.toFixed(3) + ')';
           ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
           ctx.fill();
         }
