@@ -1,0 +1,128 @@
+/* ============================================================
+   Proyectovisión · promos.css — banner «Novedades y promociones» del inicio (#promociones), bajo los avisos.
+   Lo escribe .web2/generar.mjs desde datos.json → promociones (con fechas); el carrusel es js/promos.js.
+   · Cada diapositiva trae sus propios colores (rojo navideño, azul de la marca, naranja de los botones):
+     se ve igual de día y de noche, como un aviso impreso. Todo el texto pasa 4,5:1 sobre su fondo.
+   · Sin JS: una fila que se desliza con el dedo (scroll-snap), sin flechas ni puntos.
+   · Con JS: flechas, puntos y cambio automático cada 7 s (la barrita del punto activo muestra el tiempo). Espera con el
+     puntero o el foco sobre las promociones y fuera de pantalla; con el botón de pausa o al usar cualquier mando queda
+     quieta. Con movimiento reducido no cambia sola.
+   ============================================================ */
+.promos { padding-block: clamp(2rem, 4.5vw, 3.25rem); background: var(--noche); }
+/* título a la izquierda y mandos a la derecha, siempre en una fila: si no cabe, el título se parte en dos líneas */
+.promos__cabeza { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: clamp(14px, 2vw, 18px); }
+.promos__eyebrow { min-width: 0; flex-wrap: nowrap; font-family: var(--f-texto); line-height: 1.3; word-spacing: normal; }
+
+/* ---------- mandos: pausa y flechas (arriba a la derecha) y puntos (abajo) ---------- */
+.promos__controles { display: flex; gap: 8px; margin-left: auto; }
+.promos__controles[hidden], .promos__puntos[hidden], .promos__pausa[hidden] { display: none; }
+.promos__boton { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--tinta); background: rgb(var(--superficie-rgb) / calc(0.05 * var(--superficie-k))); border: 1px solid var(--borde-fuerte); transition: background-color var(--dur-rapida), border-color var(--dur-rapida), transform var(--dur-rapida) var(--ease); }
+.promos__boton:hover { background: var(--vidrio-2); border-color: rgb(var(--cian-suave-rgb) / 0.6); }
+.promos__boton:active { transform: scale(0.94); }
+.promos__boton svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.promos__boton .promos__ico-seguir { display: none; fill: currentColor; stroke-width: 1.5; }
+.promos.is-pausado .promos__ico-pausa { display: none; }
+.promos.is-pausado .promos__ico-seguir { display: block; }
+.promos__puntos { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 4px; margin-bottom: -6px; }
+/* el botón mide 44 × 44 (fácil de tocar); el punto que se ve, 10 px, y el activo una barrita de 32 px */
+.promos__punto { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; }
+.promos__punto::before, .promos__punto::after { content: ''; grid-area: 1 / 1; height: 10px; border-radius: 999px; }
+.promos__punto::before { width: 10px; background: rgb(var(--tinta-rgb) / 0.42); transition: width var(--dur-rapida) var(--ease), background-color var(--dur-rapida); }
+.promos__punto::after { width: 32px; background: var(--cian); transform: scaleX(0); transform-origin: left center; opacity: 0; }
+.promos__punto:hover::before { background: rgb(var(--tinta-rgb) / 0.7); }
+.promos__punto[aria-current="true"]::before { width: 32px; background: rgb(var(--tinta-rgb) / 0.22); }
+.promos__punto[aria-current="true"]::after { opacity: 1; transform: none; }
+/* cambio automático: la barrita del punto activo se llena en 7 s. El reloj de verdad lo lleva promos.js, que pone
+   .is-corriendo solo mientras corre (a la vista, sin el puntero ni el foco sobre las promociones, pestaña visible);
+   si no, la barrita espera donde iba. Al cambiar de promoción, la barrita del punto nuevo empieza de cero */
+.promos.is-auto:not(.is-pausado) .promos__punto[aria-current="true"]::after { transform: scaleX(0); animation: promos-avance 7s linear forwards paused; }
+.promos.is-auto.is-corriendo:not(.is-pausado) .promos__punto[aria-current="true"]::after { animation-play-state: running; }
+@keyframes promos-avance { to { transform: none; } }
+
+/* ---------- pista: una fila que se desliza, una promoción a la vez ---------- */
+.promos__pista { position: relative; display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--radio); }
+.promos__pista::-webkit-scrollbar { display: none; }
+
+/* ---------- la diapositiva ---------- */
+.promo {
+  --promo-texto: #ffffff; --promo-suave: rgb(255 255 255 / 0.92);
+  --promo-chip: rgb(255 255 255 / 0.14); --promo-chip-borde: rgb(255 255 255 / 0.34); --promo-chip-texto: #ffffff;
+  --promo-boton: #ffffff; --promo-boton-texto: #0b1640;
+  position: relative; flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(1.25rem, 4vw, 3.5rem);
+  min-height: clamp(16.5rem, 24vw, 20rem); padding: clamp(1.5rem, 3.6vw, 3rem) clamp(1.25rem, 4.6vw, 3.75rem);
+  border-radius: var(--radio); overflow: hidden; isolation: isolate; color: var(--promo-texto);
+}
+.promo[hidden] { display: none; }
+.promo::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.promo__texto { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 12px; max-width: 38rem; }
+.promo__rotulo { display: inline-flex; align-items: center; max-width: 100%; padding: 5px 14px; border-radius: 999px; font-size: var(--t-eyebrow); font-weight: 700; line-height: 1.35; letter-spacing: 0.08em; text-transform: uppercase; color: var(--promo-chip-texto); background: var(--promo-chip); border: 1px solid var(--promo-chip-borde); }
+.promo__titulo { color: inherit; font-size: clamp(1.75rem, 1.15rem + 2.3vw, 3rem); line-height: 1.04; }
+.promo__desc { color: var(--promo-suave); font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem); line-height: 1.55; max-width: 50ch; }
+.promo__boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; max-width: 100%; margin-top: 6px; padding: 8px 24px; border-radius: 999px; font-weight: 700; font-size: 1.0625rem; line-height: 1.25; text-align: center; text-decoration: none; color: var(--promo-boton-texto); background: var(--promo-boton); box-shadow: 0 8px 22px rgb(0 0 0 / 0.2); transition: transform var(--dur-rapida) var(--ease), box-shadow var(--dur-rapida) var(--ease); }
+.promo__boton:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgb(0 0 0 / 0.28); }
+.promo__boton:active { transform: scale(0.97); }
+.promo__boton:focus-visible { outline: 3px solid var(--promo-texto); outline-offset: 3px; }
+.promo__boton svg { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* el dibujo de la derecha: icono en un círculo, el árbol de luces o una imagen */
+.promo__visual { position: relative; z-index: 1; display: grid; place-items: center; justify-self: center; }
+.promo__visual--icono { width: clamp(8.5rem, 15vw, 12rem); aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.3); box-shadow: inset 0 0 40px rgb(255 255 255 / 0.1), 0 0 0 14px rgb(255 255 255 / 0.05); }
+.promo__visual--icono svg { width: 54%; height: 54%; stroke: currentColor; fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.promo__visual--dibujo { width: clamp(10rem, 19vw, 16.5rem); }
+.promo__visual--dibujo svg { width: 100%; height: auto; overflow: visible; }
+.promo__visual--imagen { width: clamp(10rem, 26vw, 20rem); }
+.promo__visual--imagen img { width: 100%; max-height: 17rem; object-fit: contain; border-radius: var(--radio-chico); }
+
+/* ---------- estilos ---------- */
+/* navidad: rojo de tarjeta navideña, nieve que cae despacio a la derecha y el árbol de luces que titila */
+.promo--navidad {
+  --promo-chip: rgb(255 211 107 / 0.12); --promo-chip-borde: rgb(255 211 107 / 0.5); --promo-chip-texto: #ffe3a3;
+  --promo-boton-texto: #8f1026;
+  background: radial-gradient(70% 120% at 82% 50%, rgb(255 214 120 / 0.16), transparent 60%), linear-gradient(118deg, #6e0a1a 0%, #9c1229 46%, #be1d36 100%);
+}
+.promo--navidad::before { inset: auto 0 0 0; top: -260px; height: auto; opacity: 0.45; background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22260%22 height=%22260%22 viewBox=%220 0 260 260%22%3E%3Ccircle cx=%2234.0%22 cy=%22130.6%22 r=%222.7%22 fill=%22%23fff%22 fill-opacity=%220.79%22/%3E%3Ccircle cx=%22244.1%22 cy=%22226.8%22 r=%222.7%22 fill=%22%23fff%22 fill-opacity=%220.78%22/%3E%3Ccircle cx=%22110.0%22 cy=%22148.3%22 r=%222.2%22 fill=%22%23fff%22 fill-opacity=%220.84%22/%3E%3Ccircle cx=%22151.8%22 cy=%2264.5%22 r=%222.7%22 fill=%22%23fff%22 fill-opacity=%220.54%22/%3E%3Ccircle cx=%2276.4%22 cy=%2228.7%22 r=%221.2%22 fill=%22%23fff%22 fill-opacity=%220.87%22/%3E%3Ccircle cx=%22176.7%22 cy=%22175.2%22 r=%221.5%22 fill=%22%23fff%22 fill-opacity=%220.68%22/%3E%3Ccircle cx=%2291.6%22 cy=%22255.7%22 r=%221.8%22 fill=%22%23fff%22 fill-opacity=%220.86%22/%3E%3Ccircle cx=%22255.9%22 cy=%22133.4%22 r=%221.2%22 fill=%22%23fff%22 fill-opacity=%220.83%22/%3E%3Ccircle cx=%2226.6%22 cy=%22139.6%22 r=%221.8%22 fill=%22%23fff%22 fill-opacity=%220.71%22/%3E%3Ccircle cx=%22224.9%22 cy=%22181.4%22 r=%222.7%22 fill=%22%23fff%22 fill-opacity=%220.64%22/%3E%3Ccircle cx=%22217.6%22 cy=%2296.9%22 r=%222.2%22 fill=%22%23fff%22 fill-opacity=%220.69%22/%3E%3Ccircle cx=%22104.5%22 cy=%22151.6%22 r=%222.2%22 fill=%22%23fff%22 fill-opacity=%220.89%22/%3E%3Ccircle cx=%22111.2%22 cy=%22206.2%22 r=%222.7%22 fill=%22%23fff%22 fill-opacity=%220.89%22/%3E%3Ccircle cx=%22104.3%22 cy=%22136.2%22 r=%222.2%22 fill=%22%23fff%22 fill-opacity=%220.75%22/%3E%3C/svg%3E") 0 0 / 260px 260px repeat; -webkit-mask-image: linear-gradient(90deg, transparent 20%, #000 62%); mask-image: linear-gradient(90deg, transparent 20%, #000 62%); animation: promo-nieve 26s linear infinite; }
+@keyframes promo-nieve { to { transform: translateY(260px); } }
+.promo__luces { animation: promo-titila 2.2s ease-in-out infinite alternate; }
+.promo__luces--2 { animation-delay: -0.75s; }
+.promo__luces--3 { animation-delay: -1.5s; }
+@keyframes promo-titila { from { opacity: 1; } to { opacity: 0.5; } }
+.js .promos:not(.is-en-pantalla) .promo--navidad::before, .js .promos:not(.is-en-pantalla) .promo__luces { animation-play-state: paused; }
+html.calmo .promo--navidad::before, html.calmo .promo__luces { animation: none; }
+
+/* azul: el degradado de la marca, con ondas de señal detrás del icono */
+.promo--azul {
+  --promo-boton-texto: #1424b8;
+  background: radial-gradient(60% 110% at 85% 50%, rgb(34 211 238 / 0.26), transparent 62%), linear-gradient(118deg, #1424b8 0%, #1a2ee6 45%, #6a35e6 100%);
+}
+.promo--azul::before, .promo--naranja::before { --anillos: rgb(255 255 255 / 0.1); --centro: 84% 50%; background: repeating-radial-gradient(circle at var(--centro), var(--anillos) 0 1.5px, transparent 1.5px 30px); -webkit-mask-image: radial-gradient(circle at var(--centro), #000 0 16%, transparent 44%); mask-image: radial-gradient(circle at var(--centro), #000 0 16%, transparent 44%); }
+
+/* naranja: el fuego de los botones, con letra azul noche (5,7–8,4:1) */
+.promo--naranja {
+  --promo-texto: #050c1f; --promo-suave: rgb(5 12 31 / 0.88);
+  --promo-chip: rgb(5 12 31 / 0.1); --promo-chip-borde: rgb(5 12 31 / 0.3); --promo-chip-texto: #050c1f;
+  --promo-boton: #050c1f; --promo-boton-texto: #ffffff;
+  background: radial-gradient(60% 110% at 85% 50%, rgb(255 236 200 / 0.34), transparent 62%), linear-gradient(118deg, #ff9a4d 0%, #f47a1f 50%, #e8630a 100%);
+}
+.promo--naranja::before { --anillos: rgb(5 12 31 / 0.09); }
+.promo--naranja .promo__visual--icono { background: rgb(5 12 31 / 0.07); border-color: rgb(5 12 31 / 0.22); box-shadow: inset 0 0 40px rgb(255 255 255 / 0.2), 0 0 0 14px rgb(5 12 31 / 0.04); }
+.promo--naranja .promo__boton:focus-visible { outline-color: #050c1f; }
+
+/* ---------- celular: el dibujo arriba y pequeño, el texto debajo a todo lo ancho ---------- */
+@media (max-width: 639px) {
+  .promo { grid-template-columns: minmax(0, 1fr); align-items: start; align-content: start; gap: 16px; min-height: 0; padding: 1.5rem 1.25rem 1.75rem; }
+  .promo__visual { order: -1; justify-self: start; }
+  .promo__visual--icono { width: 4.25rem; box-shadow: none; }
+  .promo__visual--icono svg { stroke-width: 3.4; }
+  .promo__visual--dibujo { width: 6.25rem; margin-block: -4px -8px; }
+  .promo__visual--imagen { width: min(100%, 16rem); }
+  .promo--navidad::before { opacity: 0.3; -webkit-mask-image: none; mask-image: none; }
+  /* las ondas salen del icono, arriba a la izquierda */
+  .promo--azul::before, .promo--naranja::before { --centro: 3.375rem 3.625rem; -webkit-mask-image: radial-gradient(circle at var(--centro), #000 0 3rem, transparent 11rem); mask-image: radial-gradient(circle at var(--centro), #000 0 3rem, transparent 11rem); }
+}
+/* celular angosto: solo pausa arriba (se desliza con el dedo y abajo están los puntos) */
+@media (max-width: 479px) {
+  .promos__flecha { display: none; }
+  .promos__eyebrow { letter-spacing: 0.08em; }
+  .promos__eyebrow::before { width: 20px; }
+}

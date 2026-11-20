@@ -87,6 +87,34 @@ PV.sections.servicios = {
       }
       medir();
 
+      // ---------- que nada se monte sobre el título ----------
+      // Con poco alto (o un título de dos líneas) el número grande de arriba o el rótulo de la esquina podían quedar
+      // encima del título. Se mide con posiciones de diseño (offset*, sin los transform del revelado): primero se achica
+      // el número, y si aún no cabe se quita (el «02 / 05» y los botones de abajo ya dicen en qué panel va); el rótulo,
+      // si choca, se quita. Se repite en cada refresh de ScrollTrigger (cambio de tamaño) y al cargar las fuentes.
+      function caja(el, pnl) {
+        if (!el || !el.getClientRects().length) return null;
+        var t = 0, l = 0, x = el;
+        while (x && x !== pnl) { t += x.offsetTop; l += x.offsetLeft; x = x.offsetParent; }
+        return { t: t, b: t + el.offsetHeight, l: l, r: l + el.offsetWidth };
+      }
+      function choca(a, b) { return a && b && a.l < b.r && b.l < a.r && a.t < b.b + 12 && b.t < a.b + 12; }
+      function ajustarPaneles() {
+        paneles.forEach(function (p) {
+          p.classList.remove('is-num-chico', 'is-sin-num', 'is-sin-dato');
+          var tit = PV.$('.servicios__nombre', p), num = PV.$('.servicios__num', p), dato = PV.$('.servicios__dato', p);
+          if (!tit) return;
+          if (choca(caja(num, p), caja(tit, p))) {
+            p.classList.add('is-num-chico');
+            if (choca(caja(num, p), caja(tit, p))) { p.classList.remove('is-num-chico'); p.classList.add('is-sin-num'); }
+          }
+          if (choca(caja(dato, p), caja(tit, p))) p.classList.add('is-sin-dato');
+        });
+      }
+      ajustarPaneles();
+      ScrollTrigger.addEventListener('refresh', ajustarPaneles);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarPaneles);
+
       // progreso en el que cada panel queda alineado a la izquierda (el último, alineado a la derecha: 1)
       function puntos() {
         return paneles.map(function (p) { return dist ? PV.clamp((p.offsetLeft - pad0) / dist, 0, 1) : 0; });
@@ -196,7 +224,8 @@ PV.sections.servicios = {
         seccion.removeEventListener('click', alChip);
         seccion.classList.remove('is-horizontal');
         html.classList.remove('servicios-fijo');
-        paneles.forEach(function (p) { p.classList.remove('is-activa', 'tema-oscuro'); });
+        ScrollTrigger.removeEventListener('refresh', ajustarPaneles);
+        paneles.forEach(function (p) { p.classList.remove('is-activa', 'tema-oscuro', 'is-num-chico', 'is-sin-num', 'is-sin-dato'); });
       };
     }
 
@@ -214,7 +243,9 @@ PV.sections.servicios = {
 
     var mm = gsap.matchMedia();
     mm.add({
-      horizontal: '(min-width: 761px) and (prefers-reduced-motion: no-preference)',
+      // el modo horizontal necesita alto: en pantallas bajas (portátiles de 1366 × 768 con las barras del navegador, ~630 px
+      // de alto útil) los paneles quedaban de 300–370 px y el número grande se montaba sobre el título: ahí van las tarjetas
+      horizontal: '(min-width: 761px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)',
       apilado: '(max-width: 760px)'
     }, function (ctx) {
       var c = ctx.conditions;

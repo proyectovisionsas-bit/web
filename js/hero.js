@@ -236,7 +236,23 @@ PV.sections.hero = {
       // color de las motas: --cian-suave del modo actual (de día, un cian oscuro que se ve sobre el fondo claro)
       var rgbMotas = PV.tokenRgb ? PV.tokenRgb('--cian-suave-rgb', '126, 232, 245') : '126, 232, 245';
       document.addEventListener('pv:tema', function () { if (PV.tokenRgb) rgbMotas = PV.tokenRgb('--cian-suave-rgb', '126, 232, 245'); });
+      // Navidad (html.navidad, ver base.css): las motas caen como nieve. De noche, copos blancos; de día, blancos con un
+      // borde azul grisáceo (blanco sobre el fondo claro no se vería). Dos círculos por copo: sin shadowBlur, que es caro.
+      var nieve = document.documentElement.classList.contains('navidad');
+      var dia = function () { return document.documentElement.getAttribute('data-tema') === 'claro'; };
+      var deDia = dia();
+      document.addEventListener('pv:tema', function () { deDia = dia(); });
       function crear(m, inicial) {
+        if (nieve) {
+          m.x = Math.random() * W;
+          m.y = inicial ? Math.random() * H : -8;
+          m.r = 0.9 + Math.random() * 2.1;
+          m.vy = -(14 + Math.random() * 24) * (0.6 + m.r / 3);   // negativa: cae (los copos grandes, más rápido)
+          m.vx = (Math.random() - 0.5) * 10;
+          m.fase = Math.random() * Math.PI * 2;
+          m.vida = 0.55 + Math.random() * 0.45;
+          return m;
+        }
         m.x = Math.random() * W;
         m.y = inicial ? Math.random() * H : H + 10;
         m.r = 0.6 + Math.random() * 1.6;
@@ -251,15 +267,30 @@ PV.sections.hero = {
         W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
         canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        var n = W < 760 ? 26 : 58;
+        var n = nieve ? (W < 760 ? 34 : 80) : (W < 760 ? 26 : 58);
         motas.length = 0;
         for (var i = 0; i < n; i++) motas.push(crear({}, true));
       }
       medir();
       var resizeM = 0;
       window.addEventListener('resize', function () { clearTimeout(resizeM); resizeM = setTimeout(medir, 160); }, { passive: true });
+      function copos(s) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < motas.length; i++) {
+          var m = motas[i];
+          m.y -= m.vy * s; m.fase += s * 1.3; m.x += (m.vx + Math.sin(m.fase) * 12) * s;
+          if (m.y > H + 8 || m.x < -12 || m.x > W + 12) crear(m, false);
+          var a = m.vida * (0.78 + 0.22 * Math.sin(m.fase * 1.7)) * Math.min(1, (H - m.y) / (H * 0.14));
+          if (a <= 0.03) continue;
+          if (deDia) {
+            ctx.beginPath(); ctx.fillStyle = 'rgba(90, 115, 170, ' + (a * 0.55).toFixed(3) + ')'; ctx.arc(m.x, m.y, m.r + 0.9, 0, Math.PI * 2); ctx.fill();
+          }
+          ctx.beginPath(); ctx.fillStyle = 'rgba(255, 255, 255, ' + a.toFixed(3) + ')'; ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fill();
+        }
+      }
       PV.bucleVisible(canvas, function (ts, dt) {
         var s = Math.min(dt, 50) / 1000;
+        if (nieve) { copos(s); return; }
         ctx.clearRect(0, 0, W, H);
         for (var i = 0; i < motas.length; i++) {
           var m = motas[i];

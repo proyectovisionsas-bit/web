@@ -105,6 +105,13 @@
   .servicios__chip.is-activa { color: var(--tinta); border-color: rgb(var(--cian-rgb) / 0.5); background: rgb(var(--cian-rgb) / 0.1); box-shadow: 0 0 20px rgb(var(--cian-rgb) / 0.18); }
 }
 
+/* poco alto o título de dos líneas (servicios.js mide y pone la clase): número más chico, o sin número; sin el rótulo de la
+   esquina si choca con el título. Así nada se monta sobre el título (antes pasaba en portátiles de 1366 × 768) */
+@media (min-width: 761px) {
+  .servicios.is-horizontal .servicios__panel.is-num-chico .servicios__num { font-size: clamp(2.75rem, 4.2vw, 3.75rem); }
+  .servicios.is-horizontal .servicios__panel.is-sin-num .servicios__num { display: none; }
+  .servicios.is-horizontal .servicios__panel.is-sin-dato .servicios__dato { display: none; }
+}
 @keyframes servicios-bajar { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
 
 /* escritorio ancho: aparece la guía "sigue bajando" (se apaga sola al empezar a recorrer) */
